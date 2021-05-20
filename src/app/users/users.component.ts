@@ -1,22 +1,19 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../shared/data-service';
 import { IUser } from './user.interface';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(private dataService: DataService) {}
   users!: IUser[];
 
   ngOnInit(): void {
-    this.http
-      .get<IUser[]>('http://localhost:8008/user')
-      .subscribe((usersData) => {
-        this.users = usersData;
-        console.log(this.users);
-      });
+    this.dataService.fetchUsers().subscribe((users: IUser[]) => {
+      this.users = users;
+    });
   }
 }

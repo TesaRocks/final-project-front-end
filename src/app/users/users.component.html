@@ -1,20 +1,12 @@
-<br />
-<div *ngFor="let u of users" class="card" style="width: 18rem">
-  <img
-    src="https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png"
-    class="card-img-top"
-    alt="..."
-    style="max-height: 40px; max-width: 40px"
-  />
-  <div class="card-body">
-    <h5 class="card-title">{{ u.name }}</h5>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">{{ u.email }}</li>
-    <li class="list-group-item">{{ u.password }}</li>
-  </ul>
-  <div class="card-body">
-    <a class="card-link">Card link</a>
-    <a class="card-link">Another link</a>
-  </div>
+<div *ngFor="let user of users">
+  <mat-list role="list">
+    <mat-list-item role="listitem">Id: {{ user.id }}</mat-list-item>
+    <mat-list-item role="listitem">User: {{ user.name }}</mat-list-item>
+    <mat-list-item role="listitem">Email: {{ user.email }}</mat-list-item>
+    <mat-list-item role="listitem">Password: {{ user.password }}</mat-list-item>
+    <section>
+      <button mat-raised-button color="primary">Edit User</button>
+      <button mat-raised-button color="warn">Delete User</button>
+    </section>
+  </mat-list>
 </div>
