@@ -12,9 +12,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
 
 @NgModule({
-  declarations: [AppComponent, MainComponent, UsersComponent],
+  declarations: [
+    AppComponent,
+    MainComponent,
+    UsersComponent,
+    UserEditComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

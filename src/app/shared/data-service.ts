@@ -6,6 +6,12 @@ import { IUser } from '../users/user.interface';
 export class DataService {
   constructor(private http: HttpClient) {}
   fetchUsers() {
-    return this.http.get<IUser[]>('http://localhost:8008/user');
+    return this.http.get<IUser[]>('/api/user');
+  }
+  fetchUser(id: number) {
+    return this.http.get<IUser>(`/api/user/${id}`);
+  }
+  updateUser(id: number, user: IUser) {
+    return this.http.put<IUser>(`/api/user/${id}`, user);
   }
 }

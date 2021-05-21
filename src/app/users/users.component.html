@@ -5,7 +5,9 @@
     <mat-list-item role="listitem">Email: {{ user.email }}</mat-list-item>
     <mat-list-item role="listitem">Password: {{ user.password }}</mat-list-item>
     <section>
-      <button mat-raised-button color="primary">Edit User</button>
+      <button mat-raised-button color="primary" (click)="onEdit(user.id)">
+        Edit User
+      </button>
       <button mat-raised-button color="warn">Delete User</button>
     </section>
   </mat-list>
