@@ -1,1 +1,12 @@
-<p>users works!</p>
+<div *ngFor="let user of users">
+  <mat-list role="list">
+    <mat-list-item role="listitem">Id: {{ user.id }}</mat-list-item>
+    <mat-list-item role="listitem">User: {{ user.name }}</mat-list-item>
+    <mat-list-item role="listitem">Email: {{ user.email }}</mat-list-item>
+    <mat-list-item role="listitem">Password: {{ user.password }}</mat-list-item>
+    <section>
+      <button mat-raised-button color="primary">Edit User</button>
+      <button mat-raised-button color="warn">Delete User</button>
+    </section>
+  </mat-list>
+</div>
