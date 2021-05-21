@@ -14,4 +14,7 @@ export class DataService {
   updateUser(id: number, user: IUser) {
     return this.http.put<IUser>(`/api/user/${id}`, user);
   }
+  removeUser(id: number) {
+    return this.http.delete<string>(`/api/user/${id}`);
+  }
 }
