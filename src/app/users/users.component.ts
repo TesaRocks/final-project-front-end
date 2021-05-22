@@ -3,11 +3,30 @@ import { Router } from '@angular/router';
 import { DataService } from '../shared/data-service';
 import { IUser } from './user.interface';
 import { MatDialog } from '@angular/material/dialog';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
+  animations: [
+    trigger('EnterLeave', [
+      state('flyIn', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('0.5s 300ms ease-in'),
+      ]),
+      transition(':leave', [
+        animate('0.3s ease-out', style({ transform: 'translateX(100%)' })),
+      ]),
+    ]),
+  ],
 })
 export class UsersComponent implements OnInit {
   constructor(
@@ -15,6 +34,7 @@ export class UsersComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog
   ) {}
+
   users!: IUser[];
   displayedColumns: string[] = ['name', 'email', 'edit', 'delete'];
 

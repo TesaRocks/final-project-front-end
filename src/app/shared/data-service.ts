@@ -17,4 +17,7 @@ export class DataService {
   removeUser(id: number) {
     return this.http.delete<string>(`/api/user/${id}`);
   }
+  newUser(user: IUser) {
+    return this.http.post<IUser>('/api/user/', user);
+  }
 }

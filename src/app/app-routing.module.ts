@@ -11,6 +11,7 @@ const routes: Routes = [
     component: UsersComponent,
   },
   { path: 'users/:id/edit', component: UserEditComponent },
+  { path: 'users/new', component: UserEditComponent },
 ];
 
 @NgModule({
