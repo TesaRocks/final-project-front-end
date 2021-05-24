@@ -1,9 +1,6 @@
 <form (ngSubmit)="onSubmit(form)" #form="ngForm">
   <div class="container">
-    <h1 *ngIf="editMode; else newUser">Update User Info</h1>
-    <ng-template #newUser>
-      <h1>Create new User</h1>
-    </ng-template>
+    <h1>{{ editMode ? "Update User Info" : "Create new User" }}</h1>
     <hr />
     <label for="name"><b>Name</b></label>
     <input
