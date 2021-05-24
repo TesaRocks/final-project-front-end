@@ -1,9 +1,8 @@
-* {box-sizing: border-box}
 
 /* Add padding to containers */
 .container {
   padding: 16px;
-}
+
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
@@ -13,13 +12,16 @@ input[type=text], input[type=password] {
   display: inline-block;
   border: none;
   background: #f1f1f1;
-}
+
 
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
 }
-
+}
+input.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
 /* Overwrite default styles of hr */
 hr {
   border: 1px solid #f1f1f1;
@@ -36,13 +38,11 @@ hr {
   cursor: pointer;
   width: 100%;
   opacity: 0.9;
-}
 
+}
 .registerbtn:hover {
   opacity:1;
 }
 
 
-input.ng-invalid.ng-touched{
-  border: 1px solid red;
 }

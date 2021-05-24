@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../shared/data-service';
 import { IUser } from './user.interface';
 import { MatDialog } from '@angular/material/dialog';
 import {
@@ -10,6 +9,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-users',
@@ -30,16 +30,16 @@ import {
 })
 export class UsersComponent implements OnInit {
   constructor(
-    private dataService: DataService,
+    private userService: UserService,
     private router: Router,
     public dialog: MatDialog
   ) {}
 
   users!: IUser[];
-  displayedColumns: string[] = ['name', 'email', 'edit', 'delete'];
+  displayedColumns: string[] = ['name', 'email', 'actions'];
 
   ngOnInit(): void {
-    this.dataService.fetchUsers().subscribe((users: IUser[]) => {
+    this.userService.fetchUsers().subscribe((users: IUser[]) => {
       this.users = users;
     });
   }
@@ -47,19 +47,13 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['users', id, 'edit']);
   }
 
-  openDialog(id: number) {
+  openDeleteDialog(id: number) {
     const dialogRef = this.dialog.open(UserDeleteConfirm);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.onDelete(id);
+        this.userService.removeUser(id).subscribe();
       }
-    });
-  }
-
-  onDelete(id: number) {
-    this.dataService.removeUser(id).subscribe((message: string) => {
-      console.log(message);
     });
   }
 }

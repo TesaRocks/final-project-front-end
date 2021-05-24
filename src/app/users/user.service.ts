@@ -1,11 +1,18 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-//import { Store } from '@ngrx/store';
-import { IUser } from '../users/user.interface';
-
+import { HttpClient } from '@angular/common/http';
+//import { Subject } from 'rxjs';
+import { IUser } from './user.interface';
 @Injectable({ providedIn: 'root' })
-export class DataService {
+export class UserService {
+  // userChanged = new Subject<IUser[]>();
   constructor(private http: HttpClient) {}
+  //private users: IUser[] = [];
+
+  // setUsers(users: IUser[]) {
+  //   this.users = users;
+  //   this.userChanged.next(this.users.slice());
+  // }
+
   fetchUsers() {
     return this.http.get<IUser[]>('/api/user');
   }

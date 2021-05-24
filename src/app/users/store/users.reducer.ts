@@ -8,7 +8,8 @@ const initialState: State = {
 };
 export function usersReducer(
   state = initialState,
-  action: UsersActions.UsersActions
+  //action: UsersActions.UsersActions
+  action: any
 ) {
   switch (action.type) {
     case UsersActions.SET_USERS:

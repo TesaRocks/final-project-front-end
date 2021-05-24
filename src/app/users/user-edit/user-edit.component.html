@@ -1,22 +1,14 @@
 <form (ngSubmit)="onSubmit(form)" #form="ngForm">
   <div class="container">
-    <h1 *ngIf="editMode">Update User Info</h1>
-    <h1 *ngIf="!editMode">Create new User</h1>
+    <h1 *ngIf="editMode; else newUser">Update User Info</h1>
+    <ng-template #newUser>
+      <h1>Create new User</h1>
+    </ng-template>
     <hr />
     <label for="name"><b>Name</b></label>
     <input
-      *ngIf="editMode"
       type="text"
-      placeholder="{{ name }}"
-      name="name"
-      id="name"
-      ngModel
-      required
-    />
-    <input
-      *ngIf="!editMode"
-      type="text"
-      placeholder="Enter your name"
+      placeholder="{{ editMode ? name : 'Enter your name' }}"
       name="name"
       id="name"
       ngModel
@@ -24,26 +16,14 @@
     />
     <label for="email"><b>Email</b></label>
     <input
-      *ngIf="editMode"
       type="text"
-      placeholder="{{ email }}"
+      placeholder="{{ editMode ? email : 'Enter your email' }}"
       name="email"
       id="email"
       required
       email
       ngModel
     />
-    <input
-      *ngIf="!editMode"
-      type="text"
-      placeholder="Enter your email"
-      name="email"
-      id="email"
-      required
-      email
-      ngModel
-    />
-
     <label for="psw"><b>Password</b></label>
     <input
       type="password"
@@ -55,7 +35,6 @@
       ngModel
     />
     <hr />
-
     <button type="submit" class="registerbtn" [disabled]="!form.valid">
       {{ editMode ? "Save Changes" : "Add new User" }}
     </button>

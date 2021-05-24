@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from 'src/app/shared/data-service';
 import { IUser } from '../user.interface';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -19,7 +19,7 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: DataService,
+    private userService: UserService,
     private router: Router
   ) {}
 
@@ -27,7 +27,7 @@ export class UserEditComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
     if (this.editMode) {
-      this.dataService.fetchUser(this.id).subscribe((user: IUser) => {
+      this.userService.fetchUser(this.id).subscribe((user: IUser) => {
         this.name = user.name;
         this.email = user.email;
         this.password = user.password;
@@ -43,9 +43,9 @@ export class UserEditComponent implements OnInit {
       password: value.password,
     };
     if (this.editMode) {
-      this.dataService.updateUser(this.id, updatedOrNewUser).subscribe();
+      this.userService.updateUser(this.id, updatedOrNewUser).subscribe();
     } else {
-      this.dataService.newUser(updatedOrNewUser).subscribe();
+      this.userService.newUser(updatedOrNewUser).subscribe();
     }
 
     form.reset();
