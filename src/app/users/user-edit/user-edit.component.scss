@@ -43,6 +43,8 @@ hr {
 .registerbtn:hover {
   opacity:1;
 }
-
+.registerbtn:disabled{
+  cursor: wait;
+}
 
 }

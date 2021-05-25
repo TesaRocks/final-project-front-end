@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../user.interface';
 import { UserService } from '../user.service';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-user-edit',
@@ -13,32 +13,31 @@ import { FormGroup } from '@angular/forms';
 export class UserEditComponent implements OnInit {
   id!: number;
   editMode = false;
-  editNewForm!: FormGroup;
-
+  formEditNew = this.fb.group({
+    name: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: [
+      '',
+      [Validators.required, Validators.minLength(6), Validators.maxLength(6)],
+    ],
+  });
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.editNewForm = new FormGroup({
-      name: new FormControl(null, Validators.required),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-    });
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
   }
   onSubmit() {
     const updatedOrNewUser: IUser = {
       id: this.id,
-      name: this.editNewForm.value.name,
-      email: this.editNewForm.value.email,
-      password: this.editNewForm.value.password,
+      name: this.formEditNew.value.name,
+      email: this.formEditNew.value.email,
+      password: this.formEditNew.value.password,
     };
     if (this.editMode) {
       this.userService.updateUser(this.id, updatedOrNewUser).subscribe();
