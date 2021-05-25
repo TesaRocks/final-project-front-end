@@ -8,4 +8,4 @@ export class SetUsers implements Action {
   constructor(public payload: IUser[]) {}
 }
 
-export type UsersActions = SetUsers;
+//export type UsersActions = SetUsers;

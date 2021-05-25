@@ -20,7 +20,7 @@ input[type=text]:focus, input[type=password]:focus {
 }
 }
 input.ng-invalid.ng-touched{
-  border: 1px solid red;
+  border: 3px solid red;
 }
 /* Overwrite default styles of hr */
 hr {

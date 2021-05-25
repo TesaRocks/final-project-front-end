@@ -1,14 +1,15 @@
 import { IUser } from '../user.interface';
 import * as UsersActions from './users.actions';
-export interface State {
+
+export interface IUsersInitialState {
   users: IUser[];
 }
-const initialState: State = {
+const usersInitialState: IUsersInitialState = {
   users: [],
 };
 export function usersReducer(
-  state = initialState,
-  //action: UsersActions.UsersActions
+  state = usersInitialState,
+  //action: UsersActions.SetUsers
   action: any
 ) {
   switch (action.type) {

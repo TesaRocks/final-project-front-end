@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../user.interface';
 import { UserService } from '../user.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-user-edit',
@@ -11,11 +12,8 @@ import { UserService } from '../user.service';
 })
 export class UserEditComponent implements OnInit {
   id!: number;
-  name!: string;
-  email!: string;
-  password!: string;
   editMode = false;
-  @ViewChild('form') slForm!: NgForm;
+  editNewForm!: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,31 +22,29 @@ export class UserEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.editNewForm = new FormGroup({
+      name: new FormControl(null, Validators.required),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+    });
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
-    if (this.editMode) {
-      this.userService.fetchUser(this.id).subscribe((user: IUser) => {
-        this.name = user.name;
-        this.email = user.email;
-        this.password = user.password;
-      });
-    }
   }
-  onSubmit(form: NgForm) {
-    const value: IUser = form.value;
+  onSubmit() {
     const updatedOrNewUser: IUser = {
       id: this.id,
-      name: value.name,
-      email: value.email,
-      password: value.password,
+      name: this.editNewForm.value.name,
+      email: this.editNewForm.value.email,
+      password: this.editNewForm.value.password,
     };
     if (this.editMode) {
       this.userService.updateUser(this.id, updatedOrNewUser).subscribe();
     } else {
       this.userService.newUser(updatedOrNewUser).subscribe();
     }
-
-    form.reset();
     this.router.navigate(['users']);
   }
 }

@@ -1,38 +1,30 @@
-<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+<form [formGroup]="editNewForm" (ngSubmit)="onSubmit()">
   <div class="container">
     <h1>{{ editMode ? "Update User Info" : "Create new User" }}</h1>
     <hr />
     <label for="name"><b>Name</b></label>
     <input
       type="text"
-      placeholder="{{ editMode ? name : 'Enter your name' }}"
-      name="name"
+      placeholder="Enter your name"
       id="name"
-      ngModel
-      required
+      formControlName="name"
     />
     <label for="email"><b>Email</b></label>
     <input
       type="text"
-      placeholder="{{ editMode ? email : 'Enter your email' }}"
-      name="email"
+      placeholder="Enter your email"
+      formControlName="email"
       id="email"
-      required
-      email
-      ngModel
     />
     <label for="psw"><b>Password</b></label>
     <input
       type="password"
       placeholder="6 characters only"
-      name="password"
       id="psw"
-      minlength="6"
-      required
-      ngModel
+      formControlName="password"
     />
     <hr />
-    <button type="submit" class="registerbtn" [disabled]="!form.valid">
+    <button type="submit" class="registerbtn">
       {{ editMode ? "Save Changes" : "Add new User" }}
     </button>
   </div>
