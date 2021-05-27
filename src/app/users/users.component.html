@@ -3,25 +3,25 @@
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element" [@EnterLeave]>
-      {{ element.name }}
+    <td mat-cell *matCellDef="let user" [@EnterLeave]>
+      {{ user.name }}
     </td>
   </ng-container>
 
   <!-- Email Column -->
   <ng-container matColumnDef="email">
     <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let element" [@EnterLeave]>
-      {{ element.email }}
+    <td mat-cell *matCellDef="let user" [@EnterLeave]>
+      {{ user.email }}
     </td>
   </ng-container>
 
   <!-- Actions Column -->
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let element" [@EnterLeave]>
-      <mat-icon (click)="onEdit(element.id)" color="primary">edit</mat-icon>
-      <mat-icon color="primary" (click)="openDeleteDialog(element.id)"
+    <td mat-cell *matCellDef="let user" [@EnterLeave]>
+      <mat-icon (click)="onEdit(user.id)" color="primary">edit</mat-icon>
+      <mat-icon color="primary" (click)="openDeleteDialog(user.id)"
         >delete</mat-icon
       >
     </td>

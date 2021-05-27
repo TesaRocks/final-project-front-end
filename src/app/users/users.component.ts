@@ -10,6 +10,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { UserService } from './user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -36,6 +37,7 @@ export class UsersComponent implements OnInit {
   ) {}
 
   users!: IUser[];
+  users$!: Observable<IUser[]>;
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
   ngOnInit(): void {

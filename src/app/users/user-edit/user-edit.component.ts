@@ -31,6 +31,12 @@ export class UserEditComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
+    if (this.editMode) {
+      this.userService.fetchUser(this.id).subscribe((user: IUser) => {
+        (this.formEditNew.value.name = user.name),
+          (this.formEditNew.value.email = user.email);
+      });
+    }
   }
   onSubmit() {
     const updatedOrNewUser: IUser = {

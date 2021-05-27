@@ -14,6 +14,6 @@ const _usersReducer = createReducer(
   on(UsersActions.set_users, (state) => state)
 );
 
-export function usersReducer(state, action) {
+export function usersReducer(state: any, action: any) {
   return _usersReducer(state, action);
 }
