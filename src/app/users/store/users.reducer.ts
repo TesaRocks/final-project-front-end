@@ -1,24 +1,19 @@
 import { IUser } from '../user.interface';
+import { Action, createReducer, on } from '@ngrx/store';
 import * as UsersActions from './users.actions';
 
-export interface IUsersInitialState {
-  users: IUser[];
-}
-const usersInitialState: IUsersInitialState = {
+// export interface IUsersInitialState {
+//   users: IUser[];
+// }
+export const usersInitialState = {
   users: [],
 };
-export function usersReducer(
-  state = usersInitialState,
-  //action: UsersActions.SetUsers
-  action: any
-) {
-  switch (action.type) {
-    case UsersActions.SET_USERS:
-      return {
-        ...state,
-        users: [...action.payload],
-      };
-    default:
-      return state;
-  }
+
+const _usersReducer = createReducer(
+  usersInitialState,
+  on(UsersActions.set_users, (state) => state)
+);
+
+export function usersReducer(state, action) {
+  return _usersReducer(state, action);
 }
