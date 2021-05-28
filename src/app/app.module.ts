@@ -8,7 +8,7 @@ import { MainComponent } from './main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
-import { usersReducer } from './users/store/users.reducer';
+import { userReducer } from './users/store/users.reducer';
 import { UserEffects } from './users/store/users.effects';
 import { EffectsModule } from '@ngrx/effects';
 @NgModule({
@@ -18,7 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ users: usersReducer }),
+    StoreModule.forRoot({ users: userReducer }),
     EffectsModule.forRoot([UserEffects]),
     SharedModule,
     UsersModule,

@@ -1,9 +1,18 @@
 import { createAction, props } from '@ngrx/store';
 import { IUser } from '../user.interface';
 
-export const load_users = createAction('[Users] Load Users');
-
-export const users_loaded_success = createAction(
-  '[Users API] Users Loaded Success'
-  //props<{ users: IUser[] }>()
+const begin = createAction('[Users] Get All - Begin');
+const success = createAction(
+  '[Users] Get All - Success',
+  props<{ users: IUser[] }>()
 );
+const failure = createAction(
+  '[Users] Get All - Failure',
+  props<{ error: any }>()
+);
+
+export const getAllUsersActions = {
+  begin,
+  success,
+  failure,
+};
