@@ -17,9 +17,6 @@ const _usersReducer = createReducer(
   }))
 );
 
-export function usersReducer(
-  state: State<IUsersInitialState> | undefined,
-  action: Action
-) {
+export function usersReducer(state: State<IUsersInitialState>, action: Action) {
   return _usersReducer(state, action);
 }
