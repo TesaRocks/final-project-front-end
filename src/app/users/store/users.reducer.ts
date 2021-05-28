@@ -1,5 +1,5 @@
 import { IUser } from '../user.interface';
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on, State } from '@ngrx/store';
 import * as UsersActions from './users.actions';
 
 export interface IUsersInitialState {
@@ -11,12 +11,15 @@ export const usersInitialState: IUsersInitialState = {
 
 const _usersReducer = createReducer(
   usersInitialState,
-  on(UsersActions.users_loaded_success, (state, { users }) => ({
+  on(UsersActions.users_loaded_success, (state) => ({
     ...state,
-    users: users,
+    users: state.users,
   }))
 );
 
-export function usersReducer(state: any, action: Action) {
+export function usersReducer(
+  state: State<IUsersInitialState> | undefined,
+  action: Action
+) {
   return _usersReducer(state, action);
 }
