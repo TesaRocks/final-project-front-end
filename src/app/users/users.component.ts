@@ -11,6 +11,7 @@ import {
 } from '@angular/animations';
 import { UserService } from './user.service';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-users',
@@ -32,18 +33,20 @@ import { Observable } from 'rxjs';
 export class UsersComponent implements OnInit {
   constructor(
     private userService: UserService,
+    private store: Store<{ users: IUser[] }>,
     private router: Router,
     public dialog: MatDialog
   ) {}
 
   users!: IUser[];
-  users$!: Observable<IUser[]>;
+  users$: Observable<IUser[]> = this.store.select((state) => state.users);
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
   ngOnInit(): void {
-    this.userService.fetchUsers().subscribe((users: IUser[]) => {
-      this.users = users;
-    });
+    // this.userService.fetchUsers().subscribe((users: IUser[]) => {
+    //   this.users = users;
+    // });
+    this.store.dispatch({ type: '[Users] Load Users' });
   }
   onEdit(id: number) {
     this.router.navigate(['users', id, 'edit']);

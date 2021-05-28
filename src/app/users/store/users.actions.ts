@@ -1,5 +1,9 @@
-import { Action } from '@ngrx/store';
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { IUser } from '../user.interface';
 
-export const set_users = createAction('[Users] Set_Users');
+export const load_users = createAction('[Users] Load Users');
+
+export const users_loaded_success = createAction(
+  '[Users API] Users Loaded Success',
+  props<{ users: IUser[] }>()
+);

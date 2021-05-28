@@ -1,9 +1,9 @@
 <button mat-raised-button color="accent" routerLink="new">Create User</button>
-<table mat-table [dataSource]="users" class="mat-elevation-z8">
+<table mat-table [dataSource]="users$" class="mat-elevation-z8">
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let user" [@EnterLeave]>
+    <td mat-cell *matCellDef="let user of users$ | async" [@EnterLeave]>
       {{ user.name }}
     </td>
   </ng-container>
@@ -11,7 +11,7 @@
   <!-- Email Column -->
   <ng-container matColumnDef="email">
     <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let user" [@EnterLeave]>
+    <td mat-cell *matCellDef="let user of users$ | async" [@EnterLeave]>
       {{ user.email }}
     </td>
   </ng-container>
@@ -19,7 +19,7 @@
   <!-- Actions Column -->
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let user" [@EnterLeave]>
+    <td mat-cell *matCellDef="let user of users$ | async" [@EnterLeave]>
       <mat-icon (click)="onEdit(user.id)" color="primary">edit</mat-icon>
       <mat-icon color="primary" (click)="openDeleteDialog(user.id)"
         >delete</mat-icon
