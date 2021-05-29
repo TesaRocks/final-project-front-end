@@ -15,7 +15,12 @@ import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
+  template: `
+    <div *ngFor="let movie of users$ | async">
+      {{ movie.name }}
+    </div>
+  `,
+  //templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
   animations: [
     trigger('EnterLeave', [
@@ -38,7 +43,7 @@ export class UsersComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  users!: IUser[];
+  //users!: IUser[];
   users$: Observable<IUser[]> = this.store.select((state) => state.users);
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
@@ -46,7 +51,7 @@ export class UsersComponent implements OnInit {
     // this.userService.fetchUsers().subscribe((users: IUser[]) => {
     //   this.users = users;
     // });
-    this.store.dispatch({ type: '[Users] Load Users' });
+    this.store.dispatch({ type: '[Users] Get All - Begin' });
   }
   onEdit(id: number) {
     this.router.navigate(['users', id, 'edit']);
