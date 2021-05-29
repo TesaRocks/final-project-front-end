@@ -16,8 +16,8 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-users',
   template: `
-    <div *ngFor="let movie of users$ | async">
-      {{ movie.name }}
+    <div *ngFor="let user of users$ | async">
+      {{ user.name }}
     </div>
   `,
   //templateUrl: './users.component.html',
