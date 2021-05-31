@@ -10,9 +10,21 @@ const failure = createAction(
   '[Users] Get All - Failure',
   props<{ error: any }>()
 );
+const beginDelete = createAction('[Users] Delete - Begin');
+const successDelete = createAction(
+  '[Users] Delete - Success',
+  props<{ id: number }>()
+);
+const failureDelete = createAction(
+  '[Users] Delete - Failure',
+  props<{ error: any }>()
+);
 
 export const getAllUsersActions = {
   begin,
   success,
   failure,
+  beginDelete,
+  successDelete,
+  failureDelete,
 };

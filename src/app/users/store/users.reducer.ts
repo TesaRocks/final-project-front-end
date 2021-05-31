@@ -39,23 +39,3 @@ export function userReducerFn(
 ) {
   return userReducer(state, action);
 }
-
-// const userReducer = createReducer(
-//   usersInitialState,
-//   on(getAllUsersActions.begin, (state) => ({
-//     ...state,
-//     getAllUsersPending: true,
-//     getAllUsersError: null,
-//   })),
-//   on(getAllUsersActions.success, (state, Action) => ({
-//     ...state,
-//     users: Action.users,
-//     getAllUsersPending: false,
-//     getAllUsersError: null,
-//   })),
-//   on(getAllUsersActions.failure, (state, action) => ({
-//     ...state,
-//     getAllUsersPending: false,
-//     getAllUsersError: action.error,
-//   }))
-// );
