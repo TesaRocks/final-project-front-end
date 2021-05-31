@@ -13,7 +13,7 @@ export class UserEffects {
         this.userService.fetchUsers().pipe(
           map((users) => ({
             type: '[Users] Get All - Success',
-            payload: users,
+            users: users,
           })),
           catchError(() => EMPTY)
         )

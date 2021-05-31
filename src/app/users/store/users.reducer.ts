@@ -15,21 +15,21 @@ export const usersInitialState: IUsersInitialState = {
 
 const userReducer = createReducer(
   usersInitialState,
-  on(getAllUsersActions.begin, (state) => ({
-    ...state,
+  on(getAllUsersActions.begin, (usersInitialState) => ({
+    ...usersInitialState,
     getAllUsersPending: true,
     getAllUsersError: null,
   })),
-  on(getAllUsersActions.success, (state, action) => ({
-    ...state,
-    users: action.users,
+  on(getAllUsersActions.success, (usersInitialState, { users }) => ({
+    ...usersInitialState,
+    users: users,
     getAllUsersPending: false,
     getAllUsersError: null,
   })),
-  on(getAllUsersActions.failure, (state, action) => ({
-    ...state,
+  on(getAllUsersActions.failure, (usersInitialState, { error }) => ({
+    ...usersInitialState,
     getAllUsersPending: false,
-    getAllUsersError: action.error,
+    getAllUsersError: error,
   }))
 );
 
@@ -39,3 +39,23 @@ export function userReducerFn(
 ) {
   return userReducer(state, action);
 }
+
+// const userReducer = createReducer(
+//   usersInitialState,
+//   on(getAllUsersActions.begin, (state) => ({
+//     ...state,
+//     getAllUsersPending: true,
+//     getAllUsersError: null,
+//   })),
+//   on(getAllUsersActions.success, (state, Action) => ({
+//     ...state,
+//     users: Action.users,
+//     getAllUsersPending: false,
+//     getAllUsersError: null,
+//   })),
+//   on(getAllUsersActions.failure, (state, action) => ({
+//     ...state,
+//     getAllUsersPending: false,
+//     getAllUsersError: action.error,
+//   }))
+// );

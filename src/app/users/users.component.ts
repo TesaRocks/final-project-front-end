@@ -15,12 +15,7 @@ import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-users',
-  template: `
-    <div *ngFor="let user of users$ | async">
-      {{ user.name }}
-    </div>
-  `,
-  //templateUrl: './users.component.html',
+  templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
   animations: [
     trigger('EnterLeave', [
@@ -38,19 +33,26 @@ import { Store } from '@ngrx/store';
 export class UsersComponent implements OnInit {
   constructor(
     private userService: UserService,
-    private store: Store<{ users: IUser[] }>,
+    private store: Store<{
+      usersStore: {
+        users: IUser[];
+        getAllUsersPending: boolean;
+        getAllUsersError: any;
+      };
+    }>,
     private router: Router,
     public dialog: MatDialog
   ) {}
 
-  //users!: IUser[];
-  users$: Observable<IUser[]> = this.store.select((state) => state.users);
+  users$: Observable<{
+    users: IUser[];
+    getAllUsersPending: boolean;
+    getAllUsersError: any;
+  }>;
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
-  ngOnInit(): void {
-    // this.userService.fetchUsers().subscribe((users: IUser[]) => {
-    //   this.users = users;
-    // });
+  ngOnInit() {
+    this.users$ = this.store.select('usersStore');
     this.store.dispatch({ type: '[Users] Get All - Begin' });
   }
   onEdit(id: number) {

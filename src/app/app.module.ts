@@ -22,7 +22,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(
-      { users: userReducerFn },
+      { usersStore: userReducerFn },
       {
         runtimeChecks: {
           strictStateImmutability: true,
