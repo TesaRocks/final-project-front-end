@@ -4,32 +4,32 @@ import { getAllUsersActions } from './users.actions';
 
 export interface IUsersInitialState {
   users: IUser[];
-  getAllUsersPending: boolean;
-  getAllUsersError: any;
+  connectPending: boolean;
+  connectError: any;
 }
 export const usersInitialState: IUsersInitialState = {
   users: [],
-  getAllUsersPending: false,
-  getAllUsersError: null,
+  connectPending: false,
+  connectError: null,
 };
 
 const userReducer = createReducer(
   usersInitialState,
   on(getAllUsersActions.begin, (usersInitialState) => ({
     ...usersInitialState,
-    getAllUsersPending: true,
-    getAllUsersError: null,
+    connectPending: true,
+    connectError: null,
   })),
   on(getAllUsersActions.success, (usersInitialState, { users }) => ({
     ...usersInitialState,
     users: users,
-    getAllUsersPending: false,
-    getAllUsersError: null,
+    connectPending: false,
+    connectError: null,
   })),
   on(getAllUsersActions.failure, (usersInitialState, { error }) => ({
     ...usersInitialState,
-    getAllUsersPending: false,
-    getAllUsersError: error,
+    connectPending: false,
+    connectError: error,
   }))
 );
 

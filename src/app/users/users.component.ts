@@ -36,8 +36,8 @@ export class UsersComponent implements OnInit {
     private store: Store<{
       usersStore: {
         users: IUser[];
-        getAllUsersPending: boolean;
-        getAllUsersError: any;
+        connectPending: boolean;
+        connectError: any;
       };
     }>,
     private router: Router,
@@ -46,8 +46,8 @@ export class UsersComponent implements OnInit {
 
   users$: Observable<{
     users: IUser[];
-    getAllUsersPending: boolean;
-    getAllUsersError: any;
+    connectPending: boolean;
+    connectError: any;
   }>;
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
