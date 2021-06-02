@@ -64,7 +64,8 @@ export class UsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.userService.removeUser(id).subscribe();
+        //this.userService.removeUser(id).subscribe();
+        this.store.dispatch({ type: '[Users] Delete - Begin', id: id });
       }
     });
   }

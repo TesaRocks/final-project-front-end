@@ -3,21 +3,21 @@ import { IUser } from '../user.interface';
 
 const begin = createAction('[Users] Get All - Begin');
 const success = createAction(
-  '[Users] Get All - Success',
+  '[Users Effect] Get All - Success',
   props<{ users: IUser[] }>()
 );
-const failure = createAction(
-  '[Users] Get All - Failure',
-  props<{ error: any }>()
-);
-const deleteUser = createAction(
-  '[Users] Delete - Success',
+
+//delete user
+const deleteUserBegin = createAction(
+  '[Users] Delete - Begin',
   props<{ id: number }>()
 );
+
+const deleteUserSuccess = createAction('[Users Effect] Delete - Success');
 
 export const getAllUsersActions = {
   begin,
   success,
-  failure,
-  deleteUser,
+  deleteUserBegin,
+  deleteUserSuccess,
 };
