@@ -1,16 +1,18 @@
 import { IUser } from '../user.interface';
 import { createReducer, on, Action } from '@ngrx/store';
-import { getAllUsersActions } from './users.actions';
+import { getAllUsersActions, deleteUserActions } from './users.actions';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { state } from '@angular/animations';
 
 //export interface IUsersInitialState extends EntityState<IUser> {
 export interface IUsersInitialState {
   users: IUser[];
+  error: any;
 }
 //export const userAdapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();
 export const usersInitialState: IUsersInitialState = {
-  users: [],
+  users: undefined,
+  error: undefined,
 };
 //userAdapter.getInitialState({
 
@@ -27,11 +29,19 @@ const userReducer = createReducer(
     ...state,
     users: users,
   })),
-  on(getAllUsersActions.deleteUserBegin, (state, { id }) => ({
+  on(getAllUsersActions.failure, (state, { error }) => ({
+    ...state,
+    error: error,
+  })),
+  on(deleteUserActions.deleteBegin, (state, { id }) => ({
     ...state,
     users: state.users.filter((user) => {
       return user.id !== id;
     }),
+  })),
+  on(deleteUserActions.deleteFailure, (state, { error }) => ({
+    ...state,
+    error: error,
   }))
 );
 export function userReducerFn(
