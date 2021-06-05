@@ -4,6 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../user.interface';
 import { UserService } from '../user.service';
 import { FormBuilder } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { UserState } from '../store/user.reducer';
+import { addUser, loadUser } from '../store/user.actions';
+import { selectUser } from '../store/user.selectors';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-edit',
@@ -13,6 +18,8 @@ import { FormBuilder } from '@angular/forms';
 export class UserEditComponent implements OnInit {
   id!: number;
   editMode = false;
+  //user$: Observable<IUser>;
+  user: Subscription;
   formEditNew = this.fb.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -24,18 +31,16 @@ export class UserEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private store: Store<UserState>
   ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
     if (this.editMode) {
-      this.userService.fetchUser(this.id).subscribe((user: IUser) => {
-        (this.formEditNew.value.name = user.name),
-          (this.formEditNew.value.email = user.email);
-      });
+      this.store.dispatch(loadUser({ id: this.id }));
+      this.store.select(selectUser).subscribe((user) => console.log(user));
     }
   }
   onSubmit() {
@@ -48,8 +53,7 @@ export class UserEditComponent implements OnInit {
     if (this.editMode) {
       this.userService.updateUser(this.id, updatedOrNewUser).subscribe();
     } else {
-      this.userService.newUser(updatedOrNewUser).subscribe();
+      this.store.dispatch(addUser({ user: updatedOrNewUser }));
     }
-    this.router.navigate(['users']);
   }
 }

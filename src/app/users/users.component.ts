@@ -10,9 +10,10 @@ import {
   trigger,
 } from '@angular/animations';
 import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
-import { selectUsers, UserState } from './storeDelete';
+import { Store } from '@ngrx/store';
 import * as fromActions from './store/user.actions';
+import { UserState } from './store/user.reducer';
+import { selectUsers } from './store/user.selectors';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -37,7 +38,7 @@ export class UsersComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  users$!: Observable<IUser[]>;
+  users$: Observable<IUser[]>;
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
   ngOnInit() {

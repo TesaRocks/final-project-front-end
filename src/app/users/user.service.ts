@@ -12,13 +12,13 @@ export class UserService {
   fetchUser(id: number): Observable<IUser> {
     return this.http.get<IUser>(`/api/user/${id}`);
   }
-  updateUser(id: number, user: IUser): Observable<IUser> {
-    return this.http.put<IUser>(`/api/user/${id}`, user);
+  updateUser(id: string | number, changes: Partial<IUser>): Observable<IUser> {
+    return this.http.put<IUser>(`/api/user/${id}`, changes);
   }
   removeUser(id: number) {
     return this.http.delete<string>(`/api/user/${id}`);
   }
-  newUser(user: IUser) {
+  newUser(user: IUser): Observable<IUser> {
     return this.http.post<IUser>('/api/user/', user);
   }
 }
