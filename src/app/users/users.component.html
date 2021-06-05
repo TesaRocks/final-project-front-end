@@ -1,5 +1,5 @@
 <button mat-raised-button color="accent" routerLink="new">Create User</button>
-<table mat-table [dataSource]="(users$ | async).users" class="mat-elevation-z8">
+<table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>

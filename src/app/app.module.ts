@@ -11,8 +11,7 @@ import { UsersModule } from './users/users.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { reducers, metaReducers } from './users/store';
-
+import { AppEffects } from './app.effects';
 @NgModule({
   declarations: [AppComponent, MainComponent],
   imports: [
@@ -20,18 +19,8 @@ import { reducers, metaReducers } from './users/store';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      // runtimeChecks: {
-      //   strictStateImmutability: true,
-      //   strictActionImmutability: true,
-      //   strictStateSerializability: true,
-      //   strictActionSerializability: true,
-      //   strictActionWithinNgZone: true,
-      //   strictActionTypeUniqueness: true,
-      // },
-    }),
-    EffectsModule.forRoot(),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([AppEffects]),
     SharedModule,
     UsersModule,
     StoreDevtoolsModule.instrument({

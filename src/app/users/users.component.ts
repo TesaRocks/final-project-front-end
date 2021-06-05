@@ -11,8 +11,8 @@ import {
 } from '@angular/animations';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { selectUsers, UserState } from './store';
-import * as fromActions from './store/users.actions';
+import { selectUsers, UserState } from './storeDelete';
+import * as fromActions from './store/user.actions';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -41,8 +41,8 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
   ngOnInit() {
-    this.users$ = this.store.pipe(select(selectUsers));
     this.store.dispatch(fromActions.loadUsers());
+    this.users$ = this.store.select(selectUsers);
   }
   onEdit(id: number) {
     this.router.navigate(['users', id, 'edit']);
@@ -53,7 +53,7 @@ export class UsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.store.dispatch({ type: '[Users] Delete User', id: id });
+        // this.store.dispatch({ type: '[Users] Delete User', id: id });
       }
     });
   }

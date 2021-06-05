@@ -1,6 +1,5 @@
 import {
   ActionReducer,
-  ActionReducerMap,
   createFeatureSelector,
   createReducer,
   createSelector,
@@ -9,27 +8,26 @@ import {
   Action,
 } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
-import { usersInitialState } from '../storess/users.reducer';
 import { IUser } from '../user.interface';
 import * as userActions from './users.actions';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 export const userStateFeatureKey = 'userState';
 
-export interface UserState {
-  users: IUser[];
+export interface UserState extends EntityState<IUser> {
   error: any;
 }
-export const userInitialState: UserState = {
-  users: [],
+export const adapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();
+
+export const userInitialState: UserState = adapter.getInitialState({
   error: undefined,
-};
+});
 
 export const reducers = createReducer(
-  usersInitialState,
-  on(userActions.loadUsersSuccess, (state, { users }) => ({
-    ...state,
-    users: users,
-  })),
+  userInitialState,
+  on(userActions.loadUsersSuccess, (state, { users }) => {
+    return adapter.setAll(users, state);
+  }),
   on(userActions.loadUsersFailure, (state, { error }) => ({
     ...state,
     error: error,
@@ -41,7 +39,11 @@ export const selectUserFeature =
 
 export const selectUsers = createSelector(
   selectUserFeature,
-  (state: UserState) => state.users
+  adapter.getSelectors().selectAll
+);
+export const selectError = createSelector(
+  selectUserFeature,
+  (state: UserState) => state.error
 );
 
 export const metaReducers: MetaReducer<UserState>[] = !environment.production

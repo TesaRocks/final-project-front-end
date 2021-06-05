@@ -6,9 +6,9 @@ import { UsersRoutingModule } from './users-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import * as fromUserState from './store';
+import * as fromUser from './store/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { UsersEffects } from './store/users.effects';
+import { UserEffects } from './store/user.effects';
 
 @NgModule({
   declarations: [UsersComponent, UserEditComponent, UserDeleteConfirm],
@@ -17,12 +17,8 @@ import { UsersEffects } from './store/users.effects';
     UsersRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    StoreModule.forFeature(
-      fromUserState.userStateFeatureKey,
-      fromUserState.reducers,
-      { metaReducers: fromUserState.metaReducers }
-    ),
-    EffectsModule.forFeature([UsersEffects]),
+    StoreModule.forFeature(fromUser.usersFeatureKey, fromUser.reducer),
+    EffectsModule.forFeature([UserEffects]),
   ],
 })
 export class UsersModule {}
