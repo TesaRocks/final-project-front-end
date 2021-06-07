@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IUser } from '../user.interface';
 import * as UserActions from './user.actions';
@@ -21,42 +21,48 @@ export const initialState: UserState = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
-  on(UserActions.addUserSuccess, (state, action) =>
+  on(UserActions.addUser.successAdd, (state, action) =>
     adapter.addOne(action.user, state)
   ),
-  on(UserActions.addUserFailure, (state, action) => {
+  on(UserActions.addUser.failureAdd, (state, action) => {
     return {
       ...state,
       error: action.error,
     };
   }),
-  on(UserActions.loadUsersSuccess, (state, action) =>
+  on(UserActions.loadUsers.success, (state, action) =>
     adapter.setAll(action.users, state)
   ),
-  on(UserActions.loadUsersFailure, (state, action) => {
+  on(UserActions.loadUsers.failure, (state, action) => {
     return {
       ...state,
       error: action.error,
     };
   }),
-  on(UserActions.loadUserSuccess, (state, action) => {
+  on(UserActions.loadUser.successLoad, (state, action) => {
     return {
       ...state,
       selectedUser: action.selectedUser,
     };
   }),
-  on(UserActions.loadUsersFailure, (state, action) => {
+  on(UserActions.loadUser.failureLoad, (state, action) => {
     return {
       ...state,
       error: action.error,
     };
   }),
-  on(UserActions.updateUser, (state, action) =>
+  on(UserActions.updateUser.beginUpdate, (state, action) =>
     adapter.updateOne(action.user, state)
   ),
-  on(UserActions.deleteUser, (state, action) =>
+  on(UserActions.deleteUser.successDelete, (state, action) =>
     adapter.removeOne(action.id, state)
-  )
+  ),
+  on(UserActions.deleteUser.failureDelete, (state, action) => {
+    return {
+      ...state,
+      error: action.error,
+    };
+  })
 );
 
 export const { selectIds, selectEntities, selectAll, selectTotal } =

@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../user.interface';
-import { UserService } from '../user.service';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { UserState } from '../store/user.reducer';
-import { addUser, loadUser } from '../store/user.actions';
+import * as fromActions from '../store/user.actions';
 import { selectUser } from '../store/user.selectors';
-import { Subscription } from 'rxjs';
+import { Update } from '@ngrx/entity';
 
 @Component({
   selector: 'app-user-edit',
@@ -18,8 +17,6 @@ import { Subscription } from 'rxjs';
 export class UserEditComponent implements OnInit {
   id!: number;
   editMode = false;
-  //user$: Observable<IUser>;
-  user: Subscription;
   formEditNew = this.fb.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -30,7 +27,6 @@ export class UserEditComponent implements OnInit {
   });
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService,
     private fb: FormBuilder,
     private store: Store<UserState>
   ) {}
@@ -39,8 +35,8 @@ export class UserEditComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
     if (this.editMode) {
-      this.store.dispatch(loadUser({ id: this.id }));
-      this.store.select(selectUser).subscribe((user) => console.log(user));
+      this.store.dispatch(fromActions.loadUser.beginLoad({ id: this.id }));
+      this.store.select(selectUser).subscribe((user) => {});
     }
   }
   onSubmit() {
@@ -51,9 +47,15 @@ export class UserEditComponent implements OnInit {
       password: this.formEditNew.value.password,
     };
     if (this.editMode) {
-      this.userService.updateUser(this.id, updatedOrNewUser).subscribe();
+      const update: Update<IUser> = {
+        id: this.id,
+        changes: updatedOrNewUser,
+      };
+      this.store.dispatch(fromActions.updateUser.beginUpdate({ user: update }));
     } else {
-      this.store.dispatch(addUser({ user: updatedOrNewUser }));
+      this.store.dispatch(
+        fromActions.addUser.beginAdd({ user: updatedOrNewUser })
+      );
     }
   }
 }

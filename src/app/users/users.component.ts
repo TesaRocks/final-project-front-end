@@ -42,7 +42,7 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
   ngOnInit() {
-    this.store.dispatch(fromActions.loadUsers());
+    this.store.dispatch(fromActions.loadUsers.begin());
     this.users$ = this.store.select(selectUsers);
   }
   onEdit(id: number) {
@@ -54,7 +54,7 @@ export class UsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // this.store.dispatch({ type: '[Users] Delete User', id: id });
+        this.store.dispatch(fromActions.deleteUser.beginDelete({ id: id }));
       }
     });
   }

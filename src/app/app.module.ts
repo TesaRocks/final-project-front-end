@@ -11,7 +11,6 @@ import { UsersModule } from './users/users.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { AppEffects } from './app.effects';
 @NgModule({
   declarations: [AppComponent, MainComponent],
   imports: [
@@ -20,7 +19,7 @@ import { AppEffects } from './app.effects';
     HttpClientModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot(),
     SharedModule,
     UsersModule,
     StoreDevtoolsModule.instrument({

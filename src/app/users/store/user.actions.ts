@@ -3,48 +3,55 @@ import { Update } from '@ngrx/entity';
 import { IUser } from '../user.interface';
 
 //Load Users
-export const loadUsers = createAction('[User] Load Users');
-export const loadUsersSuccess = createAction(
+const begin = createAction('[User] Load Users');
+const success = createAction(
   '[User] Load Users Success',
   props<{ users: IUser[] }>()
 );
-export const loadUsersFailure = createAction(
+const failure = createAction(
   '[User] Load Users Failure',
   props<{ error: any }>()
 );
 //Load User
-export const loadUser = createAction(
-  '[User] Load User',
-  props<{ id: number }>()
-);
-export const loadUserSuccess = createAction(
+const beginLoad = createAction('[User] Load User', props<{ id: number }>());
+const successLoad = createAction(
   '[User] Load User Success',
   props<{ selectedUser: IUser }>()
 );
-export const loadUserFailure = createAction(
+const failureLoad = createAction(
   '[User] Load User Failure',
   props<{ error: any }>()
 );
 //Add user
-export const addUser = createAction(
-  '[User] Add User',
-  props<{ user: IUser }>()
-);
-export const addUserSuccess = createAction(
+const beginAdd = createAction('[User] Add User', props<{ user: IUser }>());
+const successAdd = createAction(
   '[User] Add User Success',
   props<{ user: IUser }>()
 );
-export const addUserFailure = createAction(
+const failureAdd = createAction(
   '[User] Add User Failure',
   props<{ error: any }>()
 );
 //Update User
-export const updateUser = createAction(
+const beginUpdate = createAction(
   '[User] Update User',
   props<{ user: Update<IUser> }>()
 );
-
-export const deleteUser = createAction(
+//Delete User
+const beginDelete = createAction(
   '[User/API] Delete User',
-  props<{ id: string }>()
+  props<{ id: number }>()
 );
+const successDelete = createAction(
+  '[User] Delete User Success',
+  props<{ id: number }>()
+);
+const failureDelete = createAction(
+  '[User] Delete User Failure',
+  props<{ error: any }>()
+);
+export const loadUsers = { begin, success, failure };
+export const loadUser = { beginLoad, successLoad, failureLoad };
+export const addUser = { beginAdd, successAdd, failureAdd };
+export const updateUser = { beginUpdate };
+export const deleteUser = { beginDelete, successDelete, failureDelete };

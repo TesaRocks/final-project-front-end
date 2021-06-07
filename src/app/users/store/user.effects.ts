@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, mergeMap, catchError, tap } from 'rxjs/operators';
+import { map, mergeMap, catchError, tap, concatMap } from 'rxjs/operators';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import * as fromUserActions from './user.actions';
@@ -26,7 +26,7 @@ export class UserEffects {
   );
   loadUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromUserActions.loadUser),
+      ofType(fromUserActions.loadUser.beginLoad),
       mergeMap((action) =>
         this.userService.fetchUser(action.id).pipe(
           map((user) => ({
@@ -42,10 +42,10 @@ export class UserEffects {
   );
   createUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromUserActions.addUser),
+      ofType(fromUserActions.addUser.beginAdd),
       mergeMap((action) =>
         this.userService.newUser(action.user).pipe(
-          map((user) => fromUserActions.addUserSuccess({ user })),
+          map((user) => fromUserActions.addUser.successAdd({ user })),
           catchError((error) =>
             of({ type: '[User] Add User Failure', error: error })
           )
@@ -57,13 +57,28 @@ export class UserEffects {
   updateUser$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(fromUserActions.updateUser),
-        mergeMap((action) =>
+        ofType(fromUserActions.updateUser.beginUpdate),
+        concatMap((action) =>
           this.userService.updateUser(action.user.id, action.user.changes)
         ),
         tap(() => this.router.navigate(['users']))
       ),
     { dispatch: false }
+  );
+  deleteUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromUserActions.deleteUser.beginDelete),
+      mergeMap((action) =>
+        this.userService.removeUser(action.id).pipe(
+          map(() =>
+            fromUserActions.deleteUser.successDelete({ id: action.id })
+          ),
+          catchError((error) =>
+            of(fromUserActions.deleteUser.failureDelete({ error }))
+          )
+        )
+      )
+    )
   );
 
   constructor(
