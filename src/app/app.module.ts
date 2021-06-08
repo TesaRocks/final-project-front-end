@@ -8,12 +8,9 @@ import { MainComponent } from './main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
-import { userReducerFn } from './users/store/users.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { UserEffects } from './users/store/users.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-
 @NgModule({
   declarations: [AppComponent, MainComponent],
   imports: [
@@ -21,20 +18,8 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot(
-      { users: userReducerFn },
-      {
-        runtimeChecks: {
-          strictStateImmutability: true,
-          strictActionImmutability: true,
-          strictStateSerializability: true,
-          strictActionSerializability: true,
-          strictActionWithinNgZone: true,
-          strictActionTypeUniqueness: true,
-        },
-      }
-    ),
-    EffectsModule.forRoot([UserEffects]),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot(),
     SharedModule,
     UsersModule,
     StoreDevtoolsModule.instrument({

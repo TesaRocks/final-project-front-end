@@ -9,18 +9,14 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { UserService } from './user.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-
+import * as fromActions from './store/user.actions';
+import { UserState } from './store/user.reducer';
+import { selectUsers } from './store/user.selectors';
 @Component({
   selector: 'app-users',
-  template: `
-    <div *ngFor="let user of users$ | async">
-      {{ user.name }}
-    </div>
-  `,
-  //templateUrl: './users.component.html',
+  templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
   animations: [
     trigger('EnterLeave', [
@@ -37,21 +33,17 @@ import { Store } from '@ngrx/store';
 })
 export class UsersComponent implements OnInit {
   constructor(
-    private userService: UserService,
-    private store: Store<{ users: IUser[] }>,
+    private store: Store<UserState>,
     private router: Router,
     public dialog: MatDialog
   ) {}
 
-  //users!: IUser[];
-  users$: Observable<IUser[]> = this.store.select((state) => state.users);
+  users$!: Observable<IUser[]>;
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
-  ngOnInit(): void {
-    // this.userService.fetchUsers().subscribe((users: IUser[]) => {
-    //   this.users = users;
-    // });
-    this.store.dispatch({ type: '[Users] Get All - Begin' });
+  ngOnInit() {
+    this.store.dispatch(fromActions.loadUsers.begin());
+    this.users$ = this.store.select(selectUsers);
   }
   onEdit(id: number) {
     this.router.navigate(['users', id, 'edit']);
@@ -62,7 +54,7 @@ export class UsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.userService.removeUser(id).subscribe();
+        this.store.dispatch(fromActions.deleteUser.beginDelete({ id: id }));
       }
     });
   }
