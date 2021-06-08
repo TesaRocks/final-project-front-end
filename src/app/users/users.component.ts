@@ -11,8 +11,9 @@ import {
 } from '@angular/animations';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromActions from './store/user.actions';
-import { UserState } from './store/user.reducer';
+import { loadUsers } from './store/loadUsers/load.users.actions';
+import { deleteUser } from './store/deleteUser/delete.user.actions';
+import { UserState } from './store/loadUsers/load.users.reducer';
 import { selectUsers } from './store/user.selectors';
 @Component({
   selector: 'app-users',
@@ -42,7 +43,7 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
   ngOnInit() {
-    this.store.dispatch(fromActions.loadUsers.begin());
+    this.store.dispatch(loadUsers.begin());
     this.users$ = this.store.select(selectUsers);
   }
   onEdit(id: number) {
@@ -54,7 +55,7 @@ export class UsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.store.dispatch(fromActions.deleteUser.beginDelete({ id: id }));
+        this.store.dispatch(deleteUser.begin({ id: id }));
       }
     });
   }

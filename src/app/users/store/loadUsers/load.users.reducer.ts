@@ -19,7 +19,7 @@ export const initialState: UserState = adapter.getInitialState({
   selectedUser: undefined,
 });
 
-export const reducer = createReducer(
+export const loadUsersReducer = createReducer(
   initialState,
   on(loadUsers.success, (state, action) => adapter.setAll(action.users, state)),
   on(loadUsers.failure, (state, action) => {

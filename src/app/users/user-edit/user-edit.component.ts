@@ -4,8 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../user.interface';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { UserState } from '../store/user.reducer';
-import * as fromActions from '../store/user.actions';
+import { UserState } from '../store/loadUsers/load.users.reducer';
+import { loadUser } from '../store/loadUser/load.user.actions';
+import { updateUser } from '../store/updateUser/update.user.actions';
+import { addUser } from '../store/addUser/add.user.actions';
 import { selectUser } from '../store/user.selectors';
 import { Update } from '@ngrx/entity';
 
@@ -35,7 +37,7 @@ export class UserEditComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
     if (this.editMode) {
-      this.store.dispatch(fromActions.loadUser.beginLoad({ id: this.id }));
+      this.store.dispatch(loadUser.begin({ id: this.id }));
       this.store.select(selectUser).subscribe((user) => {});
     }
   }
@@ -51,11 +53,9 @@ export class UserEditComponent implements OnInit {
         id: this.id,
         changes: updatedOrNewUser,
       };
-      this.store.dispatch(fromActions.updateUser.beginUpdate({ user: update }));
+      this.store.dispatch(updateUser.begin({ user: update }));
     } else {
-      this.store.dispatch(
-        fromActions.addUser.beginAdd({ user: updatedOrNewUser })
-      );
+      this.store.dispatch(addUser.begin({ user: updatedOrNewUser }));
     }
   }
 }

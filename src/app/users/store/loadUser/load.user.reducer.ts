@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { loadUser } from './load.user.actions';
 import { adapter, initialState } from '../loadUsers/load.users.reducer';
 
-export const reducer = createReducer(
+export const loadUserReducer = createReducer(
   initialState,
   on(loadUser.success, (state, action) =>
     adapter.addOne(action.selectedUser, state)

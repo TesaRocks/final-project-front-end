@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { adapter, initialState } from '../loadUsers/load.users.reducer';
 import { deleteUser } from './delete.user.actions';
 
-export const reducer = createReducer(
+export const deleteReducer = createReducer(
   initialState,
   on(deleteUser.success, (state, action) =>
     adapter.removeOne(action.id, state)
