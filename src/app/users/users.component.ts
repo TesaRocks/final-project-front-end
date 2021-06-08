@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import * as fromActions from './store/user.actions';
 import { UserState } from './store/user.reducer';
 import { selectUsers } from './store/user.selectors';
+import { IApplicationState } from '../aplication-state';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -33,7 +34,7 @@ import { selectUsers } from './store/user.selectors';
 })
 export class UsersComponent implements OnInit {
   constructor(
-    private store: Store<UserState>,
+    private store: Store<IApplicationState>,
     private router: Router,
     public dialog: MatDialog
   ) {}

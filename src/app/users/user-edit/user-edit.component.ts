@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../user.interface';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { UserState } from '../store/user.reducer';
 import * as fromActions from '../store/user.actions';
 import { selectUser } from '../store/user.selectors';
 import { Update } from '@ngrx/entity';
+import { IApplicationState } from 'src/app/aplication-state';
 
 @Component({
   selector: 'app-user-edit',
@@ -18,6 +18,7 @@ export class UserEditComponent implements OnInit {
   id!: number;
   editMode = false;
   formEditNew = this.fb.group({
+    id: ['', Validators.required],
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: [
@@ -28,15 +29,19 @@ export class UserEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private store: Store<UserState>
+    private store: Store<IApplicationState>,
   ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
     if (this.editMode) {
-      this.store.dispatch(fromActions.loadUser.beginLoad({ id: this.id }));
-      this.store.select(selectUser).subscribe((user) => {});
+      this.store.dispatch(fromActions.loadUser.begin({ id: this.id }));
+      this.store.select(selectUser).subscribe((user) => {
+        if (user !== null) {
+          this.formEditNew.setValue(user)
+        }
+      });
     }
   }
   onSubmit() {

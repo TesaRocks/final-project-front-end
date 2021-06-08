@@ -2,17 +2,28 @@ import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { IUser } from '../user.interface';
 
-//Load Users
-const begin = createAction('[User] Load Users');
-const success = createAction(
+/** **************************************
+ *  Load Users
+ ***************************************/
+const loadUsersBegin = createAction('[User] Load Users');
+const loadUsersSuccess = createAction(
   '[User] Load Users Success',
   props<{ users: IUser[] }>()
 );
-const failure = createAction(
+const loadUsersFailure = createAction(
   '[User] Load Users Failure',
   props<{ error: any }>()
 );
-//Load User
+
+export const loadUsers = {
+  begin: loadUsersBegin,
+  success: loadUsersSuccess,
+  failure: loadUsersFailure,
+};
+
+/** **************************************
+ *  Load User
+ ***************************************/
 const beginLoad = createAction('[User] Load User', props<{ id: number }>());
 const successLoad = createAction(
   '[User] Load User Success',
@@ -22,7 +33,15 @@ const failureLoad = createAction(
   '[User] Load User Failure',
   props<{ error: any }>()
 );
-//Add user
+export const loadUser = {
+  begin: beginLoad,
+  success: successLoad,
+  failure: failureLoad,
+};
+
+/** **************************************
+ *  Add user
+ ***************************************/
 const beginAdd = createAction('[User] Add User', props<{ user: IUser }>());
 const successAdd = createAction(
   '[User] Add User Success',
@@ -32,26 +51,50 @@ const failureAdd = createAction(
   '[User] Add User Failure',
   props<{ error: any }>()
 );
-//Update User
-const beginUpdate = createAction(
-  '[User] Update User',
+export const addUser = {
+  begin: beginAdd,
+  success: successAdd,
+  failure: failureAdd,
+};
+
+/** **************************************
+ *  Update User
+ ***************************************/
+const updateUserBegin = createAction(
+  '[User] Update User Begin',
   props<{ user: Update<IUser> }>()
 );
-//Delete User
-const beginDelete = createAction(
-  '[User/API] Delete User',
+const updateUserSuccess = createAction(
+  '[User] Update User success',
+  props<{ user: Update<IUser> }>()
+);
+const updateUserFailure = createAction(
+  '[User] Update User failure',
+  props<{ error: any }>()
+);
+export const updateUser = {
+  begin: updateUserBegin,
+  success: updateUserSuccess,
+  failure: updateUserFailure,
+};
+
+/** **************************************
+ *  Delete User
+ ***************************************/
+const deleteUserBegin = createAction(
+  '[User/API] Delete User begin',
   props<{ id: number }>()
 );
-const successDelete = createAction(
+const deleteUserSuccess = createAction(
   '[User] Delete User Success',
   props<{ id: number }>()
 );
-const failureDelete = createAction(
+const deleteUserFailure = createAction(
   '[User] Delete User Failure',
   props<{ error: any }>()
 );
-export const loadUsers = { begin, success, failure };
-export const loadUser = { beginLoad, successLoad, failureLoad };
-export const addUser = { beginAdd, successAdd, failureAdd };
-export const updateUser = { beginUpdate };
-export const deleteUser = { beginDelete, successDelete, failureDelete };
+export const deleteUser = {
+  begin: deleteUserBegin,
+  success: deleteUserSuccess,
+  failure: deleteUserFailure,
+};

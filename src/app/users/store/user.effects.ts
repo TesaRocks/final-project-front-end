@@ -4,13 +4,14 @@ import { of } from 'rxjs';
 import { map, mergeMap, catchError, tap, concatMap } from 'rxjs/operators';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-import * as fromUserActions from './user.actions';
+import { loadUser, loadUsers } from './user.actions';
+
 
 @Injectable()
 export class UserEffects {
   loadUsers$ = createEffect(() =>
     this.actions$.pipe(
-      ofType('[User] Load Users'),
+      ofType(loadUsers.begin),
       mergeMap(() =>
         this.userService.fetchUsers().pipe(
           map((users) => ({
@@ -26,7 +27,7 @@ export class UserEffects {
   );
   loadUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromUserActions.loadUser.beginLoad),
+      ofType(loadUser.begin),
       mergeMap((action) =>
         this.userService.fetchUser(action.id).pipe(
           map((user) => ({

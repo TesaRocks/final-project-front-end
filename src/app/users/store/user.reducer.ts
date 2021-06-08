@@ -5,28 +5,47 @@ import * as UserActions from './user.actions';
 
 export const usersFeatureKey = 'userState';
 
-export interface UserState extends EntityState<IUser> {
+export interface IUsersInitialState extends EntityState<IUser> {
   // additional entities state properties
   error: any;
-  selectedUser: IUser | undefined;
+  selectedUser: IUser | null;
+
+  loadUsersPending: boolean;
+  loadUserPending: boolean;
+  addUserPending: boolean;
+  updateUserPending: boolean;
+  deleteUserPending: boolean;
 }
 
 export const adapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();
 
-export const initialState: UserState = adapter.getInitialState({
+export const usersInitialState: IUsersInitialState = adapter.getInitialState({
   // additional entity state properties
-  error: undefined,
-  selectedUser: undefined,
+  error: null,
+  selectedUser: null,
+  loadUsersPending: false,
+  loadUserPending: false,
+  addUserPending: false,
+  updateUserPending: false,
+  deleteUserPending: false,
 });
 
 export const reducer = createReducer(
-  initialState,
-  on(UserActions.addUser.successAdd, (state, action) =>
-    adapter.addOne(action.user, state)
-  ),
-  on(UserActions.addUser.failureAdd, (state, action) => {
+  usersInitialState,
+  on(UserActions.addUser.begin, (state, action) => {
+    return { ...state, addUserPending: true, error: null };
+  }),
+  on(UserActions.addUser.success, (state, action) => {
+    return {
+      ...adapter.addOne(action.user, state),
+      addUserPending: false,
+      error: null,
+    };
+  }),
+  on(UserActions.addUser.failure, (state, action) => {
     return {
       ...state,
+      addUserPending: false,
       error: action.error,
     };
   }),
@@ -39,25 +58,26 @@ export const reducer = createReducer(
       error: action.error,
     };
   }),
-  on(UserActions.loadUser.successLoad, (state, action) => {
+  on(UserActions.loadUser.success, (state, action) => {
     return {
       ...state,
       selectedUser: action.selectedUser,
     };
   }),
-  on(UserActions.loadUser.failureLoad, (state, action) => {
+
+  on(UserActions.loadUser.failure, (state, action) => {
     return {
       ...state,
       error: action.error,
     };
   }),
-  on(UserActions.updateUser.beginUpdate, (state, action) =>
+  on(UserActions.updateUser.begin, (state, action) =>
     adapter.updateOne(action.user, state)
   ),
-  on(UserActions.deleteUser.successDelete, (state, action) =>
+  on(UserActions.deleteUser.success, (state, action) =>
     adapter.removeOne(action.id, state)
   ),
-  on(UserActions.deleteUser.failureDelete, (state, action) => {
+  on(UserActions.deleteUser.failure, (state, action) => {
     return {
       ...state,
       error: action.error,
