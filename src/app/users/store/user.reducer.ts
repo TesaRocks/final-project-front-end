@@ -8,7 +8,7 @@ export const usersFeatureKey = 'userState';
 export interface UserState extends EntityState<IUser> {
   // additional entities state properties
   error: any;
-  selectedUser: IUser;
+  selectedUser: IUser | undefined;
 }
 
 export const adapter: EntityAdapter<IUser> = createEntityAdapter<IUser>();

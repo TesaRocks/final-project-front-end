@@ -38,7 +38,7 @@ export class UsersComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  users$: Observable<IUser[]>;
+  users$!: Observable<IUser[]>;
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
   ngOnInit() {
