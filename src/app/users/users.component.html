@@ -1,31 +1,43 @@
-<button mat-raised-button color="accent" routerLink="new">Create User</button>
-<table mat-table [dataSource]="users$" class="mat-elevation-z8">
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let user" [@EnterLeave]>
-      {{ user.name }}
-    </td>
-  </ng-container>
+<p *ngIf="error$ | async">Network problem, please try again later</p>
+<div *ngIf="pending$ | async; else formBlock">
+  <h2>Loading...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
+<div *ngIf="pendingDelete$ | async">
+  <h2>Deleting...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
 
-  <!-- Email Column -->
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let user" [@EnterLeave]>
-      {{ user.email }}
-    </td>
-  </ng-container>
+<ng-template #formBlock>
+  <button mat-raised-button color="accent" routerLink="new">Create User</button>
+  <table mat-table [dataSource]="users$" class="mat-elevation-z8">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let user" [@EnterLeave]>
+        {{ user.name }}
+      </td>
+    </ng-container>
 
-  <!-- Actions Column -->
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let user" [@EnterLeave]>
-      <mat-icon (click)="onEdit(user.id)" color="primary">edit</mat-icon>
-      <mat-icon color="primary" (click)="openDeleteDialog(user.id)"
-        >delete</mat-icon
-      >
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let user" [@EnterLeave]>
+        {{ user.email }}
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let user" [@EnterLeave]>
+        <mat-icon (click)="onEdit(user.id)" color="primary">edit</mat-icon>
+        <mat-icon color="primary" (click)="openDeleteDialog(user.id)"
+          >delete</mat-icon
+        >
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</ng-template>

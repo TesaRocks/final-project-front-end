@@ -1,34 +1,52 @@
-<form [formGroup]="formEditNew" (ngSubmit)="onSubmit()">
-  <div class="container">
-    <h1>{{ editMode ? "Update User Info" : "Create new User" }}</h1>
-    <hr />
-    <label for="name"><b>Name</b></label>
-    <input
-      type="text"
-      placeholder="{{ editMode ? formEditNew.value.name : 'name' }}"
-      id="name"
-      formControlName="name"
-    />
-    <label for="email"><b>Email</b></label>
-    <input
-      type="text"
-      placeholder="{{
-        editMode ? formEditNew.value.email : 'Enter your email'
-      }}"
-      formControlName="email"
-      id="email"
-    />
-    <label for="psw"><b>Password</b></label>
-    <input
-      type="password"
-      placeholder="6 characters only"
-      id="psw"
-      formControlName="password"
-    />
-    <hr />
-    <button type="submit" class="registerbtn" [disabled]="!formEditNew.valid">
-      {{ editMode ? "Save Changes" : "Add new User" }}
-    </button>
-  </div>
-  <p>Form Status: {{ formEditNew.status }}</p>
-</form>
+<p *ngIf="error$ | async">Network problem, please try again later</p>
+<p *ngIf="error$ | async">Network problem, please try again later</p>
+
+<div *ngIf="loadUserPending$ | async; else formBlock">
+  <h2>Initializing form...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
+<div *ngIf="updatePending$ | async">
+  <h2>Updating user...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
+<div *ngIf="addUserPending$ | async">
+  <h2>Adding new user...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
+<ng-template #formBlock>
+  <form [formGroup]="formEditNew" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <h1>{{ editMode ? "Update User Info" : "Create new User" }}</h1>
+      <hr />
+      <label for="name"><b>Name</b></label>
+      <input
+        type="text"
+        placeholder="{{ editMode ? formEditNew.value.name : 'name' }}"
+        id="name"
+        formControlName="name"
+      />
+      <!-- <p *ngIf="!formEditNew.get('name').valid">Please enter name</p> -->
+      <label for="email"><b>Email</b></label>
+      <input
+        type="text"
+        placeholder="{{
+          editMode ? formEditNew.value.email : 'Enter your email'
+        }}"
+        formControlName="email"
+        id="email"
+      />
+      <label for="psw"><b>Password</b></label>
+      <input
+        type="password"
+        placeholder="6 characters only"
+        id="psw"
+        formControlName="password"
+      />
+      <hr />
+      <button type="submit" class="registerbtn" [disabled]="!formEditNew.valid">
+        {{ editMode ? "Save Changes" : "Add new User" }}
+      </button>
+    </div>
+    <p>Form Status: {{ formEditNew.status }}</p>
+  </form>
+</ng-template>

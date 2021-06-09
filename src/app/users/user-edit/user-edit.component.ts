@@ -5,9 +5,16 @@ import { IUser } from '../user.interface';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { loadUser, updateUser, addUser } from '../store/user.actions';
-import { selectUser } from '../store/user.selectors';
+import {
+  loadUserPending,
+  selectUser,
+  updateUserPending,
+  addUserPending,
+  error,
+} from '../store/user.selectors';
 import { Update } from '@ngrx/entity';
 import { IApplicationState } from 'src/app/aplication-state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-edit',
@@ -17,6 +24,10 @@ import { IApplicationState } from 'src/app/aplication-state';
 export class UserEditComponent implements OnInit {
   id!: number;
   editMode = false;
+  updatePending$!: Observable<boolean>;
+  loadUserPending$!: Observable<boolean>;
+  addUserPending$!: Observable<boolean>;
+  error$!: Observable<any>;
   formEditNew = this.fb.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -46,7 +57,9 @@ export class UserEditComponent implements OnInit {
           this.formEditNew.setValue(formUser);
         }
       });
+      this.loadUserPending$ = this.store.select(loadUserPending);
     }
+    this.error$ = this.store.select(error);
   }
   onSubmit() {
     const updatedOrNewUser: IUser = {
@@ -61,8 +74,10 @@ export class UserEditComponent implements OnInit {
         changes: updatedOrNewUser,
       };
       this.store.dispatch(updateUser.success({ user: update }));
+      this.updatePending$ = this.store.select(updateUserPending);
     } else {
       this.store.dispatch(addUser.begin({ user: updatedOrNewUser }));
+      this.addUserPending$ = this.store.select(addUserPending);
     }
   }
 }

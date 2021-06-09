@@ -12,7 +12,12 @@ import {
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { loadUsers, deleteUser } from './store/user.actions';
-import { selectUsers } from './store/user.selectors';
+import {
+  loadUsersPending,
+  selectUsers,
+  deleteUserPending,
+  error,
+} from './store/user.selectors';
 import { IApplicationState } from '../aplication-state';
 @Component({
   selector: 'app-users',
@@ -39,11 +44,16 @@ export class UsersComponent implements OnInit {
   ) {}
 
   users$!: Observable<IUser[]>;
+  pending$!: Observable<boolean>;
+  pendingDelete$!: Observable<boolean>;
+  error$!: Observable<any>;
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
   ngOnInit() {
     this.store.dispatch(loadUsers.begin());
     this.users$ = this.store.select(selectUsers);
+    this.pending$ = this.store.select(loadUsersPending);
+    this.error$ = this.store.select(error);
   }
   onEdit(id: number) {
     this.router.navigate(['users', id, 'edit']);
@@ -55,6 +65,7 @@ export class UsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.store.dispatch(deleteUser.begin({ id: id }));
+        this.pendingDelete$ = this.store.select(deleteUserPending);
       }
     });
   }
