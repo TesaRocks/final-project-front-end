@@ -1,7 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IUser } from '../user.interface';
-import * as UserActions from './user.actions';
+import {
+  addUser,
+  loadUser,
+  loadUsers,
+  deleteUser,
+  updateUser,
+} from './user.actions';
 
 export const usersFeatureKey = 'userState';
 
@@ -9,7 +15,6 @@ export interface IUsersInitialState extends EntityState<IUser> {
   // additional entities state properties
   error: any;
   selectedUser: IUser | null;
-
   loadUsersPending: boolean;
   loadUserPending: boolean;
   addUserPending: boolean;
@@ -32,54 +37,71 @@ export const usersInitialState: IUsersInitialState = adapter.getInitialState({
 
 export const reducer = createReducer(
   usersInitialState,
-  on(UserActions.addUser.begin, (state, action) => {
-    return { ...state, addUserPending: true, error: null };
+  // Add One User
+  on(addUser.begin, (state) => {
+    return { ...state, addUserPending: true };
   }),
-  on(UserActions.addUser.success, (state, action) => {
+  on(addUser.success, (state, action) => {
     return {
       ...adapter.addOne(action.user, state),
       addUserPending: false,
-      error: null,
     };
   }),
-  on(UserActions.addUser.failure, (state, action) => {
+  on(addUser.failure, (state, action) => {
     return {
       ...state,
       addUserPending: false,
       error: action.error,
     };
   }),
-  on(UserActions.loadUsers.success, (state, action) =>
-    adapter.setAll(action.users, state)
-  ),
-  on(UserActions.loadUsers.failure, (state, action) => {
+  // Load Users
+  on(loadUsers.begin, (state) => {
+    return { ...state, loadUsersPending: true };
+  }),
+  on(loadUsers.success, (state, action) => {
+    return { ...adapter.setAll(action.users, state), loadUsersPending: false };
+  }),
+  on(loadUsers.failure, (state, action) => {
     return {
       ...state,
+      loadUsersPending: false,
       error: action.error,
     };
   }),
-  on(UserActions.loadUser.success, (state, action) => {
+  // Load User
+  on(loadUser.begin, (state) => {
+    return { ...state, loadUserPending: true };
+  }),
+  on(loadUser.success, (state, action) => {
     return {
       ...state,
+      loadUserPending: false,
       selectedUser: action.selectedUser,
     };
   }),
 
-  on(UserActions.loadUser.failure, (state, action) => {
+  on(loadUser.failure, (state, action) => {
     return {
       ...state,
+      loadUserPending: false,
       error: action.error,
     };
   }),
-  on(UserActions.updateUser.begin, (state, action) =>
+  // Update User
+  on(updateUser.success, (state, action) =>
     adapter.updateOne(action.user, state)
   ),
-  on(UserActions.deleteUser.success, (state, action) =>
-    adapter.removeOne(action.id, state)
-  ),
-  on(UserActions.deleteUser.failure, (state, action) => {
+  // Delete User
+  on(deleteUser.begin, (state) => {
+    return { ...state, deleteUserPending: true };
+  }),
+  on(deleteUser.success, (state, action) => {
+    return { ...adapter.removeOne(action.id, state), deleteUserPending: false };
+  }),
+  on(deleteUser.failure, (state, action) => {
     return {
       ...state,
+      deleteUserPending: false,
       error: action.error,
     };
   })

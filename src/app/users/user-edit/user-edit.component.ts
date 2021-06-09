@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../user.interface';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import * as fromActions from '../store/user.actions';
+import { loadUser, updateUser, addUser } from '../store/user.actions';
 import { selectUser } from '../store/user.selectors';
 import { Update } from '@ngrx/entity';
 import { IApplicationState } from 'src/app/aplication-state';
@@ -18,7 +18,6 @@ export class UserEditComponent implements OnInit {
   id!: number;
   editMode = false;
   formEditNew = this.fb.group({
-    id: ['', Validators.required],
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: [
@@ -29,17 +28,22 @@ export class UserEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private store: Store<IApplicationState>,
+    private store: Store<IApplicationState>
   ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
     if (this.editMode) {
-      this.store.dispatch(fromActions.loadUser.begin({ id: this.id }));
+      this.store.dispatch(loadUser.begin({ id: this.id }));
       this.store.select(selectUser).subscribe((user) => {
         if (user !== null) {
-          this.formEditNew.setValue(user)
+          let formUser = {
+            name: user.name,
+            email: user.email,
+            password: user.password,
+          };
+          this.formEditNew.setValue(formUser);
         }
       });
     }
@@ -56,11 +60,9 @@ export class UserEditComponent implements OnInit {
         id: this.id,
         changes: updatedOrNewUser,
       };
-      this.store.dispatch(fromActions.updateUser.beginUpdate({ user: update }));
+      this.store.dispatch(updateUser.success({ user: update }));
     } else {
-      this.store.dispatch(
-        fromActions.addUser.beginAdd({ user: updatedOrNewUser })
-      );
+      this.store.dispatch(addUser.begin({ user: updatedOrNewUser }));
     }
   }
 }

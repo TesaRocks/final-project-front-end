@@ -5,7 +5,7 @@ import { IUser } from '../user.interface';
 /** **************************************
  *  Load Users
  ***************************************/
-const loadUsersBegin = createAction('[User] Load Users');
+const loadUsersBegin = createAction('[User] Load Users Begin');
 const loadUsersSuccess = createAction(
   '[User] Load Users Success',
   props<{ users: IUser[] }>()
@@ -24,58 +24,55 @@ export const loadUsers = {
 /** **************************************
  *  Load User
  ***************************************/
-const beginLoad = createAction('[User] Load User', props<{ id: number }>());
-const successLoad = createAction(
+const loadUserBegin = createAction(
+  '[User] Load User Begin',
+  props<{ id: number }>()
+);
+const loadUserSuccess = createAction(
   '[User] Load User Success',
   props<{ selectedUser: IUser }>()
 );
-const failureLoad = createAction(
+const loadUserFailure = createAction(
   '[User] Load User Failure',
   props<{ error: any }>()
 );
 export const loadUser = {
-  begin: beginLoad,
-  success: successLoad,
-  failure: failureLoad,
+  begin: loadUserBegin,
+  success: loadUserSuccess,
+  failure: loadUserFailure,
 };
 
 /** **************************************
  *  Add user
  ***************************************/
-const beginAdd = createAction('[User] Add User', props<{ user: IUser }>());
-const successAdd = createAction(
+const addUserBegin = createAction(
+  '[User] Add User Begin',
+  props<{ user: IUser }>()
+);
+const addUserSuccess = createAction(
   '[User] Add User Success',
   props<{ user: IUser }>()
 );
-const failureAdd = createAction(
+const addUserFailure = createAction(
   '[User] Add User Failure',
   props<{ error: any }>()
 );
 export const addUser = {
-  begin: beginAdd,
-  success: successAdd,
-  failure: failureAdd,
+  begin: addUserBegin,
+  success: addUserSuccess,
+  failure: addUserFailure,
 };
 
 /** **************************************
  *  Update User
  ***************************************/
-const updateUserBegin = createAction(
-  '[User] Update User Begin',
-  props<{ user: Update<IUser> }>()
-);
+
 const updateUserSuccess = createAction(
   '[User] Update User success',
   props<{ user: Update<IUser> }>()
 );
-const updateUserFailure = createAction(
-  '[User] Update User failure',
-  props<{ error: any }>()
-);
 export const updateUser = {
-  begin: updateUserBegin,
   success: updateUserSuccess,
-  failure: updateUserFailure,
 };
 
 /** **************************************
