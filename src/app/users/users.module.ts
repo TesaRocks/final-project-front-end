@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UserDeleteConfirm, UsersComponent } from './users.component';
+import { UserDeleteConfirm, UsersComponent, ErrorBox } from './users.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { RouterModule } from '@angular/router';
 import { UsersRoutingModule } from './users-routing.module';
@@ -11,7 +11,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user.effects';
 
 @NgModule({
-  declarations: [UsersComponent, UserEditComponent, UserDeleteConfirm],
+  declarations: [
+    UsersComponent,
+    UserEditComponent,
+    UserDeleteConfirm,
+    ErrorBox,
+  ],
   imports: [
     RouterModule,
     UsersRoutingModule,

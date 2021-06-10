@@ -75,3 +75,9 @@ export class UsersComponent implements OnInit {
   templateUrl: 'users-delete-confirm.html',
 })
 export class UserDeleteConfirm {}
+
+@Component({
+  selector: 'error-box',
+  templateUrl: 'error-box.html',
+})
+export class ErrorBox {}
