@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUser } from './user.interface';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +9,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { loadUsers, deleteUser } from './store/user.actions';
 import {
@@ -36,7 +36,7 @@ import { IApplicationState } from '../aplication-state';
     ]),
   ],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<IApplicationState>,
     private router: Router,
@@ -46,14 +46,21 @@ export class UsersComponent implements OnInit {
   users$!: Observable<IUser[]>;
   pending$!: Observable<boolean>;
   pendingDelete$!: Observable<boolean>;
-  error$!: Observable<any>;
+  error!: Subscription;
   displayedColumns: string[] = ['name', 'email', 'actions'];
 
   ngOnInit() {
     this.store.dispatch(loadUsers.begin());
     this.users$ = this.store.select(selectUsers);
     this.pending$ = this.store.select(loadUsersPending);
-    this.error$ = this.store.select(error);
+    this.error = this.store.select(error).subscribe((error) => {
+      if (error) {
+        let errorDialog = this.dialog.open(ErrorBox);
+        errorDialog.afterClosed().subscribe(() => {
+          this.router.navigate(['']);
+        });
+      }
+    });
   }
   onEdit(id: number) {
     this.router.navigate(['users', id, 'edit']);
@@ -66,8 +73,20 @@ export class UsersComponent implements OnInit {
       if (result) {
         this.store.dispatch(deleteUser.begin({ id: id }));
         this.pendingDelete$ = this.store.select(deleteUserPending);
+        this.error = this.store.select(error).subscribe((error) => {
+          if (error) {
+            let errorDialog = this.dialog.open(ErrorBox);
+            errorDialog.afterClosed().subscribe(() => {
+              this.router.navigate(['']);
+            });
+          }
+        });
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.error.unsubscribe();
   }
 }
 @Component({

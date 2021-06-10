@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { UserDeleteConfirm, UsersComponent, ErrorBox } from './users.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserEditComponent, ErrorBox2 } from './user-edit/user-edit.component';
 import { RouterModule } from '@angular/router';
 import { UsersRoutingModule } from './users-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -16,6 +16,7 @@ import { UserEffects } from './store/user.effects';
     UserEditComponent,
     UserDeleteConfirm,
     ErrorBox,
+    ErrorBox2,
   ],
   imports: [
     RouterModule,

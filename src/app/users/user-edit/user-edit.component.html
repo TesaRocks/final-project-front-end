@@ -1,5 +1,3 @@
-<p *ngIf="error$ | async">Network problem, please try again later</p>
-
 <div *ngIf="loadUserPending$ | async; else formBlock">
   <h2>Initializing form...</h2>
   <mat-spinner> </mat-spinner>
@@ -17,6 +15,9 @@
     <div class="container">
       <h1>{{ editMode ? "Update User Info" : "Create new User" }}</h1>
       <hr />
+      <p class="alert" *ngIf="!formEditNew.valid && formEditNew.touched">
+        Please enter name, email and password
+      </p>
       <label for="name"><b>Name</b></label>
       <input
         type="text"
@@ -24,7 +25,7 @@
         id="name"
         formControlName="name"
       />
-      <!-- <p *ngIf="!formEditNew.get('name').valid">Please enter name</p> -->
+
       <label for="email"><b>Email</b></label>
       <input
         type="text"
@@ -42,6 +43,7 @@
         formControlName="password"
       />
       <hr />
+
       <button type="submit" class="registerbtn" [disabled]="!formEditNew.valid">
         {{ editMode ? "Save Changes" : "Add new User" }}
       </button>

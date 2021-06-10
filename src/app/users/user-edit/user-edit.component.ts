@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../user.interface';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { loadUser, updateUser, addUser } from '../store/user.actions';
+import { MatDialog } from '@angular/material/dialog';
 import {
   loadUserPending,
   selectUser,
@@ -14,20 +15,20 @@ import {
 } from '../store/user.selectors';
 import { Update } from '@ngrx/entity';
 import { IApplicationState } from 'src/app/aplication-state';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss'],
 })
-export class UserEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnDestroy {
   id!: number;
   editMode = false;
   updatePending$!: Observable<boolean>;
   loadUserPending$!: Observable<boolean>;
   addUserPending$!: Observable<boolean>;
-  error$!: Observable<any>;
+  error!: Subscription;
   formEditNew = this.fb.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -39,7 +40,9 @@ export class UserEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private store: Store<IApplicationState>
+    private store: Store<IApplicationState>,
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -58,8 +61,15 @@ export class UserEditComponent implements OnInit {
         }
       });
       this.loadUserPending$ = this.store.select(loadUserPending);
+      this.error = this.store.select(error).subscribe((error) => {
+        if (error) {
+          let errorDialog = this.dialog.open(ErrorBox2);
+          errorDialog.afterClosed().subscribe(() => {
+            this.router.navigate(['']);
+          });
+        }
+      });
     }
-    this.error$ = this.store.select(error);
   }
   onSubmit() {
     const updatedOrNewUser: IUser = {
@@ -80,4 +90,12 @@ export class UserEditComponent implements OnInit {
       this.addUserPending$ = this.store.select(addUserPending);
     }
   }
+  ngOnDestroy() {
+    this.error.unsubscribe();
+  }
 }
+@Component({
+  selector: 'error-box2',
+  templateUrl: 'error-box2.html',
+})
+export class ErrorBox2 {}
