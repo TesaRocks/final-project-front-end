@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromUser from './store/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user.effects';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [UsersComponent, UserEditComponent, UserDeleteConfirm],
@@ -19,6 +20,7 @@ import { UserEffects } from './store/user.effects';
     ReactiveFormsModule,
     StoreModule.forFeature(fromUser.usersFeatureKey, fromUser.reducer),
     EffectsModule.forFeature([UserEffects]),
+    MatFormFieldModule
   ],
 })
 export class UsersModule {}

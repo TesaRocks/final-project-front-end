@@ -95,13 +95,14 @@ export class UserEditComponent implements OnInit, OnDestroy {
     }
   }
   getErrorMessage() {
-    if (this.formEditNew.value.email.hasError('required')) {
-      return 'You must enter a value';
-    }
+    return "an error";
+    // if (this.formEditNew.value.email.hasError('required')) {
+    //   return 'You must enter a value';
+    // }
 
-    return this.formEditNew.value.email.hasError('email')
-      ? 'Not a valid email'
-      : '';
+    // return this.formEditNew.value.email.hasError('email')
+    //   ? 'Not a valid email'
+    //   : '';
   }
 
   ngOnDestroy() {

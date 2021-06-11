@@ -1,50 +1,50 @@
-input.ng-invalid.ng-touched{
-  border: 3px solid red;
-}
-/* Overwrite default styles of hr */
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
+// input.ng-invalid.ng-touched{
+//   border: 3px solid red;
+// }
+// /* Overwrite default styles of hr */
+// hr {
+//   border: 1px solid #f1f1f1;
+//   margin-bottom: 25px;
+// }
 
-/* Set a style for the submit/register button */
-.registerbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
+// /* Set a style for the submit/register button */
+// .registerbtn {
+//   background-color: #04AA6D;
+//   color: white;
+//   padding: 16px 20px;
+//   margin: 8px 0;
+//   border: none;
+//   cursor: pointer;
+//   width: 100%;
+//   opacity: 0.9;
 
-}
-.registerbtn:hover {
-  opacity:1;
-}
-.registerbtn:disabled{
-  cursor: wait;
-}
-.alert{
-  text-align: center;
-  background-color: lightpink;
-  font-size: large;
-}
+// }
+// .registerbtn:hover {
+//   opacity:1;
+// }
+// .registerbtn:disabled{
+//   cursor: wait;
+// }
+// .alert{
+//   text-align: center;
+//   background-color: lightpink;
+//   font-size: large;
+// }
 
-.example-container .mat-form-field + .mat-form-field {
-  margin-left: 8px;
-}
+// .example-container .mat-form-field + .mat-form-field {
+//   margin-left: 8px;
+// }
 
 
-.example-right-align {
-  text-align: right;
-}
+// .example-right-align {
+//   text-align: right;
+// }
 
-input.example-right-align::-webkit-outer-spin-button,
-input.example-right-align::-webkit-inner-spin-button {
-  display: none;
-}
+// input.example-right-align::-webkit-outer-spin-button,
+// input.example-right-align::-webkit-inner-spin-button {
+//   display: none;
+// }
 
-input.example-right-align {
-  -moz-appearance: textfield;
-}
+// input.example-right-align {
+//   -moz-appearance: textfield;
+// }

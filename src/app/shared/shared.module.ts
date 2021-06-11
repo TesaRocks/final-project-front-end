@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [ErrorMessage],
@@ -22,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
     ErrorMessage,
@@ -34,6 +36,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
+    MatInputModule,
   ],
 })
 export class SharedModule {}
