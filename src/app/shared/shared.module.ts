@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ErrorMessage } from './error-message';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
+  declarations: [ErrorMessage],
   imports: [
     CommonModule,
     MatListModule,
@@ -20,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
   ],
   exports: [
+    ErrorMessage,
     CommonModule,
     MatListModule,
     MatToolbarModule,

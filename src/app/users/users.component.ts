@@ -19,6 +19,7 @@ import {
   error,
 } from './store/user.selectors';
 import { IApplicationState } from '../aplication-state';
+import { ErrorMessage } from '../shared/error-message';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -55,7 +56,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.pending$ = this.store.select(loadUsersPending);
     this.error = this.store.select(error).subscribe((error) => {
       if (error) {
-        let errorDialog = this.dialog.open(ErrorBox);
+        let errorDialog = this.dialog.open(ErrorMessage, {
+          data: { message: error.message },
+        });
         errorDialog.afterClosed().subscribe(() => {
           this.router.navigate(['']);
         });
@@ -75,7 +78,9 @@ export class UsersComponent implements OnInit, OnDestroy {
         this.pendingDelete$ = this.store.select(deleteUserPending);
         this.error = this.store.select(error).subscribe((error) => {
           if (error) {
-            let errorDialog = this.dialog.open(ErrorBox);
+            let errorDialog = this.dialog.open(ErrorMessage, {
+              data: { message: error.message },
+            });
             errorDialog.afterClosed().subscribe(() => {
               this.router.navigate(['']);
             });
@@ -94,9 +99,3 @@ export class UsersComponent implements OnInit, OnDestroy {
   templateUrl: 'users-delete-confirm.html',
 })
 export class UserDeleteConfirm {}
-
-@Component({
-  selector: 'error-box',
-  templateUrl: 'error-box.html',
-})
-export class ErrorBox {}

@@ -16,6 +16,7 @@ import {
 import { Update } from '@ngrx/entity';
 import { IApplicationState } from 'src/app/aplication-state';
 import { Observable, Subscription } from 'rxjs';
+import { ErrorMessage } from 'src/app/shared/error-message';
 
 @Component({
   selector: 'app-user-edit',
@@ -63,7 +64,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
       this.loadUserPending$ = this.store.select(loadUserPending);
       this.error = this.store.select(error).subscribe((error) => {
         if (error) {
-          let errorDialog = this.dialog.open(ErrorBox2);
+          let errorDialog = this.dialog.open(ErrorMessage, {
+            data: { message: error.message },
+          });
           errorDialog.afterClosed().subscribe(() => {
             this.router.navigate(['']);
           });
@@ -96,8 +99,3 @@ export class UserEditComponent implements OnInit, OnDestroy {
     }
   }
 }
-@Component({
-  selector: 'error-box2',
-  templateUrl: 'error-box2.html',
-})
-export class ErrorBox2 {}
