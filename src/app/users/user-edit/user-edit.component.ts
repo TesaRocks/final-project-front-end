@@ -24,6 +24,7 @@ import { ErrorMessage } from 'src/app/shared/error-message';
   styleUrls: ['./user-edit.component.scss'],
 })
 export class UserEditComponent implements OnInit, OnDestroy {
+  hide = true;
   id!: number;
   editMode = false;
   updatePending$!: Observable<boolean>;
@@ -93,6 +94,16 @@ export class UserEditComponent implements OnInit, OnDestroy {
       this.addUserPending$ = this.store.select(addUserPending);
     }
   }
+  getErrorMessage() {
+    if (this.formEditNew.value.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.formEditNew.value.email.hasError('email')
+      ? 'Not a valid email'
+      : '';
+  }
+
   ngOnDestroy() {
     if (this.editMode) {
       this.error.unsubscribe();

@@ -1,4 +1,4 @@
-<div *ngIf="loadUserPending$ | async; else formBlock">
+<div *ngIf="loadUserPending$ | async">
   <h2>Loading...</h2>
   <mat-spinner> </mat-spinner>
 </div>
@@ -10,44 +10,66 @@
   <h2>Saving...</h2>
   <mat-spinner> </mat-spinner>
 </div>
-<ng-template #formBlock>
-  <form [formGroup]="formEditNew" (ngSubmit)="onSubmit()">
-    <div class="container">
-      <h1>{{ editMode ? "Update User Info" : "Create new User" }}</h1>
-      <hr />
-      <p class="alert" *ngIf="!formEditNew.valid && formEditNew.touched">
-        Please enter name, email and password
-      </p>
-      <label for="name"><b>Name</b></label>
-      <input
-        type="text"
-        placeholder="{{ editMode ? formEditNew.value.name : 'name' }}"
-        id="name"
-        formControlName="name"
-      />
 
-      <label for="email"><b>Email</b></label>
+<form [formGroup]="formEditNew" (ngSubmit)="onSubmit()">
+  <h1>{{ editMode ? "Update User Info" : "Create new User" }}</h1>
+  <hr />
+  <!-- <p class="alert" *ngIf="!formEditNew.valid && formEditNew.touched">
+    Please enter name, email and password
+  </p> -->
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Fill with name</mat-label>
       <input
-        type="text"
+        matInput
+        placeholder="{{ editMode ? formEditNew.value.name : 'name' }}"
+        formControlName="name"
+        id="name"
+      />
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
         placeholder="{{
-          editMode ? formEditNew.value.email : 'Enter your email'
+          editMode ? formEditNew.value.email : 'pat@example.com'
         }}"
         formControlName="email"
         id="email"
       />
-      <label for="psw"><b>Password</b></label>
+      <mat-error *ngIf="formEditNew.value.email">{{
+        getErrorMessage()
+      }}</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
       <input
-        type="password"
-        placeholder="6 characters only"
-        id="psw"
+        matInput
+        [type]="hide ? 'password' : 'text'"
         formControlName="password"
       />
-      <hr />
-
-      <button type="submit" class="registerbtn" [disabled]="!formEditNew.valid">
-        {{ editMode ? "Save Changes" : "Add new User" }}
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
-    </div>
-    <p>Form Status: {{ formEditNew.status }}</p>
-  </form>
-</ng-template>
+    </mat-form-field>
+  </div>
+  <hr />
+
+  <button type="submit" class="registerbtn" [disabled]="!formEditNew.valid">
+    {{ editMode ? "Save Changes" : "Add new User" }}
+  </button>
+
+  <p>Form Status: {{ formEditNew.status }}</p>
+</form>
