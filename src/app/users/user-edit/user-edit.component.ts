@@ -32,8 +32,11 @@ export class UserEditComponent implements OnInit, OnDestroy {
   addUserPending$!: Observable<boolean>;
   error!: Subscription;
   formEditNew = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
+    name: ['', [Validators.required, Validators.maxLength(45)]],
+    email: [
+      '',
+      [Validators.required, Validators.email, Validators.maxLength(45)],
+    ],
     password: [
       '',
       [Validators.required, Validators.minLength(6), Validators.maxLength(6)],
@@ -95,7 +98,10 @@ export class UserEditComponent implements OnInit, OnDestroy {
     }
   }
   getErrorMessage() {
-    return 'Enter a valid email';
+    return 'Enter a valid email, 45 Characters max!';
+  }
+  getErrorMessage2() {
+    return '45 Characters max!';
   }
 
   ngOnDestroy() {
