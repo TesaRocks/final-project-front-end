@@ -4,12 +4,12 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { RouterModule } from '@angular/router';
 import { UsersRoutingModule } from './users-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { MaterialModule } from '../shared/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import * as fromUser from './store/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user.effects';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [UsersComponent, UserEditComponent, UserDeleteConfirm],
@@ -17,10 +17,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     RouterModule,
     UsersRoutingModule,
     SharedModule,
+    MaterialModule,
     ReactiveFormsModule,
     StoreModule.forFeature(fromUser.usersFeatureKey, fromUser.reducer),
     EffectsModule.forFeature([UserEffects]),
-    MatFormFieldModule
   ],
 })
 export class UsersModule {}

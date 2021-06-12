@@ -10,27 +10,19 @@
   <h2>Saving...</h2>
   <mat-spinner> </mat-spinner>
 </div>
-
+<button routerLink="/users">
+  <mat-icon color="warn">backspace</mat-icon>
+</button>
 <h1>{{ editMode ? "Edit user" : "Create user" }}</h1>
 
 <form [formGroup]="formEditNew" (ngSubmit)="onSubmit()">
-  <p class="alert" *ngIf="!formEditNew.valid && formEditNew.touched">
-    Please enter name, email and password
-  </p>
-
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" class="field-width">
     <mat-label>Fill with name</mat-label>
-    <input
-      matInput
-      placeholder="Name"
-      formControlName="name"
-      id="name"
-    />
-    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>Hint</mat-hint> -->
+    <input matInput placeholder="Name" formControlName="name" id="name" />
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" class="field-width">
     <mat-label>Enter your email</mat-label>
     <input
       matInput
@@ -43,14 +35,15 @@
     }}</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Enter your password</mat-label>
+  <mat-form-field appearance="fill" class="field-width">
+    <mat-label>6 characters only</mat-label>
     <input
       matInput
       [type]="hide ? 'password' : 'text'"
       formControlName="password"
     />
     <button
+      type="button"
       mat-icon-button
       matSuffix
       (click)="hide = !hide"
@@ -60,12 +53,12 @@
       <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
     </button>
   </mat-form-field>
-
-  <button type="submit" class="registerbtn" [disabled]="!formEditNew.valid">
-    {{ editMode ? "Save Changes" : "Add new User" }}
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    [disabled]="!formEditNew.valid"
+  >
+    {{ editMode ? "Update" : "Save" }}
   </button>
-
-  <button type="submit" mat-raised-button color="primary" [disabled]="!formEditNew.valid" >{{ editMode ? "Update" : "Save" }}</button>
 </form>
-
-<p>Form Status: {{ formEditNew.status }}</p>

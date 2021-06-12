@@ -11,6 +11,7 @@ import { UsersModule } from './users/users.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { MaterialModule } from './shared/material.module';
 @NgModule({
   declarations: [AppComponent, MainComponent],
   imports: [
@@ -21,6 +22,7 @@ import { environment } from '../environments/environment';
     StoreModule.forRoot({}),
     EffectsModule.forRoot(),
     SharedModule,
+    MaterialModule,
     UsersModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,

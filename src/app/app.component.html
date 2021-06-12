@@ -1,10 +1,17 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row> Final Project </mat-toolbar-row>
-  <mat-toolbar-row>
-    <a routerLink="">Main Page</a>
-  </mat-toolbar-row>
-  <mat-toolbar-row>
-    <a routerLink="/users">Users</a>
-  </mat-toolbar-row>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Final Project</span>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="">
+      <mat-icon>bubble_chart</mat-icon>
+      <span>Main Page</span>
+    </button>
+    <button mat-menu-item routerLink="/users">
+      <mat-icon>contacts</mat-icon>
+      <span>Users</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
 <router-outlet></router-outlet>
