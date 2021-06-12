@@ -1,12 +1,12 @@
-<div *ngIf="loadUserPending$ | async">
+<div class="spinner" *ngIf="loadUserPending$ | async">
   <h2>Loading...</h2>
   <mat-spinner> </mat-spinner>
 </div>
-<div *ngIf="updatePending$ | async">
+<div class="spinner" *ngIf="updatePending$ | async">
   <h2>Updating...</h2>
   <mat-spinner> </mat-spinner>
 </div>
-<div *ngIf="addUserPending$ | async">
+<div class="spinner" *ngIf="addUserPending$ | async">
   <h2>Saving...</h2>
   <mat-spinner> </mat-spinner>
 </div>
