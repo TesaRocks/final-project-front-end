@@ -16,7 +16,9 @@ import {
 import { Update } from '@ngrx/entity';
 import { IApplicationState } from 'src/app/aplication-state';
 import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ErrorMessage } from 'src/app/shared/error-message';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-user-edit',
@@ -24,6 +26,7 @@ import { ErrorMessage } from 'src/app/shared/error-message';
   styleUrls: ['./user-edit.component.scss'],
 })
 export class UserEditComponent implements OnInit, OnDestroy {
+  isScreenSmall$!: Observable<boolean>;
   hide = true;
   id!: number;
   editMode = false;
@@ -47,10 +50,15 @@ export class UserEditComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private store: Store<IApplicationState>,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
+    this.isScreenSmall$ = this.breakpointObserver
+      .observe(Breakpoints.XSmall)
+      .pipe(map(({ matches }) => !matches));
+
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
     if (this.editMode) {

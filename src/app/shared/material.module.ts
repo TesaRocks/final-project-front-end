@@ -8,7 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { LayoutModule } from '@angular/cdk/layout';
+
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
@@ -22,7 +22,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
-    LayoutModule,
     MatTooltipModule,
   ],
   exports: [
@@ -35,7 +34,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
-    LayoutModule,
     MatTooltipModule,
   ],
 })

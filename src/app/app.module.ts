@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { MaterialModule } from './shared/material.module';
+import { LayoutModule } from '@angular/cdk/layout';
 @NgModule({
   declarations: [AppComponent, MainComponent],
   imports: [
@@ -23,6 +24,7 @@ import { MaterialModule } from './shared/material.module';
     EffectsModule.forRoot(),
     SharedModule,
     MaterialModule,
+    LayoutModule,
     UsersModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,
