@@ -5,7 +5,7 @@
 </div>
 <div *ngIf="pendingDelete$ | async">
   <h2>Deleting...</h2>
-  <mat-spinner> </mat-spinner>
+  <mat-spinner color="warn"> </mat-spinner>
 </div>
 <table mat-table [dataSource]="users$" class="mat-elevation-z8">
   <!-- Name Column -->
