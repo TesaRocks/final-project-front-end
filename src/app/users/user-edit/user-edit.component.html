@@ -21,7 +21,7 @@
 <h1>{{ editMode ? "Edit user" : "Create user" }}</h1>
 
 <form [formGroup]="formEditNew" (ngSubmit)="onSubmit()">
-  <ng-container *ngIf="isScreenSmall$ | async; else normal">
+  <ng-container *ngIf="isScreenSmall$ | async; else smallVersion">
     <mat-form-field appearance="fill">
       <mat-label>Fill with name</mat-label>
       <input
@@ -74,7 +74,7 @@
       </button>
     </mat-form-field>
   </ng-container>
-  <ng-template #normal>
+  <ng-template #smallVersion>
     <mat-form-field appearance="fill" class="small">
       <mat-label>Fill with name</mat-label>
       <input
