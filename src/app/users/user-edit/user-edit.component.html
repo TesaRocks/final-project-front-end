@@ -21,112 +21,55 @@
 <h1>{{ editMode ? "Edit user" : "Create user" }}</h1>
 
 <form [formGroup]="formEditNew" (ngSubmit)="onSubmit()">
-  <ng-container *ngIf="isScreenSmall$ | async; else smallVersion">
-    <mat-form-field appearance="fill">
-      <mat-label>Fill with name</mat-label>
-      <input
-        matInput
-        placeholder="Name"
-        formControlName="name"
-        id="name"
-        required
-      />
-      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-      <mat-hint>45 charactes max.</mat-hint>
-      <mat-error *ngIf="formEditNew.value.name">{{
-        getErrorMessage2()
-      }}</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your email</mat-label>
-      <input
-        matInput
-        placeholder="{{
-          editMode ? formEditNew.value.email : 'pat@example.com'
-        }}"
-        formControlName="email"
-        id="email"
-        required
-      />
-      <mat-error *ngIf="formEditNew.value.email">{{
-        getErrorMessage()
-      }}</mat-error>
-    </mat-form-field>
+  <mat-form-field appearance="fill" class="small">
+    <mat-label>Fill with name</mat-label>
+    <input
+      matInput
+      placeholder="Name"
+      formControlName="name"
+      id="name"
+      required
+    />
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint>45 charactes max.</mat-hint>
+    <!-- <mat-error *ngIf="!formEditNew.value.name">{{
+      getErrorMessage(formEditNew.value.name)
+    }}</mat-error> -->
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="small">
+    <mat-label>Enter your email</mat-label>
+    <input
+      matInput
+      placeholder="{{ editMode ? formEditNew.value.email : 'pat@example.com' }}"
+      formControlName="email"
+      id="email"
+      required
+    />
+    <!-- <mat-error *ngIf="!formEditNew.value.email">{{
+      getErrorMessage(formEditNew.value.email)
+    }}</mat-error> -->
+  </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Password fill</mat-label>
-      <input
-        matInput
-        [type]="hide ? 'password' : 'text'"
-        formControlName="password"
-        required
-      />
-      <mat-hint>6 characters only.</mat-hint>
-      <button
-        type="button"
-        mat-icon-button
-        matSuffix
-        (click)="hide = !hide"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
-      >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-      </button>
-    </mat-form-field>
-  </ng-container>
-  <ng-template #smallVersion>
-    <mat-form-field appearance="fill" class="small">
-      <mat-label>Fill with name</mat-label>
-      <input
-        matInput
-        placeholder="Name"
-        formControlName="name"
-        id="name"
-        required
-      />
-      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-      <mat-hint>45 charactes max.</mat-hint>
-      <mat-error *ngIf="formEditNew.value.name">{{
-        getErrorMessage2()
-      }}</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="small">
-      <mat-label>Enter your email</mat-label>
-      <input
-        matInput
-        placeholder="{{
-          editMode ? formEditNew.value.email : 'pat@example.com'
-        }}"
-        formControlName="email"
-        id="email"
-        required
-      />
-      <mat-error *ngIf="formEditNew.value.email">{{
-        getErrorMessage()
-      }}</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="small">
-      <mat-label>Password fill</mat-label>
-      <input
-        matInput
-        [type]="hide ? 'password' : 'text'"
-        formControlName="password"
-        required
-      />
-      <mat-hint>6 characters only.</mat-hint>
-      <button
-        type="button"
-        mat-icon-button
-        matSuffix
-        (click)="hide = !hide"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
-      >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-      </button>
-    </mat-form-field>
-  </ng-template>
+  <mat-form-field appearance="fill" class="small">
+    <mat-label>Password fill</mat-label>
+    <input
+      matInput
+      [type]="hide ? 'password' : 'text'"
+      formControlName="password"
+      required
+    />
+    <mat-hint>6 characters only.</mat-hint>
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+  </mat-form-field>
 
   <button
     type="submit"

@@ -16,9 +16,7 @@ import {
 import { Update } from '@ngrx/entity';
 import { IApplicationState } from 'src/app/aplication-state';
 import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ErrorMessage } from 'src/app/shared/error-message';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-user-edit',
@@ -26,7 +24,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   styleUrls: ['./user-edit.component.scss'],
 })
 export class UserEditComponent implements OnInit, OnDestroy {
-  isScreenSmall$!: Observable<boolean>;
   hide = true;
   id!: number;
   editMode = false;
@@ -50,15 +47,10 @@ export class UserEditComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private store: Store<IApplicationState>,
     private router: Router,
-    public dialog: MatDialog,
-    private breakpointObserver: BreakpointObserver
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.isScreenSmall$ = this.breakpointObserver
-      .observe(Breakpoints.XSmall)
-      .pipe(map(({ matches }) => !matches));
-
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
     if (this.editMode) {
@@ -105,12 +97,22 @@ export class UserEditComponent implements OnInit, OnDestroy {
       this.addUserPending$ = this.store.select(addUserPending);
     }
   }
-  getErrorMessage() {
-    return 'Enter a valid email, 45 Characters max!';
-  }
-  getErrorMessage2() {
-    return '45 Characters max!';
-  }
+  //getErrorMessage(e: any) {
+
+  // if (this.formEditNew.get('name')?.hasError('required')) {
+  //   return 'You must enter a name';
+  // } else if (this.formEditNew.get('name')?.hasError('maxLength')) {
+  //   return '45 characters maxxx.';
+  // }
+  // if (this.formEditNew.get('email')?.hasError('required')) {
+  //   return 'You must enter email';
+  // } else if (this.formEditNew.get('email')?.hasError('email')) {
+  //   return 'Enter a valid email';
+  // } else if (this.formEditNew.get('email')?.hasError('maxLength')) {
+  //   return '45 charactes only';
+  // }
+  // return '';
+  //}
 
   ngOnDestroy() {
     if (this.editMode) {
