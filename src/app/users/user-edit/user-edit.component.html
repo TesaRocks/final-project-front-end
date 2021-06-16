@@ -32,9 +32,12 @@
     />
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
     <mat-hint>45 charactes max.</mat-hint>
-    <!-- <mat-error *ngIf="!formEditNew.value.name">{{
-      getErrorMessage(formEditNew.value.name)
-    }}</mat-error> -->
+    <mat-error
+      *ngIf="
+        formEditNew.get('name')?.invalid && formEditNew.get('name')?.touched
+      "
+      >Plase enter a name max 45 characters
+    </mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill" class="small">
     <mat-label>Enter your email</mat-label>
@@ -45,9 +48,12 @@
       id="email"
       required
     />
-    <!-- <mat-error *ngIf="!formEditNew.value.email">{{
-      getErrorMessage(formEditNew.value.email)
-    }}</mat-error> -->
+    <mat-error
+      *ngIf="
+        formEditNew.get('email')?.invalid && formEditNew.get('email')?.touched
+      "
+      >Plase enter a valid email
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="small">
@@ -59,6 +65,13 @@
       required
     />
     <mat-hint>6 characters only.</mat-hint>
+    <mat-error
+      *ngIf="
+        formEditNew.get('password')?.invalid &&
+        formEditNew.get('password')?.touched
+      "
+      >Plase enter 6 charactes
+    </mat-error>
     <button
       type="button"
       mat-icon-button

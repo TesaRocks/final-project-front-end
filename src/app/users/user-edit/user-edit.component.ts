@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../user.interface';
-import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { loadUser, updateUser, addUser } from '../store/user.actions';
 import { MatDialog } from '@angular/material/dialog';
@@ -31,7 +30,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   loadUserPending$!: Observable<boolean>;
   addUserPending$!: Observable<boolean>;
   error!: Subscription;
-  formEditNew = this.fb.group({
+  formEditNew: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(45)]],
     email: [
       '',
@@ -97,22 +96,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
       this.addUserPending$ = this.store.select(addUserPending);
     }
   }
-  //getErrorMessage(e: any) {
-
-  // if (this.formEditNew.get('name')?.hasError('required')) {
-  //   return 'You must enter a name';
-  // } else if (this.formEditNew.get('name')?.hasError('maxLength')) {
-  //   return '45 characters maxxx.';
-  // }
-  // if (this.formEditNew.get('email')?.hasError('required')) {
-  //   return 'You must enter email';
-  // } else if (this.formEditNew.get('email')?.hasError('email')) {
-  //   return 'Enter a valid email';
-  // } else if (this.formEditNew.get('email')?.hasError('maxLength')) {
-  //   return '45 charactes only';
-  // }
-  // return '';
-  //}
 
   ngOnDestroy() {
     if (this.editMode) {
