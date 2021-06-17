@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Menu Options</span>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/home">
+      <mat-icon>bubble_chart</mat-icon>
+      <span>Home Page</span>
+    </button>
+    <button mat-menu-item routerLink="/users">
+      <mat-icon>contacts</mat-icon>
+      <span>Users</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
