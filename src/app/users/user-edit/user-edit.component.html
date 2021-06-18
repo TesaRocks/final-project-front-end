@@ -32,11 +32,11 @@
     />
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
     <mat-hint>45 charactes max.</mat-hint>
-    <mat-error
-      *ngIf="
-        formEditNew.get('name')?.invalid && formEditNew.get('name')?.touched
-      "
-      >Plase enter a name max 45 characters
+    <mat-error *ngIf="hasError('name', 'required')"
+      >This field is required
+    </mat-error>
+    <mat-error *ngIf="hasError('name', 'maxLength')"
+      >Name is too long.
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill" class="small">
@@ -48,11 +48,11 @@
       id="email"
       required
     />
-    <mat-error
-      *ngIf="
-        formEditNew.get('email')?.invalid && formEditNew.get('email')?.touched
-      "
-      >Plase enter a valid email
+    <mat-error *ngIf="hasError('email', 'required')"
+      >Plase enter an email
+    </mat-error>
+    <mat-error *ngIf="hasError('email', 'email')"
+      >Plase enter valid email
     </mat-error>
   </mat-form-field>
 
@@ -65,12 +65,8 @@
       required
     />
     <mat-hint>6 characters only.</mat-hint>
-    <mat-error
-      *ngIf="
-        formEditNew.get('password')?.invalid &&
-        formEditNew.get('password')?.touched
-      "
-      >Plase enter 6 charactes
+    <mat-error *ngIf="hasError('password', 'required')"
+      >Plase enter a passwoed
     </mat-error>
     <button
       type="button"

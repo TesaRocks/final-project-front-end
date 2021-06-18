@@ -96,7 +96,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
       this.addUserPending$ = this.store.select(addUserPending);
     }
   }
-
+  hasError(inputName: 'name' | 'email' | 'password', errorType: string) {
+    return this.formEditNew.get(inputName)?.hasError(errorType);
+  }
   ngOnDestroy() {
     if (this.editMode) {
       this.error.unsubscribe();
