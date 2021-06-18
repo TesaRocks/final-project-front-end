@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { ErrorMessage } from './error-message';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
+
+import { ErrorMessage } from './error-message';
 
 @NgModule({
   declarations: [ErrorMessage],

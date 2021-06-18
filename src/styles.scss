@@ -3,65 +3,6 @@
 html, body { height: 100%; }
 body { margin: 0;
  padding: 0px;
-  font-family: Roboto, "Helvetica Neue", sans-serif;background-color: #E4F0FF;
+  font-family: Roboto, "Helvetica Neue", sans-serif
 
-.container{
-  display:grid;
-  grid-template-columns: 220px 1fr 200px;
-  grid-template-rows: auto 1fr auto;
-  grid-gap: 5px;
-  grid-template-areas:
-  "header header header"
-  "nav content side"
-  "footer footer footer";
-  height: 100vh;
-}
-app-header{
-  color: white;
-  font-size: 14px;
-  grid-area: header;
-  text-align: center;
-  background-color:grey;
-}
-app-nav{
-  grid-area: nav;
-  margin-left: 0.6rem;
-  background-color: #2A92BF;
-}
-app-main, app-users, app-user-edit{
-  grid-area: content;
-  background-color: #F4CE46;
-  padding: 25px;
-}
-app-aside{
-  grid-area:side;
-  margin-right: 0.6rem;
-  background-color: #2A92BF;
-}
-app-footer{
-  grid-area: footer;
-  background-color:grey;
-    color: white;
-    text-align: center;
-    padding: 25px 0;
-}
-
-
-@media (max-width: 991px) {
-  app-nav,
-  app-aside {
-    margin: 0;
-  }
-
-  .container {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "header"
-      "nav"
-      "content"
-      "side"
-      "footer";
-    grid-template-rows:auto minmax(60px, auto) 1fr minmax(70px, auto) auto;
-  }
-}
 }
