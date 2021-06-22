@@ -9,11 +9,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from './shared/material.module';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { UsersModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
 import { NavComponent } from './nav/nav.component';
 @NgModule({
   declarations: [AppComponent, MainComponent, NavComponent],
@@ -32,6 +32,7 @@ import { NavComponent } from './nav/nav.component';
       logOnly: environment.production,
     }),
     LayoutModule,
+    ProductsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
