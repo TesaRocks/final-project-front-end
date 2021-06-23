@@ -1,19 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { IProduct } from './product.interface';
+import { IProduct } from '../product.interface';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { IApplicationState } from '../aplication-state';
-import { ErrorMessage } from '../shared/error-message';
-import { loadProducts } from './store/product.actions';
-import { loadProductsPending, selectProducts } from './store/product.selectors';
+import { IApplicationState } from '../../aplication-state';
+import { ErrorMessage } from '../../shared/error-message';
+import { loadProducts } from '../ngrx/product.actions';
+import { loadProductsPending, selectProducts } from '../ngrx/product.selectors';
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
+  templateUrl: './products-list.component.html',
+  styleUrls: ['./products-list.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsListComponent implements OnInit {
   constructor(
     private store: Store<IApplicationState>,
     private router: Router

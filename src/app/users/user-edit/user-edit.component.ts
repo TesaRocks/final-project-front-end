@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../user.interface';
 import { Store } from '@ngrx/store';
-import { loadUser, updateUser, addUser } from '../store/user.actions';
+import { loadUser, updateUser, addUser } from '../ngrx/user.actions';
 import { MatDialog } from '@angular/material/dialog';
 import {
   loadUserPending,
@@ -11,7 +11,7 @@ import {
   updateUserPending,
   addUserPending,
   error,
-} from '../store/user.selectors';
+} from '../ngrx/user.selectors';
 import { Update } from '@ngrx/entity';
 import { IApplicationState } from 'src/app/aplication-state';
 import { Observable, Subscription } from 'rxjs';

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IUser } from './user.interface';
+import { IUser } from '../user.interface';
 import { MatDialog } from '@angular/material/dialog';
 import {
   animate,
@@ -11,19 +11,19 @@ import {
 } from '@angular/animations';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { loadUsers, deleteUser } from './store/user.actions';
+import { loadUsers, deleteUser } from '../ngrx/user.actions';
 import {
   loadUsersPending,
   selectUsers,
   deleteUserPending,
   error,
-} from './store/user.selectors';
-import { IApplicationState } from '../aplication-state';
-import { ErrorMessage } from '../shared/error-message';
+} from '../ngrx/user.selectors';
+import { IApplicationState } from '../../aplication-state';
+import { ErrorMessage } from '../../shared/error-message';
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  templateUrl: './users-list.component.html',
+  styleUrls: ['./users-list.component.scss'],
   animations: [
     trigger('EnterLeave', [
       state('flyIn', style({ transform: 'translateX(0)' })),
@@ -37,7 +37,7 @@ import { ErrorMessage } from '../shared/error-message';
     ]),
   ],
 })
-export class UsersComponent implements OnInit, OnDestroy {
+export class UsersListComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<IApplicationState>,
     private router: Router,

@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { ProductsComponent } from './products.component';
+import { ProductsListComponent } from './product-list/products-list.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../shared/material.module';
 import { ProductsRoutingModule } from './products-routing.module';
 import { StoreModule } from '@ngrx/store';
-import * as fromProduct from './store/product.reducer';
+import * as fromProduct from './ngrx/product.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { ProductEffects } from './store/product.effects';
+import { ProductEffects } from './ngrx/product.effects';
 
 @NgModule({
-  declarations: [ProductsComponent],
+  declarations: [ProductsListComponent],
   imports: [
     SharedModule,
     RouterModule,
