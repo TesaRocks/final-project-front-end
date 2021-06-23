@@ -23,6 +23,7 @@ export class ProductsListComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(loadProducts.begin());
     this.products$ = this.store.select(selectProducts);
+    console.log(this.products$);
     this.pending$ = this.store.select(loadProductsPending);
   }
 }

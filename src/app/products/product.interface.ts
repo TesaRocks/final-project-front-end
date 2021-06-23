@@ -6,5 +6,5 @@ export interface IProduct {
   price: number;
   created: Date;
   sold: boolean;
-  userId: number;
+  id: number;
 }
