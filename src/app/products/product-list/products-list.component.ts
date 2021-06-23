@@ -30,8 +30,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(loadProducts.begin());
     this.products$ = this.store.select(selectProducts);
-    console.log(this.products$);
-
     this.pending$ = this.store.select(loadProductsPending);
     this.error = this.store.select(error).subscribe((error) => {
       if (error) {
