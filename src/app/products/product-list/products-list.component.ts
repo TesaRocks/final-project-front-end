@@ -12,6 +12,7 @@ import {
   selectProducts,
 } from '../ngrx/product.selectors';
 import { MatDialog } from '@angular/material/dialog';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -31,6 +32,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadProducts.begin());
     this.products$ = this.store.select(selectProducts);
     console.log(this.products$);
+
     this.pending$ = this.store.select(loadProductsPending);
     this.error = this.store.select(error).subscribe((error) => {
       if (error) {
