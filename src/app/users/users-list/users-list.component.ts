@@ -20,6 +20,7 @@ import {
 } from '../ngrx/user.selectors';
 import { IApplicationState } from '../../aplication-state';
 import { ErrorMessage } from '../../shared/error-message';
+import { DeleteConfirm } from 'src/app/shared/delete-confirm';
 @Component({
   selector: 'app-users',
   templateUrl: './users-list.component.html',
@@ -70,7 +71,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   openDeleteDialog(id: number) {
-    const dialogRef = this.dialog.open(UserDeleteConfirm);
+    const dialogRef = this.dialog.open(DeleteConfirm);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -94,8 +95,3 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.error.unsubscribe();
   }
 }
-@Component({
-  selector: 'user-delete-confirm',
-  templateUrl: 'users-delete-confirm.html',
-})
-export class UserDeleteConfirm {}
