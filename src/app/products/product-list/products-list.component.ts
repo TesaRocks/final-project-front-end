@@ -12,7 +12,6 @@ import {
   selectProducts,
 } from '../ngrx/product.selectors';
 import { MatDialog } from '@angular/material/dialog';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
