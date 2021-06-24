@@ -16,8 +16,12 @@ export interface IProductsInitialState extends EntityState<IProduct> {
   updateProductPending: boolean;
   deleteProductPending: boolean;
 }
-
-export const adapter: EntityAdapter<IProduct> = createEntityAdapter<IProduct>();
+export function selectProductId(product: IProduct): number {
+  return product.productId;
+}
+export const adapter: EntityAdapter<IProduct> = createEntityAdapter<IProduct>({
+  selectId: selectProductId,
+});
 
 export const productsInitialState: IProductsInitialState =
   adapter.getInitialState({
