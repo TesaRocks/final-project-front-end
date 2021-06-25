@@ -42,7 +42,7 @@ export class UserEffects {
       mergeMap((action) =>
         this.userService.newUser(action.user).pipe(
           map((user) => addUser.success({ user })),
-          catchError((error) => of(deleteUser.failure({ error })))
+          catchError((error) => of(addUser.failure({ error })))
         )
       ),
       tap(() => this.router.navigate(['users']))

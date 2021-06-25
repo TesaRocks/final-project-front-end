@@ -1,30 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatListModule } from '@angular/material/list';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import { ErrorMessage } from './error-message';
+import { DeleteConfirm } from './delete-confirm';
+
 @NgModule({
-  imports: [
-    CommonModule,
-    MatListModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTableModule,
-    MatDialogModule,
-  ],
-  exports: [
-    CommonModule,
-    MatListModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTableModule,
-    MatDialogModule,
-  ],
+  declarations: [ErrorMessage, DeleteConfirm],
+  imports: [CommonModule, MatDialogModule],
+  exports: [ErrorMessage, DeleteConfirm, CommonModule, MatDialogModule],
 })
 export class SharedModule {}

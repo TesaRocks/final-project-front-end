@@ -1,34 +1,91 @@
+<div *ngIf="loadUserPending$ | async">
+  <h2>Loading...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
+<div *ngIf="updatePending$ | async">
+  <h2>Updating...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
+<div *ngIf="addUserPending$ | async">
+  <h2>Saving...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
+<button
+  routerLink="/users"
+  matTooltip="back to users list"
+  matTooltipShowDelay="600"
+  matTooltipPosition="right"
+>
+  <mat-icon color="warn">backspace</mat-icon>
+</button>
+<h1>{{ editMode ? "Edit user" : "Create user" }}</h1>
+
 <form [formGroup]="formEditNew" (ngSubmit)="onSubmit()">
-  <div class="container">
-    <h1>{{ editMode ? "Update User Info" : "Create new User" }}</h1>
-    <hr />
-    <label for="name"><b>Name</b></label>
+  <mat-form-field appearance="fill" class="small">
+    <mat-label>Fill with name</mat-label>
     <input
-      type="text"
-      placeholder="{{ editMode ? formEditNew.value.name : 'name' }}"
-      id="name"
+      matInput
+      placeholder="Name"
       formControlName="name"
+      id="name"
+      required
     />
-    <label for="email"><b>Email</b></label>
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint>45 charactes max.</mat-hint>
+    <mat-error *ngIf="hasError('name', 'required')"
+      >This field is required
+    </mat-error>
+    <!-- <mat-error *ngIf="hasError('name', 'maxLength')"
+      >Name is too long.
+    </mat-error> -->
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="small">
+    <mat-label>Enter your email</mat-label>
     <input
-      type="text"
-      placeholder="{{
-        editMode ? formEditNew.value.email : 'Enter your email'
-      }}"
+      matInput
+      placeholder="{{ editMode ? formEditNew.value.email : 'pat@example.com' }}"
       formControlName="email"
       id="email"
+      required
     />
-    <label for="psw"><b>Password</b></label>
+    <mat-error *ngIf="hasError('email', 'required')"
+      >Plase enter an email
+    </mat-error>
+    <mat-error *ngIf="hasError('email', 'email')"
+      >Plase enter valid email
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="small">
+    <mat-label>Password fill</mat-label>
     <input
-      type="password"
-      placeholder="6 characters only"
-      id="psw"
+      matInput
+      [type]="hide ? 'password' : 'text'"
       formControlName="password"
+      required
     />
-    <hr />
-    <button type="submit" class="registerbtn" [disabled]="!formEditNew.valid">
-      {{ editMode ? "Save Changes" : "Add new User" }}
+    <mat-hint>6 characters only.</mat-hint>
+    <mat-error *ngIf="hasError('password', 'required')"
+      >Plase enter a passwoed
+    </mat-error>
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
     </button>
-  </div>
-  <p>Form Status: {{ formEditNew.status }}</p>
+  </mat-form-field>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    [disabled]="!formEditNew.valid"
+  >
+    {{ editMode ? "Update" : "Save" }}
+  </button>
 </form>

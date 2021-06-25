@@ -1,4 +1,12 @@
 <button mat-raised-button color="accent" routerLink="new">Create User</button>
+<div *ngIf="pending$ | async">
+  <h2>Loading...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
+<div *ngIf="pendingDelete$ | async">
+  <h2>Deleting...</h2>
+  <mat-spinner color="warn"> </mat-spinner>
+</div>
 <table mat-table [dataSource]="users$" class="mat-elevation-z8">
   <!-- Name Column -->
   <ng-container matColumnDef="name">

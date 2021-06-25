@@ -1,25 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../user.interface';
-import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { loadUser, updateUser, addUser } from '../store/user.actions';
-import { selectUser } from '../store/user.selectors';
+import { loadUser, updateUser, addUser } from '../ngrx/user.actions';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  loadUserPending,
+  selectUser,
+  updateUserPending,
+  addUserPending,
+  error,
+} from '../ngrx/user.selectors';
 import { Update } from '@ngrx/entity';
 import { IApplicationState } from 'src/app/aplication-state';
+import { Observable, Subscription } from 'rxjs';
+import { ErrorMessage } from 'src/app/shared/error-message';
 
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss'],
 })
-export class UserEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnDestroy {
+  hide = true;
   id!: number;
   editMode = false;
-  formEditNew = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
+  updatePending$!: Observable<boolean>;
+  loadUserPending$!: Observable<boolean>;
+  addUserPending$!: Observable<boolean>;
+  error!: Subscription;
+  formEditNew: FormGroup = this.fb.group({
+    name: ['', [Validators.required, Validators.maxLength(45)]],
+    email: [
+      '',
+      [Validators.required, Validators.email, Validators.maxLength(45)],
+    ],
     password: [
       '',
       [Validators.required, Validators.minLength(6), Validators.maxLength(6)],
@@ -28,7 +44,9 @@ export class UserEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private store: Store<IApplicationState>
+    private store: Store<IApplicationState>,
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +64,17 @@ export class UserEditComponent implements OnInit {
           this.formEditNew.setValue(formUser);
         }
       });
+      this.loadUserPending$ = this.store.select(loadUserPending);
+      this.error = this.store.select(error).subscribe((error) => {
+        if (error) {
+          let errorDialog = this.dialog.open(ErrorMessage, {
+            data: { message: error.message },
+          });
+          errorDialog.afterClosed().subscribe(() => {
+            this.router.navigate(['']);
+          });
+        }
+      });
     }
   }
   onSubmit() {
@@ -61,8 +90,18 @@ export class UserEditComponent implements OnInit {
         changes: updatedOrNewUser,
       };
       this.store.dispatch(updateUser.success({ user: update }));
+      this.updatePending$ = this.store.select(updateUserPending);
     } else {
       this.store.dispatch(addUser.begin({ user: updatedOrNewUser }));
+      this.addUserPending$ = this.store.select(addUserPending);
+    }
+  }
+  hasError(inputName: 'name' | 'email' | 'password', errorType: string) {
+    return this.formEditNew.get(inputName)?.hasError(errorType);
+  }
+  ngOnDestroy() {
+    if (this.editMode) {
+      this.error.unsubscribe();
     }
   }
 }
