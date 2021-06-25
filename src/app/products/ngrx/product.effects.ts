@@ -10,9 +10,9 @@ export class ProductEffects {
   loadProducts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadProducts.begin),
-      mergeMap(() =>
-        this.productService.fetchProducts().pipe(
-          map((products) => loadProducts.success({ products: products })),
+      mergeMap((action) =>
+        this.productService.fetchProducts(action.page, action.limit).pipe(
+          map((pagination) => loadProducts.success({ pagination: pagination })),
           catchError((error) => of(loadProducts.failure({ error })))
         )
       )

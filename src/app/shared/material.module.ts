@@ -12,6 +12,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+
 @NgModule({
   imports: [
     MatToolbarModule,
@@ -27,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
     MatListModule,
     MatSidenavModule,
     MatCardModule,
+    MatGridListModule,
   ],
   exports: [
     MatToolbarModule,
@@ -42,6 +45,7 @@ import { MatCardModule } from '@angular/material/card';
     MatListModule,
     MatSidenavModule,
     MatCardModule,
+    MatGridListModule,
   ],
 })
 export class MaterialModule {}
