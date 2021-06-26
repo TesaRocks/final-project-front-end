@@ -26,9 +26,60 @@ export const loadProducts = {
   success: loadProductsSuccess,
   failure: loadProductsFailure,
 };
+/** **************************************
+ *  Load Product
+ ***************************************/
+const loadProductBegin = createAction(
+  '[Product] Load Product Begin',
+  props<{ id: number }>()
+);
+const loadProductSuccess = createAction(
+  '[Product] Load Product Success',
+  props<{ selectedProduct: IProduct }>()
+);
+const loadProductFailure = createAction(
+  '[Product] Load Product Failure',
+  props<{ error: any }>()
+);
+export const loadProduct = {
+  begin: loadProductBegin,
+  success: loadProductSuccess,
+  failure: loadProductFailure,
+};
+
+/** **************************************
+ *  Delete Product
+ ***************************************/
+
+const deleteProductBegin = createAction(
+  '[Product] Delete Product Begin',
+  props<{ id: number }>()
+);
+
+const deleteProductSuccess = createAction(
+  '[Product] Delete Products Success',
+  props<{ id: number }>()
+);
+const deleteProductFailure = createAction(
+  '[Product] Delete Product Failure',
+  props<{ error: any }>()
+);
+export const deleteProduct = {
+  begin: deleteProductBegin,
+  success: deleteProductSuccess,
+  failure: deleteProductFailure,
+};
+
+/** **************************************
+ *  Populate Invoice
+ ***************************************/
+const populateInvoiceBegin = createAction(
+  '[Invoice] Populate Invoice Begin',
+  props<{ id: number }>()
+);
 
 const addProduct = createAction(
-  '[Product/API] Add Product',
+  '[Invoice] Add Product Begin',
   props<{ product: IProduct }>()
 );
 
@@ -42,11 +93,6 @@ const addProducts = createAction(
   props<{ products: IProduct[] }>()
 );
 
-const upsertProducts = createAction(
-  '[Product/API] Upsert Products',
-  props<{ products: IProduct[] }>()
-);
-
 const updateProduct = createAction(
   '[Product/API] Update Product',
   props<{ product: Update<IProduct> }>()
@@ -55,16 +101,6 @@ const updateProduct = createAction(
 const updateProducts = createAction(
   '[Product/API] Update Products',
   props<{ products: Update<IProduct>[] }>()
-);
-
-const deleteProduct = createAction(
-  '[Product/API] Delete Product',
-  props<{ id: string }>()
-);
-
-const deleteProducts = createAction(
-  '[Product/API] Delete Products',
-  props<{ ids: string[] }>()
 );
 
 const clearProducts = createAction('[Product/API] Clear Products');

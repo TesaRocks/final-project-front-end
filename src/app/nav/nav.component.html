@@ -17,6 +17,7 @@
         [queryParams]="{ page: '1', limit: '4' }"
         >Products</a
       >
+      <a mat-list-item [routerLink]="'/invoice'">Invoice</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -31,6 +32,8 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>Final Project </span>
+      <mat-icon class="cart">add_shopping_cart</mat-icon>
+      <!-- <mat-icon class="cart">shopping_cart</mat-icon> -->
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

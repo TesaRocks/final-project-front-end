@@ -9,6 +9,11 @@ export const selectProductState =
   createFeatureSelector<IProductsInitialState>(productsFeatureKey);
 
 export const selectProducts = createSelector(selectProductState, selectAll);
+
+export const selectProduct = createSelector(
+  selectProductState,
+  (state: IProductsInitialState) => state.selectedProduct
+);
 export const loadProductsPending = createSelector(
   selectProductState,
   (state: IProductsInitialState) => state.loadProductsPending
@@ -24,4 +29,12 @@ export const selectPrevious = createSelector(
 export const selectNext = createSelector(
   selectProductState,
   (state: IProductsInitialState) => state.next
+);
+export const loadProductPending = createSelector(
+  selectProductState,
+  (state: IProductsInitialState) => state.loadProductPending
+);
+export const deleteProductPending = createSelector(
+  selectProductState,
+  (state: IProductsInitialState) => state.deleteProductPending
 );

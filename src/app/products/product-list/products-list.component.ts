@@ -5,8 +5,13 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IApplicationState } from '../../aplication-state';
 import { ErrorMessage } from '../../shared/error-message';
-import { loadProducts } from '../ngrx/product.actions';
 import {
+  deleteProduct,
+  loadProduct,
+  loadProducts,
+} from '../ngrx/product.actions';
+import {
+  deleteProductPending,
   error,
   loadProductsPending,
   selectNext,
@@ -28,7 +33,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     public dialog: MatDialog
   ) {}
   products$!: Observable<IProduct[]>;
-  pending$!: Observable<boolean>;
+  loadProductsPending$!: Observable<boolean>;
+  pendingDelete$!: Observable<boolean>;
   error!: Subscription;
   previous$!: Observable<boolean>;
   next$!: Observable<boolean>;
@@ -38,7 +44,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         loadProducts.begin({ page: params['page'], limit: params['limit'] })
       );
       this.products$ = this.store.select(selectProducts);
-      this.pending$ = this.store.select(loadProductsPending);
+      this.loadProductsPending$ = this.store.select(loadProductsPending);
       this.previous$ = this.store.select(selectPrevious);
       this.next$ = this.store.select(selectNext);
       this.error = this.store.select(error).subscribe((error) => {
@@ -64,6 +70,22 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.router.navigate(['products'], {
       queryParams: { page: page, limit: 4 },
     });
+  }
+  onBuy(product: IProduct) {
+    localStorage.setItem('product', JSON.stringify(product));
+
+    // this.store.dispatch(deleteProduct.begin({ id: product.productId }));
+    // this.pendingDelete$ = this.store.select(deleteProductPending);
+    // this.error = this.store.select(error).subscribe((error) => {
+    //   if (error) {
+    //     let errorDialog = this.dialog.open(ErrorMessage, {
+    //       data: { message: error.message },
+    //     });
+    //     errorDialog.afterClosed().subscribe(() => {
+    //       this.router.navigate(['']);
+    //     });
+    //   }
+    // });
   }
   ngOnDestroy() {
     this.error.unsubscribe();

@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IProduct } from '../product.interface';
 
-import { loadProducts } from './product.actions';
+import { deleteProduct, loadProduct, loadProducts } from './product.actions';
 
 export const productsFeatureKey = 'productsState';
 
@@ -59,7 +59,44 @@ export const reducer = createReducer(
       loadProductsPending: false,
       error: action.error,
     };
+  }),
+  // Load Product
+  on(loadProduct.begin, (state) => {
+    return { ...state, loadProductPending: true };
+  }),
+  on(loadProduct.success, (state, action) => {
+    return {
+      ...state,
+      loadProductPending: false,
+      selectedUser: action.selectedProduct,
+    };
+  }),
+
+  on(loadProduct.failure, (state, action) => {
+    return {
+      ...state,
+      loadProductPending: false,
+      error: action.error,
+    };
+  }),
+  // Delete User
+  on(deleteProduct.begin, (state) => {
+    return { ...state, deleteProductPending: true };
+  }),
+  on(deleteProduct.success, (state, action) => {
+    return {
+      ...adapter.removeOne(action.id, state),
+      deleteProductPending: false,
+    };
+  }),
+  on(deleteProduct.failure, (state, action) => {
+    return {
+      ...state,
+      deleteProductPending: false,
+      error: action.error,
+    };
   })
 );
+
 export const { selectIds, selectEntities, selectAll, selectTotal } =
   adapter.getSelectors();
