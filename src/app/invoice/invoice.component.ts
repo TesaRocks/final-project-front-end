@@ -10,8 +10,6 @@ import { IProduct } from '../products/product.interface';
 })
 export class InvoiceComponent implements OnInit {
   constructor(private store: Store<IApplicationState>) {}
-  product!: IProduct;
-  ngOnInit(): void {
-    this.product = JSON.parse(localStorage.getItem('product') || '{}');
-  }
+
+  ngOnInit(): void {}
 }

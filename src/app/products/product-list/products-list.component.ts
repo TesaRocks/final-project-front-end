@@ -71,22 +71,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       queryParams: { page: page, limit: 4 },
     });
   }
-  onBuy(product: IProduct) {
-    localStorage.setItem('product', JSON.stringify(product));
-
-    // this.store.dispatch(deleteProduct.begin({ id: product.productId }));
-    // this.pendingDelete$ = this.store.select(deleteProductPending);
-    // this.error = this.store.select(error).subscribe((error) => {
-    //   if (error) {
-    //     let errorDialog = this.dialog.open(ErrorMessage, {
-    //       data: { message: error.message },
-    //     });
-    //     errorDialog.afterClosed().subscribe(() => {
-    //       this.router.navigate(['']);
-    //     });
-    //   }
-    // });
-  }
   ngOnDestroy() {
     this.error.unsubscribe();
   }
