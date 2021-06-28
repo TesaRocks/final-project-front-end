@@ -5,17 +5,10 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IApplicationState } from '../../aplication-state';
 import { ErrorMessage } from '../../shared/error-message';
+import { loadProducts } from '../ngrx/product.actions';
 import {
-  deleteProduct,
-  loadProduct,
-  loadProducts,
-} from '../ngrx/product.actions';
-import {
-  deleteProductPending,
   error,
   loadProductsPending,
-  selectNext,
-  selectPrevious,
   selectProducts,
 } from '../ngrx/product.selectors';
 import { MatDialog } from '@angular/material/dialog';
@@ -34,19 +27,17 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   ) {}
   products$!: Observable<IProduct[]>;
   loadProductsPending$!: Observable<boolean>;
-  pendingDelete$!: Observable<boolean>;
   error!: Subscription;
-  previous$!: Observable<boolean>;
-  next$!: Observable<boolean>;
+  currentPage!: number;
+  previousPage!: number;
+  nextPage!: number;
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
-      this.store.dispatch(
-        loadProducts.begin({ page: params['page'], limit: params['limit'] })
-      );
+      this.currentPage = parseInt(params['page']);
+      this.previousPage = this.currentPage - 1;
+      this.store.dispatch(loadProducts.begin({ page: params['page'] }));
       this.products$ = this.store.select(selectProducts);
       this.loadProductsPending$ = this.store.select(loadProductsPending);
-      this.previous$ = this.store.select(selectPrevious);
-      this.next$ = this.store.select(selectNext);
       this.error = this.store.select(error).subscribe((error) => {
         if (error) {
           let errorDialog = this.dialog.open(ErrorMessage, {
@@ -59,18 +50,19 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       });
     });
   }
-  onPrevious() {
-    const page: number = parseInt(this.route.snapshot.queryParams['page']) - 1;
-    this.router.navigate(['products'], {
-      queryParams: { page: page, limit: 4 },
-    });
-  }
   onNext() {
-    const page: number = parseInt(this.route.snapshot.queryParams['page']) + 1;
-    this.router.navigate(['products'], {
-      queryParams: { page: page, limit: 4 },
+    this.nextPage = this.currentPage + 1;
+    this.router.navigate(['/products'], {
+      queryParams: { page: this.nextPage },
     });
   }
+  onPrevious() {
+    this.previousPage = this.currentPage - 1;
+    this.router.navigate(['/products'], {
+      queryParams: { page: this.previousPage },
+    });
+  }
+
   ngOnDestroy() {
     this.error.unsubscribe();
   }

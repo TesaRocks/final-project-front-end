@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { IProduct } from '../product.interface';
-import { IPagination } from '../product-list/pagination.interface';
 
 /** **************************************
  *  Load Products
@@ -9,12 +8,12 @@ import { IPagination } from '../product-list/pagination.interface';
 
 const loadProductsBegin = createAction(
   '[Product] Load Products Begin',
-  props<{ page: string; limit: string }>()
+  props<{ page: string }>()
 );
 
 const loadProductsSuccess = createAction(
   '[Product] Load Products Success',
-  props<{ pagination: IPagination<IProduct[]> }>()
+  props<{ products: IProduct[] }>()
 );
 
 const loadProductsFailure = createAction(

@@ -22,14 +22,7 @@ export const error = createSelector(
   selectProductState,
   (state: IProductsInitialState) => state.error
 );
-export const selectPrevious = createSelector(
-  selectProductState,
-  (state: IProductsInitialState) => state.previous
-);
-export const selectNext = createSelector(
-  selectProductState,
-  (state: IProductsInitialState) => state.next
-);
+
 export const loadProductPending = createSelector(
   selectProductState,
   (state: IProductsInitialState) => state.loadProductPending
