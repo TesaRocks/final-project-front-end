@@ -11,9 +11,10 @@ import * as fromInvoiceDetail from './invoice-detail/ngrx/invoice-detail.reducer
 import { InvoiceEffects } from './invoice-list/ngrx/invoice-list.effects';
 import { InvoiceDetailEffects } from './invoice-detail/ngrx/invoice-detail.effects';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
+import { InvoiceNewComponent } from './invoice-new/invoice-new.component';
 
 @NgModule({
-  declarations: [InvoiceListComponent, InvoiceDetailComponent],
+  declarations: [InvoiceListComponent, InvoiceDetailComponent, InvoiceNewComponent],
   imports: [
     RouterModule,
     InvoiceRoutingModule,
