@@ -8,9 +8,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import * as fromInvoice from './ngrx/invoice.reducer';
 import { InvoiceEffects } from './ngrx/invoice.effects';
+import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 
 @NgModule({
-  declarations: [InvoiceListComponent],
+  declarations: [InvoiceListComponent, InvoiceDetailComponent],
   imports: [
     RouterModule,
     InvoiceRoutingModule,

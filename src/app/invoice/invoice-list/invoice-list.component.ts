@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { IApplicationState } from '../../aplication-state';
-import { IInvoice } from '../invoice.interface';
+import { IInvoice } from '../invoice-invoiceDetail.interface';
 import { loadInvoices } from '../ngrx/invoice.actions';
 import {
   loadInvoicesPending,

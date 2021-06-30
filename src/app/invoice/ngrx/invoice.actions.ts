@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { IInvoice } from '../invoice.interface';
+import { IInvoice } from '../invoice-invoiceDetail.interface';
 
 /** **************************************
  *  Load Invoices
