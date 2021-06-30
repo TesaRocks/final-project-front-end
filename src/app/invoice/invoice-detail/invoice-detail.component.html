@@ -2,7 +2,14 @@
   <h2>Loading...</h2>
   <mat-spinner> </mat-spinner>
 </div>
-
+<button
+  routerLink="/home"
+  matTooltip="back to Invoice list"
+  matTooltipShowDelay="600"
+  matTooltipPosition="right"
+>
+  <mat-icon color="warn">backspace</mat-icon>
+</button>
 <table mat-table [dataSource]="invoiceDetail$" class="mat-elevation-z8">
   <!-- Product Column -->
   <ng-container matColumnDef="product">
