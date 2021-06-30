@@ -17,7 +17,9 @@
         <p>Invoice Date: {{ invoice.date | date }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>View products</button>
+        <button mat-button (click)="onViewProducts(invoice.invoiceId)">
+          View products
+        </button>
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>

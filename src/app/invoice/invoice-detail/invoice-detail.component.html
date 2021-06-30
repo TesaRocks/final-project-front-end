@@ -2,20 +2,39 @@
   <h2>Loading...</h2>
   <mat-spinner> </mat-spinner>
 </div>
-<mat-grid-list cols="2" rowHeight="450px">
-  <mat-grid-tile *ngFor="let detail of invoiceDetail$ | async">
-    <mat-card class="product-card">
-      <mat-card-header>
-        <div mat-card-avatar>
-          <mat-icon>account_circle</mat-icon>
-        </div>
-        <mat-card-title>Product: {{ detail.name }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>Description: {{ detail.description }}</p>
-        <p>Price: {{ detail.price }}</p>
-        <p>Quantity: {{ detail.quantity }}</p>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+
+<table mat-table [dataSource]="invoiceDetail$" class="mat-elevation-z8">
+  <!-- Product Column -->
+  <ng-container matColumnDef="product">
+    <th mat-header-cell *matHeaderCellDef>Product</th>
+    <td mat-cell *matCellDef="let detail" [@EnterLeave]>
+      {{ detail.name }}
+    </td>
+  </ng-container>
+
+  <!-- Description Column -->
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>Description</th>
+    <td mat-cell *matCellDef="let detail" [@EnterLeave]>
+      {{ detail.description }}
+    </td>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let detail" [@EnterLeave]>
+      {{ detail.price }}
+    </td>
+  </ng-container>
+
+  <!-- Quantity Column -->
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef>Quantity</th>
+    <td mat-cell *matCellDef="let detail" [@EnterLeave]>
+      {{ detail.quantity }}
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

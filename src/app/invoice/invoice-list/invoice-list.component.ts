@@ -51,6 +51,9 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
       });
     });
   }
+  onViewProducts(invoiceId: number) {
+    this.router.navigate(['invoice', invoiceId, 'detail']);
+  }
   onNext() {
     this.nextPage = this.currentPage + 1;
     this.router.navigate(['/invoice'], {

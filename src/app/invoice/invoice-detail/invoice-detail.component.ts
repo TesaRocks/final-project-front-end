@@ -12,11 +12,30 @@ import {
   selectInvoiceDetail,
   error,
 } from './ngrx/invoice-detail.selectors';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-invoice-detail',
   templateUrl: './invoice-detail.component.html',
   styleUrls: ['./invoice-detail.component.scss'],
+  animations: [
+    trigger('EnterLeave', [
+      state('flyIn', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('0.5s 300ms ease-in'),
+      ]),
+      transition(':leave', [
+        animate('0.3s ease-out', style({ transform: 'translateX(100%)' })),
+      ]),
+    ]),
+  ],
 })
 export class InvoiceDetailComponent implements OnInit, OnDestroy {
   constructor(
@@ -25,6 +44,7 @@ export class InvoiceDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     public dialog: MatDialog
   ) {}
+  displayedColumns: string[] = ['product', 'description', 'price', 'quantity'];
   invoiceId!: number;
   invoiceDetail$!: Observable<IInvoiceDetail[]>;
   loadInvoiceDetailPending$!: Observable<boolean>;
