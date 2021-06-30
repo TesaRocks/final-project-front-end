@@ -6,8 +6,10 @@ import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import * as fromInvoice from './ngrx/invoice.reducer';
-import { InvoiceEffects } from './ngrx/invoice.effects';
+import * as fromInvoice from './invoice-list/ngrx/invoice-list.reducer';
+import * as fromInvoiceDetail from './invoice-detail/ngrx/invoice-detail.reducer';
+import { InvoiceEffects } from './invoice-list/ngrx/invoice-list.effects';
+import { InvoiceDetailEffects } from './invoice-detail/ngrx/invoice-detail.effects';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 
 @NgModule({
@@ -18,7 +20,11 @@ import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.componen
     MaterialModule,
     SharedModule,
     StoreModule.forFeature(fromInvoice.invoiceFeatureKey, fromInvoice.reducer),
-    EffectsModule.forFeature([InvoiceEffects]),
+    StoreModule.forFeature(
+      fromInvoiceDetail.invoiceDetailFeatureKey,
+      fromInvoiceDetail.reducer
+    ),
+    EffectsModule.forFeature([InvoiceEffects, InvoiceDetailEffects]),
   ],
 })
 export class InvoiceModule {}

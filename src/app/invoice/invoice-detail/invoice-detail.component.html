@@ -1,1 +1,21 @@
-<p>invoice-detail works!</p>
+<div *ngIf="loadInvoiceDetailPending$ | async">
+  <h2>Loading...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
+<mat-grid-list cols="2" rowHeight="450px">
+  <mat-grid-tile *ngFor="let detail of invoiceDetail$ | async">
+    <mat-card class="product-card">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon>account_circle</mat-icon>
+        </div>
+        <mat-card-title>Product: {{ detail.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Description: {{ detail.description }}</p>
+        <p>Price: {{ detail.price }}</p>
+        <p>Quantity: {{ detail.quantity }}</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

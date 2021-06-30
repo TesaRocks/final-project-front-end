@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
-import { loadInvoices } from './invoice.actions';
-import { InvoiceService } from '../invoice.service';
+import { loadInvoices } from './invoice-list.actions';
+import { InvoiceService } from '../../invoice.service';
 
 @Injectable()
 export class InvoiceEffects {
@@ -18,6 +18,7 @@ export class InvoiceEffects {
       )
     )
   );
+
   constructor(
     private actions$: Actions,
     private invoiceService: InvoiceService

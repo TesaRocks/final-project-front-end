@@ -3,7 +3,7 @@ import {
   IInvoiceInitialState,
   invoiceFeatureKey,
   selectAll,
-} from './invoice.reducer';
+} from './invoice-list.reducer';
 
 export const selectInvoiceState =
   createFeatureSelector<IInvoiceInitialState>(invoiceFeatureKey);

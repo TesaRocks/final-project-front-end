@@ -4,12 +4,12 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { IApplicationState } from '../../aplication-state';
 import { IInvoice } from '../invoice-invoiceDetail.interface';
-import { loadInvoices } from '../ngrx/invoice.actions';
+import { loadInvoices } from './ngrx/invoice-list.actions';
 import {
   loadInvoicesPending,
   selectInvoices,
   error,
-} from '../ngrx/invoice.selectors';
+} from './ngrx/invoice-list.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorMessage } from 'src/app/shared/error-message';
 

@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { IInvoice } from '../invoice-invoiceDetail.interface';
-import { loadInvoices } from './invoice.actions';
+import { IInvoice } from '../../invoice-invoiceDetail.interface';
+import { loadInvoices } from './invoice-list.actions';
 
 export const invoiceFeatureKey = 'invoiceState';
 
