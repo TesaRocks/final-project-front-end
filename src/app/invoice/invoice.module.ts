@@ -6,26 +6,25 @@ import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import * as fromInvoice from './invoice-list/ngrx/invoice-list.reducer';
-import * as fromInvoiceDetail from './invoice-detail/ngrx/invoice-detail.reducer';
-import { InvoiceEffects } from './invoice-list/ngrx/invoice-list.effects';
-import { InvoiceDetailEffects } from './invoice-detail/ngrx/invoice-detail.effects';
+import * as fromInvoice from './ngrx/invoice.reducer';
+import { InvoiceEffects } from './ngrx/invoice.effects';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 import { InvoiceNewComponent } from './invoice-new/invoice-new.component';
 
 @NgModule({
-  declarations: [InvoiceListComponent, InvoiceDetailComponent, InvoiceNewComponent],
+  declarations: [
+    InvoiceListComponent,
+    InvoiceDetailComponent,
+    InvoiceNewComponent,
+  ],
   imports: [
     RouterModule,
     InvoiceRoutingModule,
     MaterialModule,
     SharedModule,
     StoreModule.forFeature(fromInvoice.invoiceFeatureKey, fromInvoice.reducer),
-    StoreModule.forFeature(
-      fromInvoiceDetail.invoiceDetailFeatureKey,
-      fromInvoiceDetail.reducer
-    ),
-    EffectsModule.forFeature([InvoiceEffects, InvoiceDetailEffects]),
+
+    EffectsModule.forFeature([InvoiceEffects]),
   ],
 })
 export class InvoiceModule {}

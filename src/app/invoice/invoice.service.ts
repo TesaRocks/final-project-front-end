@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IInvoice, IInvoiceDetail } from './invoice-invoiceDetail.interface';
+import { IInvoice } from './invoice.interface';
 
 @Injectable({ providedIn: 'root' })
 export class InvoiceService {
@@ -11,7 +11,7 @@ export class InvoiceService {
     const params = new HttpParams().set('page', page);
     return this.http.get<IInvoice[]>('/api/invoice', { params });
   }
-  fetchInvoiceDetail(invoiceId: number): Observable<IInvoiceDetail[]> {
-    return this.http.get<IInvoiceDetail[]>(`/api/invoice/detail/${invoiceId}`);
+  fetchInvoiceDetail(invoiceId: number): Observable<IInvoice[]> {
+    return this.http.get<IInvoice[]>(`/api/invoice/detail/${invoiceId}`);
   }
 }

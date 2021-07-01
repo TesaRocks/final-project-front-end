@@ -4,14 +4,14 @@ import { Observable, Subscription } from 'rxjs';
 import { IApplicationState } from '../../aplication-state';
 import { ErrorMessage } from 'src/app/shared/error-message';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IInvoiceDetail } from '../invoice-invoiceDetail.interface';
-import { loadInvoiceDetail } from './ngrx/invoice-detail.actions';
+import { IInvoice } from '../invoice.interface';
+import { loadInvoiceDetail } from '../ngrx/invoice.actions';
 import { MatDialog } from '@angular/material/dialog';
 import {
   loadInvoiceDetailPending,
-  selectInvoiceDetail,
+  selectInvoices,
   error,
-} from './ngrx/invoice-detail.selectors';
+} from '../ngrx/invoice.selectors';
 import {
   animate,
   state,
@@ -46,14 +46,14 @@ export class InvoiceDetailComponent implements OnInit, OnDestroy {
   ) {}
   displayedColumns: string[] = ['product', 'description', 'price', 'quantity'];
   invoiceId!: number;
-  invoiceDetail$!: Observable<IInvoiceDetail[]>;
+  invoiceDetail$!: Observable<IInvoice[]>;
   loadInvoiceDetailPending$!: Observable<boolean>;
   error!: Subscription;
 
   ngOnInit(): void {
     this.invoiceId = this.route.snapshot.params.id;
     this.store.dispatch(loadInvoiceDetail.begin({ id: this.invoiceId }));
-    this.invoiceDetail$ = this.store.select(selectInvoiceDetail);
+    this.invoiceDetail$ = this.store.select(selectInvoices);
     this.loadInvoiceDetailPending$ = this.store.select(
       loadInvoiceDetailPending
     );
