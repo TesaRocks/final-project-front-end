@@ -38,7 +38,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     ],
     password: [
       '',
-      [Validators.required, Validators.minLength(6), Validators.maxLength(6)],
+      [Validators.required, Validators.minLength(6), Validators.maxLength(20)],
     ],
   });
   constructor(
