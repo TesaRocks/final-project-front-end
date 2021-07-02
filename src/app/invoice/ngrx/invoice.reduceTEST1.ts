@@ -1,56 +1,69 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, State } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IInvoice, IItem } from '../invoice.interface';
 import { loadInvoices, loadInvoiceDetail } from './invoice.actions';
 
 export const invoiceFeatureKey = 'invoiceState';
 
-export interface IInvoiceInitialState extends EntityState<IInvoice> {
+interface IInvoiceInitialState extends EntityState<IInvoice> {
   // additional entities state properties
   error: any;
   selectedInvoice: IInvoice | null;
   loadInvoicesPending: boolean;
-  loadInvoiceDetailPending: boolean;
   addInvoicePending: boolean;
   updateInvoicePending: boolean;
   deleteInvoicePending: boolean;
-  items: EntityState<IItem[]> | null;
+}
+interface IInvoiceDetailInitialState extends EntityState<IItem> {
+  error: any;
+  loadInvoiceDetailPending: boolean;
+}
+export interface IInvoiceGlobalInitialState {
+  invoice: IInvoiceInitialState;
+  detail: IInvoiceDetailInitialState;
 }
 export function selectInvoiceId(invoice: IInvoice): number {
   return invoice.invoiceId;
 }
-export const adapter: EntityAdapter<IInvoice> = createEntityAdapter<IInvoice>({
-  selectId: selectInvoiceId,
-});
 export function selectInvoiceDetailId(item: IItem): number {
   return item.invoiceDetailId;
 }
+
+export const adapterInvoice: EntityAdapter<IInvoice> =
+  createEntityAdapter<IInvoice>({
+    selectId: selectInvoiceId,
+  });
 export const adapterDetail: EntityAdapter<IItem> = createEntityAdapter<IItem>({
   selectId: selectInvoiceDetailId,
 });
-
-export const invoiceInitialState: IInvoiceInitialState =
-  adapter.getInitialState({
-    // additional entity state properties
+const invoiceInitialState: IInvoiceInitialState =
+  adapterInvoice.getInitialState({
     error: null,
     selectedInvoice: null,
     loadInvoicesPending: false,
-    loadInvoiceDetailPending: false,
     addInvoicePending: false,
     updateInvoicePending: false,
     deleteInvoicePending: false,
-    items: null,
   });
-
+const invoiceDetailInitialState: IInvoiceDetailInitialState =
+  adapterDetail.getInitialState({
+    error: null,
+    loadInvoiceDetailPending: false,
+  });
+export const invoiceGlobalInitialState: IInvoiceGlobalInitialState = {
+  invoice: invoiceInitialState,
+  detail: invoiceDetailInitialState,
+};
 export const reducer = createReducer(
-  invoiceInitialState,
+  invoiceGlobalInitialState,
   // Load Invoices
   on(loadInvoices.begin, (state) => {
     return { ...state, loadInvoicesPending: true };
   }),
   on(loadInvoices.success, (state, action) => {
     return {
-      ...adapter.setAll(action.invoices, state),
+      ...state,
+      invoice: adapterInvoice.setAll(action.invoices, state.invoice),
       loadInvoicesPending: false,
     };
   }),
@@ -65,9 +78,13 @@ export const reducer = createReducer(
   on(loadInvoiceDetail.begin, (state) => {
     return { ...state, loadInvoiceDetailPending: true };
   }),
-  on(loadInvoiceDetail.success, (state, action) => ({
-    ...state,
-  })),
+  on(loadInvoiceDetail.success, (state, action) => {
+    return {
+      ...state,
+      detail: adapterDetail.setAll(action.invoiceDetail, state.detail),
+      loadInvoiceDetailPending: false,
+    };
+  }),
   on(loadInvoiceDetail.failure, (state, action) => {
     return {
       ...state,
@@ -76,5 +93,8 @@ export const reducer = createReducer(
     };
   })
 );
-export const { selectIds, selectEntities, selectAll, selectTotal } =
-  adapter.getSelectors();
+
+export const { selectAll } = adapterInvoice.getSelectors();
+//export const { selectAll: selectAlldetail } = adapterDetail.getSelectors();
+//export const { selectIds, selectEntities, selectAll, selectTotal } =
+// adapter.getSelectors();

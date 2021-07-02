@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { IInvoice, IItem } from '../invoice.interface';
+import { IInvoice } from '../invoice.interface';
 import { loadInvoices, loadInvoiceDetail } from './invoice.actions';
 
 export const invoiceFeatureKey = 'invoiceState';
@@ -14,19 +14,12 @@ export interface IInvoiceInitialState extends EntityState<IInvoice> {
   addInvoicePending: boolean;
   updateInvoicePending: boolean;
   deleteInvoicePending: boolean;
-  items: EntityState<IItem[]> | null;
 }
 export function selectInvoiceId(invoice: IInvoice): number {
   return invoice.invoiceId;
 }
 export const adapter: EntityAdapter<IInvoice> = createEntityAdapter<IInvoice>({
   selectId: selectInvoiceId,
-});
-export function selectInvoiceDetailId(item: IItem): number {
-  return item.invoiceDetailId;
-}
-export const adapterDetail: EntityAdapter<IItem> = createEntityAdapter<IItem>({
-  selectId: selectInvoiceDetailId,
 });
 
 export const invoiceInitialState: IInvoiceInitialState =
@@ -39,7 +32,6 @@ export const invoiceInitialState: IInvoiceInitialState =
     addInvoicePending: false,
     updateInvoicePending: false,
     deleteInvoicePending: false,
-    items: null,
   });
 
 export const reducer = createReducer(
@@ -65,9 +57,12 @@ export const reducer = createReducer(
   on(loadInvoiceDetail.begin, (state) => {
     return { ...state, loadInvoiceDetailPending: true };
   }),
-  on(loadInvoiceDetail.success, (state, action) => ({
-    ...state,
-  })),
+  on(loadInvoiceDetail.success, (state, action) => {
+    return {
+      ...adapter.setAll(action.invoiceDetail, state),
+      loadInvoiceDetailPending: false,
+    };
+  }),
   on(loadInvoiceDetail.failure, (state, action) => {
     return {
       ...state,
