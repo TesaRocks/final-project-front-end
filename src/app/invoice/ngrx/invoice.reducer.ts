@@ -14,7 +14,7 @@ export interface IInvoiceInitialState extends EntityState<IInvoice> {
   addInvoicePending: boolean;
   updateInvoicePending: boolean;
   deleteInvoicePending: boolean;
-  items: EntityState<IItem[]> | null;
+  items: EntityState<IItem> | null;
 }
 export function selectInvoiceId(invoice: IInvoice): number {
   return invoice.invoiceId;
@@ -65,9 +65,12 @@ export const reducer = createReducer(
   on(loadInvoiceDetail.begin, (state) => {
     return { ...state, loadInvoiceDetailPending: true };
   }),
-  on(loadInvoiceDetail.success, (state, action) => ({
-    ...state,
-  })),
+  // on(loadInvoiceDetail.success, (state, action) => {
+  //   return {
+  //     ...state,
+  //     items: adapterDetail.setAll(action.invoiceDetail, state),
+  //   };
+  // }),
   on(loadInvoiceDetail.failure, (state, action) => {
     return {
       ...state,
