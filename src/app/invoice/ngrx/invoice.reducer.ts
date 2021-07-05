@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { IInvoice, IItem } from '../invoice.interface';
+import { IInvoice } from '../invoice.interface';
 import { loadInvoices, loadInvoiceById } from './invoice.actions';
 
 export const invoiceFeatureKey = 'invoiceState';
@@ -8,7 +8,7 @@ export const invoiceFeatureKey = 'invoiceState';
 export interface IInvoiceInitialState extends EntityState<IInvoice> {
   // additional entities state properties
   error: any;
-  selectedInvoice: IInvoice | null;
+  selectedInvoice: IInvoice;
   loadInvoicesPending: boolean;
   loadInvoiceByIdPending: boolean;
   addInvoicePending: boolean;
@@ -26,7 +26,7 @@ export const invoiceInitialState: IInvoiceInitialState =
   adapter.getInitialState({
     // additional entity state properties
     error: null,
-    selectedInvoice: null,
+    selectedInvoice: {} as IInvoice,
     loadInvoicesPending: false,
     loadInvoiceByIdPending: false,
     addInvoicePending: false,

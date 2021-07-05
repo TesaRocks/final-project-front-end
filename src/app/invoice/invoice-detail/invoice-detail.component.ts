@@ -8,17 +8,17 @@ import { IInvoice } from '../invoice.interface';
 import { loadInvoiceById } from '../ngrx/invoice.actions';
 import { MatDialog } from '@angular/material/dialog';
 import {
-  error,
-  loadInvoiceByIdPending,
-  selectInvoiceById,
-} from '../ngrx/invoice.selectors';
-import {
   animate,
   state,
   style,
   transition,
   trigger,
 } from '@angular/animations';
+import {
+  error,
+  loadInvoiceByIdPending,
+  selectInvoiceById,
+} from '../ngrx/invoice.selectors';
 
 @Component({
   selector: 'app-invoice-detail',
@@ -46,18 +46,19 @@ export class InvoiceDetailComponent implements OnInit, OnDestroy {
   ) {}
   displayedColumns: string[] = ['product', 'description', 'price', 'quantity'];
   invoiceId!: number;
-  invoiceById$!: Observable<IInvoice | null>;
+  invoiceByIdSubscription!: Subscription;
+  invoiceById!: IInvoice;
   loadInvoiceByIdPending$!: Observable<boolean>;
   error!: Subscription;
-  result: any;
 
   ngOnInit(): void {
     this.invoiceId = this.route.snapshot.params.id;
     this.store.dispatch(loadInvoiceById.begin({ id: this.invoiceId }));
-    this.invoiceById$ = this.store.select(selectInvoiceById);
-    if (this.invoiceById$) {
-      this.result = this.invoiceById$;
-    }
+    this.invoiceByIdSubscription = this.store
+      .select(selectInvoiceById)
+      .subscribe((invoice) => {
+        this.invoiceById = invoice;
+      });
     this.loadInvoiceByIdPending$ = this.store.select(loadInvoiceByIdPending);
     this.error = this.store.select(error).subscribe((error) => {
       if (error) {
@@ -72,5 +73,6 @@ export class InvoiceDetailComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.error.unsubscribe();
+    this.invoiceByIdSubscription.unsubscribe();
   }
 }
