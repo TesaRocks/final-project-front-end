@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { InvoiceRoutingModule } from './invoice-routing.module';
 import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import * as fromInvoice from './ngrx/invoice.reducer';
@@ -22,6 +23,7 @@ import { InvoiceNewComponent } from './invoice-new/invoice-new.component';
     InvoiceRoutingModule,
     MaterialModule,
     SharedModule,
+    ReactiveFormsModule,
     StoreModule.forFeature(fromInvoice.invoiceFeatureKey, fromInvoice.reducer),
 
     EffectsModule.forFeature([InvoiceEffects]),

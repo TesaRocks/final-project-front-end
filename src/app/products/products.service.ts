@@ -6,9 +6,12 @@ import { IProduct } from './product.interface';
 export class ProductService {
   constructor(private http: HttpClient) {}
 
-  fetchProducts(page: string): Observable<IProduct[]> {
+  fetchProductsPaginated(page: string): Observable<IProduct[]> {
     const params = new HttpParams().set('page', page);
     return this.http.get<IProduct[]>('/api/product', { params });
+  }
+  fetchProducts(): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>('/api/product/all');
   }
   fetchProduct(id: number): Observable<IProduct> {
     return this.http.get<IProduct>(`/api/product/${id}`);

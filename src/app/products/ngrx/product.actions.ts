@@ -3,28 +3,49 @@ import { Update } from '@ngrx/entity';
 import { IProduct } from '../product.interface';
 
 /** **************************************
- *  Load Products
+ *  Load Products Paginated
  ***************************************/
 
-const loadProductsBegin = createAction(
-  '[Product] Load Products Begin',
+const loadProductsPaginatedBegin = createAction(
+  '[Product] Load Products Paginated Begin',
   props<{ page: string }>()
 );
 
-const loadProductsSuccess = createAction(
-  '[Product] Load Products Success',
+const loadProductsPaginatedSuccess = createAction(
+  '[Product] Load Products Paginated Success',
   props<{ products: IProduct[] }>()
 );
 
-const loadProductsFailure = createAction(
+const loadProductsPaginatedFailure = createAction(
   '[Product] Load Products Failure',
   props<{ error: any }>()
 );
-export const loadProducts = {
-  begin: loadProductsBegin,
-  success: loadProductsSuccess,
-  failure: loadProductsFailure,
+export const loadProductsPaginated = {
+  begin: loadProductsPaginatedBegin,
+  success: loadProductsPaginatedSuccess,
+  failure: loadProductsPaginatedFailure,
 };
+/** **************************************
+ *  Load Products All (no pagination)
+ ***************************************/
+
+const loadProductsAllBegin = createAction('[Product] Load Products All Begin');
+
+const loadProductsAllSuccess = createAction(
+  '[Product] Load Products All Success',
+  props<{ products: IProduct[] }>()
+);
+
+const loadProductsAllFailure = createAction(
+  '[Product] Load Products All Failure',
+  props<{ error: any }>()
+);
+export const loadProductsAll = {
+  begin: loadProductsAllBegin,
+  success: loadProductsAllSuccess,
+  failure: loadProductsAllFailure,
+};
+
 /** **************************************
  *  Load Product
  ***************************************/

@@ -1,19 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { loadProducts, deleteProduct, loadProduct } from './product.actions';
+import {
+  loadProductsPaginated,
+  deleteProduct,
+  loadProduct,
+  loadProductsAll,
+} from './product.actions';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { ProductService } from '../products.service';
 
 @Injectable()
 export class ProductEffects {
-  loadProducts$ = createEffect(() =>
+  loadProductsPaginated$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadProducts.begin),
+      ofType(loadProductsPaginated.begin),
       mergeMap((action) =>
-        this.productService.fetchProducts(action.page).pipe(
-          map((product) => loadProducts.success({ products: product })),
-          catchError((error) => of(loadProducts.failure({ error })))
+        this.productService.fetchProductsPaginated(action.page).pipe(
+          map((product) =>
+            loadProductsPaginated.success({ products: product })
+          ),
+          catchError((error) => of(loadProductsPaginated.failure({ error })))
+        )
+      )
+    )
+  );
+  loadProductsAll$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadProductsAll.begin),
+      mergeMap(() =>
+        this.productService.fetchProducts().pipe(
+          map((product) => loadProductsAll.success({ products: product })),
+          catchError((error) => of(loadProductsAll.failure({ error })))
         )
       )
     )

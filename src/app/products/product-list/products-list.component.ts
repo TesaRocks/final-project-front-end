@@ -5,7 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IApplicationState } from '../../aplication-state';
 import { ErrorMessage } from '../../shared/error-message';
-import { loadProducts } from '../ngrx/product.actions';
+import { loadProductsPaginated } from '../ngrx/product.actions';
 import {
   error,
   loadProductsPending,
@@ -35,7 +35,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.route.queryParams.subscribe((params: Params) => {
       this.currentPage = parseInt(params['page']);
       this.previousPage = this.currentPage - 1;
-      this.store.dispatch(loadProducts.begin({ page: params['page'] }));
+      this.store.dispatch(
+        loadProductsPaginated.begin({ page: params['page'] })
+      );
       this.products$ = this.store.select(selectProducts);
       this.loadProductsPending$ = this.store.select(loadProductsPending);
       this.error = this.store.select(error).subscribe((error) => {
