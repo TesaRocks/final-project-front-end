@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
   templateUrl: './invoice-new.component.html',
   styleUrls: ['./invoice-new.component.scss'],
 })
-export class InvoiceNewComponent implements OnInit {
+export class InvoiceNewComponent implements OnInit, OnDestroy {
   productListSub!: Subscription;
   productList!: IProduct[];
   loadProductsPending$!: Observable<boolean>;
@@ -70,5 +70,8 @@ export class InvoiceNewComponent implements OnInit {
 
   hasError(inputName: 'customer', errorType: string) {
     return this.formNewInvoice.get(inputName)?.hasError(errorType);
+  }
+  ngOnDestroy() {
+    this.productListSub.unsubscribe();
   }
 }
