@@ -11,7 +11,7 @@ export class InvoiceService {
     const params = new HttpParams().set('page', page);
     return this.http.get<IInvoice[]>('/api/invoice', { params });
   }
-  fetchInvoiceDetail(invoiceId: number): Observable<IInvoice[]> {
-    return this.http.get<IInvoice[]>(`/api/invoice/detail/${invoiceId}`);
+  fetchInvoiceById(invoiceId: number): Observable<IInvoice> {
+    return this.http.get<IInvoice>(`/api/invoice/detail/${invoiceId}`);
   }
 }

@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IInvoice, IItem } from '../invoice.interface';
-import { loadInvoices, loadInvoiceDetail } from './invoice.actions';
+import { loadInvoices, loadInvoiceById } from './invoice.actions';
 
 export const invoiceFeatureKey = 'invoiceState';
 
@@ -10,23 +10,16 @@ export interface IInvoiceInitialState extends EntityState<IInvoice> {
   error: any;
   selectedInvoice: IInvoice | null;
   loadInvoicesPending: boolean;
-  loadInvoiceDetailPending: boolean;
+  loadInvoiceByIdPending: boolean;
   addInvoicePending: boolean;
   updateInvoicePending: boolean;
   deleteInvoicePending: boolean;
-  items: EntityState<IItem> | null;
 }
 export function selectInvoiceId(invoice: IInvoice): number {
   return invoice.invoiceId;
 }
 export const adapter: EntityAdapter<IInvoice> = createEntityAdapter<IInvoice>({
   selectId: selectInvoiceId,
-});
-export function selectInvoiceDetailId(item: IItem): number {
-  return item.invoiceDetailId;
-}
-export const adapterDetail: EntityAdapter<IItem> = createEntityAdapter<IItem>({
-  selectId: selectInvoiceDetailId,
 });
 
 export const invoiceInitialState: IInvoiceInitialState =
@@ -35,7 +28,7 @@ export const invoiceInitialState: IInvoiceInitialState =
     error: null,
     selectedInvoice: null,
     loadInvoicesPending: false,
-    loadInvoiceDetailPending: false,
+    loadInvoiceByIdPending: false,
     addInvoicePending: false,
     updateInvoicePending: false,
     deleteInvoicePending: false,
@@ -61,17 +54,18 @@ export const reducer = createReducer(
       error: action.error,
     };
   }),
-  // Load Invoice Detail
-  on(loadInvoiceDetail.begin, (state) => {
-    return { ...state, loadInvoiceDetailPending: true };
+  // Load Invoice by Id
+  on(loadInvoiceById.begin, (state) => {
+    return { ...state, loadInvoiceByIdPending: true };
   }),
-  // on(loadInvoiceDetail.success, (state, action) => {
-  //   return {
-  //     ...state,
-  //     items: adapterDetail.setAll(action.invoiceDetail, state),
-  //   };
-  // }),
-  on(loadInvoiceDetail.failure, (state, action) => {
+  on(loadInvoiceById.success, (state, action) => {
+    return {
+      ...state,
+      loadInvoiceByIdPending: false,
+      selectedInvoice: action.invoiceById,
+    };
+  }),
+  on(loadInvoiceById.failure, (state, action) => {
     return {
       ...state,
       loadInvoiceDetailPending: false,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
-import { loadInvoices, loadInvoiceDetail } from './invoice.actions';
+import { loadInvoices, loadInvoiceById } from './invoice.actions';
 import { InvoiceService } from '../invoice.service';
 
 @Injectable()
@@ -20,13 +20,13 @@ export class InvoiceEffects {
   );
   loadInvoiceDetail$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadInvoiceDetail.begin),
+      ofType(loadInvoiceById.begin),
       mergeMap((action) =>
-        this.invoiceService.fetchInvoiceDetail(action.id).pipe(
-          map((invoiceDetail) =>
-            loadInvoiceDetail.success({ invoiceDetail: invoiceDetail })
+        this.invoiceService.fetchInvoiceById(action.id).pipe(
+          map((invoiceById) =>
+            loadInvoiceById.success({ invoiceById: invoiceById })
           ),
-          catchError((error) => of(loadInvoiceDetail.failure({ error })))
+          catchError((error) => of(loadInvoiceById.failure({ error })))
         )
       )
     )

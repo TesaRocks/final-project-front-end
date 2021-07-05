@@ -26,25 +26,25 @@ export const loadInvoices = {
   failure: loadInvoicesFailure,
 };
 /** **************************************
- *  Load Invoice Detail
+ *  Load Invoice By Id
  ***************************************/
 
-const loadInvoiceDetailBegin = createAction(
-  '[Invoice] Load InvoiceDetail Begin',
+const loadInvoiceByIdBegin = createAction(
+  '[Invoice] Load InvoiceById Begin',
   props<{ id: number }>()
 );
 
-const loadInvoiceDetailSuccess = createAction(
-  '[Invoice] Load InvoiceDetail Success',
-  props<{ invoiceDetail: IInvoice[] }>()
+const loadInvoiceByIdSuccess = createAction(
+  '[Invoice] Load InvoiceById Success',
+  props<{ invoiceById: IInvoice }>()
 );
 
-const loadInvoiceDetailFailure = createAction(
-  '[Invoice] Load Invoices Failure',
+const loadInvoiceByIdFailure = createAction(
+  '[Invoice] Load InvoiceById Failure',
   props<{ error: any }>()
 );
-export const loadInvoiceDetail = {
-  begin: loadInvoiceDetailBegin,
-  success: loadInvoiceDetailSuccess,
-  failure: loadInvoiceDetailFailure,
+export const loadInvoiceById = {
+  begin: loadInvoiceByIdBegin,
+  success: loadInvoiceByIdSuccess,
+  failure: loadInvoiceByIdFailure,
 };
