@@ -59,9 +59,9 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // const newInvoice: IInvoice = {
-    //   customerName: this.formNewInvoice.value.customer,
-    // };
+    const name = this.formNewInvoice.value.customer;
+    const products = this.formNewInvoice.value.products;
+    console.log(name, products);
   }
 
   hasError(inputName: 'customer' | 'products', errorType: string) {

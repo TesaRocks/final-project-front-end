@@ -21,7 +21,7 @@
 <h1>{{ editMode ? "Edit user" : "Create user" }}</h1>
 
 <form [formGroup]="formEditNew" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill" class="small">
+  <mat-form-field appearance="fill">
     <mat-label>Fill with name</mat-label>
     <input
       matInput
@@ -36,7 +36,7 @@
       >This field is required
     </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="fill" class="small">
+  <mat-form-field appearance="fill">
     <mat-label>Enter your email</mat-label>
     <input
       matInput
@@ -53,7 +53,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="small">
+  <mat-form-field appearance="fill">
     <mat-label>Password fill</mat-label>
     <input
       matInput
