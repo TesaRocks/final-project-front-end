@@ -29,11 +29,14 @@
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Products</mat-label>
-    <mat-select [formControl]="products" multiple>
+    <mat-select formControlName="products" multiple required>
       <mat-option *ngFor="let product of productList" [value]="product">{{
         product.name
       }}</mat-option>
     </mat-select>
+    <mat-error *ngIf="hasError('products', 'required')"
+      >Must select at least one.
+    </mat-error>
   </mat-form-field>
   <button
     type="submit"

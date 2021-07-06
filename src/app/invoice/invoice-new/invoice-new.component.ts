@@ -1,10 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { IApplicationState } from 'src/app/aplication-state';
@@ -30,11 +25,8 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
   productList!: IProduct[];
   loadProductsPending$!: Observable<boolean>;
   error!: Subscription;
-  formNewInvoice: FormGroup = this.fb.group({
-    customer: ['', [Validators.required, Validators.maxLength(45)]],
-    //products: new FormControl(''),
-  });
-  products = new FormControl();
+  formNewInvoice!: FormGroup;
+
   constructor(
     private fb: FormBuilder,
     private store: Store<IApplicationState>,
@@ -43,6 +35,10 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.formNewInvoice = this.fb.group({
+      customer: ['', [Validators.required, Validators.maxLength(45)]],
+      products: ['', Validators.required],
+    });
     this.store.dispatch(loadProductsAll.begin());
     this.productListSub = this.store
       .select(selectProducts)
@@ -68,7 +64,7 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
     // };
   }
 
-  hasError(inputName: 'customer', errorType: string) {
+  hasError(inputName: 'customer' | 'products', errorType: string) {
     return this.formNewInvoice.get(inputName)?.hasError(errorType);
   }
   ngOnDestroy() {
