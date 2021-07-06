@@ -44,7 +44,13 @@ export class InvoiceDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     public dialog: MatDialog
   ) {}
-  displayedColumns: string[] = ['product', 'description', 'price', 'quantity'];
+  displayedColumns: string[] = [
+    'id',
+    'product',
+    'description',
+    'price',
+    'quantity',
+  ];
   invoiceId!: number;
   invoiceByIdSubscription!: Subscription;
   invoiceById!: IInvoice;
