@@ -4,6 +4,7 @@ import {
   FormControl,
   FormGroup,
   Validators,
+  FormArray,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
@@ -38,17 +39,22 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
     private store: Store<IApplicationState>,
     public dialog: MatDialog,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.formNewInvoice = this.fb.group({
       customer: ['', [Validators.required, Validators.maxLength(45)]],
-
-      shoppingCart: this.fb.group({
-        products: ['', Validators.required],
-        quantity: ['', Validators.required],
-      }),
+      shoppingCart: this.fb.array([]),
     });
+  }
+  get shoppingCart(): FormArray {
+    return this.formNewInvoice.get('shoppingCart') as FormArray;
+  }
+  newShopping(): FormGroup {
+    return this.fb.group({
+      products: ['', Validators.required],
+      quantity: ['', Validators.required],
+    });
+  }
+  ngOnInit(): void {
     this.store.dispatch(loadProductsAll.begin());
     this.productListSub = this.store
       .select(selectProducts)
@@ -66,9 +72,14 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
         });
       }
     });
+    this.onAddProduct();
   }
-  onAddProduct() {}
-
+  onAddProduct() {
+    this.shoppingCart.push(this.newShopping());
+  }
+  onRemoveShopping(i: number) {
+    this.shoppingCart.removeAt(i);
+  }
   onSubmit() {
     const name = this.formNewInvoice.value.customer;
     const products = this.formNewInvoice.value.shoppingCart;
