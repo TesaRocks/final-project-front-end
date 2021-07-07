@@ -54,7 +54,10 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
   newShopping(): FormGroup {
     return this.fb.group({
       products: ['', Validators.required],
-      quantity: ['', Validators.required],
+      quantity: [
+        '',
+        [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)],
+      ],
     });
   }
   ngOnInit(): void {
