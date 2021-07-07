@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IInvoice } from '../invoice.interface';
-import { loadInvoices, loadInvoiceById } from './invoice.actions';
+import { loadInvoices, loadInvoiceById, addInvoice } from './invoice.actions';
 
 export const invoiceFeatureKey = 'invoiceState';
 
@@ -69,6 +69,23 @@ export const reducer = createReducer(
     return {
       ...state,
       loadInvoiceDetailPending: false,
+      error: action.error,
+    };
+  }),
+  // Add one Invoice
+  on(addInvoice.begin, (state) => {
+    return { ...state, addInvoicePending: true };
+  }),
+  on(addInvoice.success, (state, action) => {
+    return {
+      ...adapter.addOne(action.invoice, state),
+      addInvoicePending: false,
+    };
+  }),
+  on(addInvoice.failure, (state, action) => {
+    return {
+      ...state,
+      addInvoicePending: false,
       error: action.error,
     };
   })

@@ -23,6 +23,10 @@ export const loadInvoiceByIdPending = createSelector(
   selectInvoiceState,
   (state: IInvoiceInitialState) => state.loadInvoiceByIdPending
 );
+export const addInvoicePending = createSelector(
+  selectInvoiceState,
+  (state: IInvoiceInitialState) => state.addInvoicePending
+);
 
 export const error = createSelector(
   selectInvoiceState,

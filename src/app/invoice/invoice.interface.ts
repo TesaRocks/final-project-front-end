@@ -1,12 +1,12 @@
 export interface IInvoice {
-  invoiceId: number;
-  date: Date;
+  invoiceId: number | any;
+  date?: Date;
   customerName: string;
   invoiceItems: IItem[];
 }
 
 export interface IItem {
-  invoiceDetailId: number;
+  invoiceDetailId?: number;
   productId: number;
   name: string;
   description: string;

@@ -48,3 +48,24 @@ export const loadInvoiceById = {
   success: loadInvoiceByIdSuccess,
   failure: loadInvoiceByIdFailure,
 };
+
+/** **************************************
+ *  Add Invoice
+ ***************************************/
+const addInvoiceBegin = createAction(
+  '[invoice] Add Invoice Begin',
+  props<{ invoice: IInvoice }>()
+);
+const addInvoiceSuccess = createAction(
+  '[invoice] Add Invoice Success',
+  props<{ invoice: IInvoice }>()
+);
+const addInvoiceFailure = createAction(
+  '[invoice] Add Invoice Failure',
+  props<{ error: any }>()
+);
+export const addInvoice = {
+  begin: addInvoiceBegin,
+  success: addInvoiceSuccess,
+  failure: addInvoiceFailure,
+};

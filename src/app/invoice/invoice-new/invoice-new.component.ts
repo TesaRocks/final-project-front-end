@@ -16,10 +16,12 @@ import {
   loadProductsPending,
 } from 'src/app/products/ngrx/product.selectors';
 import { IProduct } from 'src/app/products/product.interface';
-import { IInvoice } from '../invoice.interface';
+import { IInvoice, IItem } from '../invoice.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorMessage } from '../../shared/error-message';
 import { Router } from '@angular/router';
+import { addInvoicePending } from '../ngrx/invoice.selectors';
+import { addInvoice } from '../ngrx/invoice.actions';
 
 @Component({
   selector: 'app-invoice-new',
@@ -33,6 +35,7 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
   loadProductsPending$!: Observable<boolean>;
   error!: Subscription;
   formNewInvoice!: FormGroup;
+  addInvoicePending$!: Observable<boolean>;
 
   constructor(
     private fb: FormBuilder,
@@ -83,13 +86,27 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
   onSubmit() {
     const name = this.formNewInvoice.value.customer;
     const products = this.formNewInvoice.value.shoppingCart;
-    console.log(products);
+    let newInvoice: IInvoice = {
+      invoiceId: null,
+      customerName: name,
+      invoiceItems: [],
+    };
+    for (let i = 0; i < products.length; i++) {
+      let newProduct: IItem = {
+        productId: products[i].products.productId,
+        name: products[i].products.name,
+        description: products[i].products.description,
+        quantity: products[i].quantity,
+        price: products[i].products.price,
+      };
+      newInvoice.invoiceItems.push(newProduct);
+    }
+
+    this.store.dispatch(addInvoice.begin({ invoice: newInvoice }));
+    this.addInvoicePending$ = this.store.select(addInvoicePending);
   }
 
-  hasError(
-    inputName: 'customer' | 'shoppingCart.products' | 'shoppingCart.quantity',
-    errorType: string
-  ) {
+  hasError(inputName: 'customer', errorType: string) {
     return this.formNewInvoice.get(inputName)?.hasError(errorType);
   }
 

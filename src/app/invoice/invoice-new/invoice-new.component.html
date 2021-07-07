@@ -2,7 +2,10 @@
   <h2>Loading...</h2>
   <mat-spinner> </mat-spinner>
 </div>
-
+<div *ngIf="addInvoicePending$ | async">
+  <h2>Saving...</h2>
+  <mat-spinner> </mat-spinner>
+</div>
 <button
   routerLink="/home"
   matTooltip="back to home"
@@ -48,9 +51,9 @@
             }}</mat-option>
           </mat-select>
 
-          <mat-error *ngIf="hasError('shoppingCart.products', 'required')"
+          <!-- <mat-error *ngIf="hasError('products', 'required')"
             >Must select at least one.
-          </mat-error>
+          </mat-error> -->
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Amount</mat-label>
@@ -62,9 +65,9 @@
             min="1"
             required
           />
-          <mat-error *ngIf="hasError('shoppingCart.quantity', 'required')"
+          <!-- <mat-error *ngIf="hasError('shoppingCart.quantity', 'required')"
             >Must select.
-          </mat-error>
+          </mat-error> -->
         </mat-form-field>
         <mat-icon *ngIf="i !== 0" color="primary" (click)="onRemoveShopping(i)"
           >delete_forever</mat-icon
