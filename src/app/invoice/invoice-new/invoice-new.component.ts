@@ -1,5 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { IApplicationState } from 'src/app/aplication-state';
@@ -21,18 +26,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./invoice-new.component.scss'],
 })
 export class InvoiceNewComponent implements OnInit, OnDestroy {
+  products!: FormControl;
   productListSub!: Subscription;
   productList!: IProduct[];
   loadProductsPending$!: Observable<boolean>;
   error!: Subscription;
   formNewInvoice!: FormGroup;
-  displayedColumns: string[] = [
-    'id',
-    'product',
-    'description',
-    'price',
-    'quantity',
-  ];
+
   constructor(
     private fb: FormBuilder,
     private store: Store<IApplicationState>,
@@ -43,8 +43,11 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formNewInvoice = this.fb.group({
       customer: ['', [Validators.required, Validators.maxLength(45)]],
-      //products: [''],
-      quantity: ['', [Validators.minLength(1)]],
+
+      shoppingCart: this.fb.group({
+        products: ['', Validators.required],
+        quantity: ['', Validators.required],
+      }),
     });
     this.store.dispatch(loadProductsAll.begin());
     this.productListSub = this.store
@@ -64,16 +67,21 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
       }
     });
   }
+  onAddProduct() {}
 
   onSubmit() {
     const name = this.formNewInvoice.value.customer;
-    const products = this.formNewInvoice.value.quantity;
-    console.log(products.length);
+    const products = this.formNewInvoice.value.shoppingCart;
+    console.log(products);
   }
 
-  hasError(inputName: 'customer', errorType: string) {
+  hasError(
+    inputName: 'customer' | 'shoppingCart.products' | 'shoppingCart.quantity',
+    errorType: string
+  ) {
     return this.formNewInvoice.get(inputName)?.hasError(errorType);
   }
+
   ngOnDestroy() {
     this.productListSub.unsubscribe();
   }
