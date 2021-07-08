@@ -13,9 +13,9 @@ Made by me. Please have a look
 - Each module will have a routing-module.ts file.
 - Each module will have a model interface definition (when applies).
 - Each module will have a http service file (when applies).
-- If state is modified, the module will have a "NGRX" folder, having the following files:
+- If state modification is involved, the module will have a "NGRX" folder, having the following files:
   - Actions.ts.
-  - Effects.ts.
+  - Effects.ts (if backend calls apply).
   - Reducer.ts.
   - Selectors.ts.
   - For the above I like to work with NGRX Schematics to minimize bugs.
