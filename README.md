@@ -16,12 +16,14 @@ Made by me. Please have a look
 - Each module will have a http service file (when applies).
 - If state modification is involved, the module will have a "NGRX" folder, having the following files:
   - Actions.ts.
+    - I have a Begin, Succes, Failure pattern for each action.
   - Effects.ts (if backend calls apply).
   - Reducer.ts.
   - Selectors.ts.
   - For the above I like to work with NGRX Schematics to minimize bugs.
 - For best UI experience:
   - I have loading spinners whenever an API call is made to the backend. Such spninners on/off triggers are created at the corresponding reducer file.
+  - I fetch data in a PAGINATED form to have less traffic between calls.
   - Delete confirmation and custom error messages are created and shared among the app.
 - I create a "shared" module containing the above mentioned messages and:
   - Angular Material Module to be shared between the app. when neccessary.
