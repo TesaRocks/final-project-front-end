@@ -1,4 +1,4 @@
-# Project made with Angular, Angular Material and NGRX
+# Project made with Angular 12+, Angular Material and NGRX
 
 ## Back end of the project @ https://github.com/TesaRocks/finalProject Made by myself. Please have a look
 
