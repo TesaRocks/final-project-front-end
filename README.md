@@ -21,6 +21,7 @@
   - Reducer.ts.
   - Selectors.ts.
   - For the above I like to work with NGRX Schematics to minimize bugs.
+  - As well I use NGRX-Store dev tools to view the store change's state at runtime.
 - For best UI experience:
   - I have loading spinners whenever an API call is made to the backend. Such spninners on/off triggers are created at the corresponding reducer file.
   - I fetch data in a PAGINATED form to have less traffic between calls.
