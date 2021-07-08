@@ -4,6 +4,10 @@ Project made with Angular, Angular Material and NGRX
 
 Made by me. Please have a look
 
+## The state of this project is managed via NGRX throughout all its modules.
+
+## HTML components are made using Angular Material.
+
 # How I like to work (on the front end specifically):
 
 ## General architecuture:
