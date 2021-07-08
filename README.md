@@ -1,8 +1,6 @@
 # Project made with Angular, Angular Material and NGRX
 
-## Back end of the project @ https://github.com/TesaRocks/finalProject
-
-Made by myself. Please have a look
+## Back end of the project @ https://github.com/TesaRocks/finalProject Made by myself. Please have a look
 
 ## The state of this project is managed via NGRX throughout all its modules.
 
