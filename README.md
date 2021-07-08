@@ -19,10 +19,14 @@ Made by me. Please have a look
   - Reducer.ts.
   - Selectors.ts.
   - For the above I like to work with NGRX Schematics to minimize bugs.
-- I create a "shared" module containing error messages and delete confirmations among other features.
-  - I have in this folder my Angular Material Module to be shared between the app. when neccessary.
+- For best UI experience:
+  - I have loading spinners whenever an API call is made to the backend. Such spninners on/off triggers are created at the corresponding reducer file.
+  - Delete confirmation and custom error messages are created and shared among the app.
+- I create a "shared" module containing the above mentioned messages and:
+  - Angular Material Module to be shared between the app. when neccessary.
 - The app level directory will have an application-state file with the overall state app.
 - Naming variables is with camel case formatting, being very descriptive with the naming.
+- Avoiding hard coded values always.
 - I like to have the html files clean with zero styling. If there is need for style it will be stored at the html's style sheet accordingly.
 - I use Angular Material for all of the HTML components and Angular Icons when neccessary.
 - I make the app mobile responive.
