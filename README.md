@@ -8,7 +8,7 @@ Made by me. Please have a look
 
 ## HTML components are made using Angular Material.
 
-# How I like to work (on the front end specifically):
+## How I like to work (on the front end specifically):
 
 ## General architecuture:
 
