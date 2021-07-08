@@ -1,45 +1,44 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { IProduct } from '../product.interface';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 import { IApplicationState } from '../../aplication-state';
-import { ErrorMessage } from '../../shared/error-message';
-import { loadProductsPaginated } from '../ngrx/product.actions';
+import { IInvoice } from '../invoice.interface';
+import { loadInvoices } from '../ngrx/invoice.actions';
 import {
+  loadInvoicesPending,
+  selectInvoices,
   error,
-  loadProductsPending,
-  selectProducts,
-} from '../ngrx/product.selectors';
+} from '../ngrx/invoice.selectors';
 import { MatDialog } from '@angular/material/dialog';
+import { ErrorMessage } from 'src/app/shared/error-message';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products-list.component.html',
-  styleUrls: ['./products-list.component.scss'],
+  selector: 'app-invoice',
+  templateUrl: './invoice-list.component.html',
+  styleUrls: ['./invoice-list.component.scss'],
 })
-export class ProductsListComponent implements OnInit, OnDestroy {
+export class InvoiceListComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<IApplicationState>,
-    private router: Router,
     private route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {}
-  products$!: Observable<IProduct[]>;
-  loadProductsPending$!: Observable<boolean>;
+  invoices$!: Observable<IInvoice[]>;
+  loadInvoicesPending$!: Observable<boolean>;
   error!: Subscription;
   currentPage!: number;
   previousPage!: number;
   nextPage!: number;
+
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
       this.currentPage = parseInt(params['page']);
       this.previousPage = this.currentPage - 1;
-      this.store.dispatch(
-        loadProductsPaginated.begin({ page: params['page'] })
-      );
-      this.products$ = this.store.select(selectProducts);
-      this.loadProductsPending$ = this.store.select(loadProductsPending);
+      this.store.dispatch(loadInvoices.begin({ page: params['page'] }));
+      this.invoices$ = this.store.select(selectInvoices);
+      this.loadInvoicesPending$ = this.store.select(loadInvoicesPending);
       this.error = this.store.select(error).subscribe((error) => {
         if (error) {
           let errorDialog = this.dialog.open(ErrorMessage, {
@@ -52,19 +51,21 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       });
     });
   }
+  onViewProducts(invoiceId: number) {
+    this.router.navigate(['invoice', 'detail', invoiceId]);
+  }
   onNext() {
     this.nextPage = this.currentPage + 1;
-    this.router.navigate(['/products'], {
+    this.router.navigate(['/invoice'], {
       queryParams: { page: this.nextPage },
     });
   }
   onPrevious() {
     this.previousPage = this.currentPage - 1;
-    this.router.navigate(['/products'], {
+    this.router.navigate(['/invoice'], {
       queryParams: { page: this.previousPage },
     });
   }
-
   ngOnDestroy() {
     this.error.unsubscribe();
   }

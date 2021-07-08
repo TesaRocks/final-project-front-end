@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IProduct } from './product.interface';
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   constructor(private http: HttpClient) {}
 
+  fetchProductsPaginated(page: string): Observable<IProduct[]> {
+    const params = new HttpParams().set('page', page);
+    return this.http.get<IProduct[]>('/api/product', { params });
+  }
   fetchProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>('/api/product');
+    return this.http.get<IProduct[]>('/api/product/all');
   }
   fetchProduct(id: number): Observable<IProduct> {
     return this.http.get<IProduct>(`/api/product/${id}`);

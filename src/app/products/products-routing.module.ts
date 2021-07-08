@@ -7,8 +7,6 @@ const routes: Routes = [
     path: 'products',
     component: ProductsListComponent,
   },
-  // { path: 'users/:id/edit', component: UserEditComponent },
-  // { path: 'users/new', component: UserEditComponent },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

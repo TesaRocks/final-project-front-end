@@ -2,7 +2,12 @@ import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IProduct } from '../product.interface';
 
-import { loadProducts } from './product.actions';
+import {
+  deleteProduct,
+  loadProduct,
+  loadProductsAll,
+  loadProductsPaginated,
+} from './product.actions';
 
 export const productsFeatureKey = 'productsState';
 
@@ -37,23 +42,77 @@ export const productsInitialState: IProductsInitialState =
 
 export const reducer = createReducer(
   productsInitialState,
-  // Load Products
-  on(loadProducts.begin, (state) => {
+  // Load Products Paginated
+  on(loadProductsPaginated.begin, (state) => {
     return { ...state, loadProductsPending: true };
   }),
-  on(loadProducts.success, (state, action) => {
+  on(loadProductsPaginated.success, (state, action) => {
     return {
       ...adapter.setAll(action.products, state),
       loadProductsPending: false,
     };
   }),
-  on(loadProducts.failure, (state, action) => {
+  on(loadProductsPaginated.failure, (state, action) => {
     return {
       ...state,
       loadProductsPending: false,
       error: action.error,
     };
+  }),
+  // Load Products All
+  on(loadProductsAll.begin, (state) => {
+    return { ...state, loadProductsPending: true };
+  }),
+  on(loadProductsAll.success, (state, action) => {
+    return {
+      ...adapter.setAll(action.products, state),
+      loadProductsPending: false,
+    };
+  }),
+  on(loadProductsAll.failure, (state, action) => {
+    return {
+      ...state,
+      loadProductsPending: false,
+      error: action.error,
+    };
+  }),
+  // Load Product
+  on(loadProduct.begin, (state) => {
+    return { ...state, loadProductPending: true };
+  }),
+  on(loadProduct.success, (state, action) => {
+    return {
+      ...state,
+      loadProductPending: false,
+      selectedUser: action.selectedProduct,
+    };
+  }),
+
+  on(loadProduct.failure, (state, action) => {
+    return {
+      ...state,
+      loadProductPending: false,
+      error: action.error,
+    };
+  }),
+  // Delete User
+  on(deleteProduct.begin, (state) => {
+    return { ...state, deleteProductPending: true };
+  }),
+  on(deleteProduct.success, (state, action) => {
+    return {
+      ...adapter.removeOne(action.id, state),
+      deleteProductPending: false,
+    };
+  }),
+  on(deleteProduct.failure, (state, action) => {
+    return {
+      ...state,
+      deleteProductPending: false,
+      error: action.error,
+    };
   })
 );
+
 export const { selectIds, selectEntities, selectAll, selectTotal } =
   adapter.getSelectors();
