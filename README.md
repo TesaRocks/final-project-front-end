@@ -8,6 +8,7 @@
 
 ## General architecuture:
 
+- Upon creation I chosed SASS as styling sheets.
 - A NAV module is created as per the app's requirements.
 - I create a module per each main feature of the app.
 - Each module will have sub folders with features corresponding to that module.
