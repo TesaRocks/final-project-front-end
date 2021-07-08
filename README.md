@@ -31,7 +31,7 @@
 - The app level directory will have an application-state file with the overall state app.
 - Naming variables is with camelCase formatting, being very descriptive with the naming.
 - Avoiding hard coded values always.
-- I like to have the html files clean with zero styling. If there is need for style it will be stored at the html's style sheet accordingly.
+- I like to have the html files clean with zero styling. If there is need for style it will be stored at the html's SASS style sheet accordingly.
 - I use Angular Material for all of the HTML components and Material Icons when neccessary.
 - I make the app mobile responive.
 - Regarding typescript, I like to type variables as much as possible. Not using the "any" keyword and never disabling the null checks, always working around it.
