@@ -97,10 +97,7 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
     for (let i = 0; i < products.length; i++) {
       let newProduct: IItem = {
         productId: products[i].products.productId,
-        name: products[i].products.name,
-        description: products[i].products.description,
         quantity: products[i].quantity,
-        price: products[i].products.price,
       };
       newInvoice.invoiceItems.push(newProduct);
     }

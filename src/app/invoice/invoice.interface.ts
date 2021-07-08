@@ -8,8 +8,8 @@ export interface IInvoice {
 export interface IItem {
   invoiceDetailId?: number;
   productId: number;
-  name: string;
-  description: string;
+  name?: string;
+  description?: string;
   quantity: number;
-  price: number;
+  price?: number;
 }
