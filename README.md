@@ -34,6 +34,6 @@
 - Avoiding hard coded values always.
 - I like to have the html files clean with zero styling. If there is need for style it will be stored at the html's SASS style sheet accordingly.
 - I use Angular Material for all of the HTML components and Material Icons when neccessary.
-- I make the app mobile responive.
+- I made the app mobile responive.
 - Regarding typescript, I like to type variables as much as possible. Not using the "any" keyword and never disabling the null checks, always working around it.
 - Regarding Forms, I use REACTIVE FORMS Aproach using the Form Builder API offered by Angular.
