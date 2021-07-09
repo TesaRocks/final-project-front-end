@@ -41,6 +41,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       [Validators.required, Validators.minLength(6), Validators.maxLength(20)],
     ],
   });
+
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
