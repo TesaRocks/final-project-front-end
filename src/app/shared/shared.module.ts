@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
-
 import { ErrorMessage } from './error-message';
 import { DeleteConfirm } from './delete-confirm';
 

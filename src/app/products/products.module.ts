@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductsListComponent } from './product-list/products-list.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../shared/material.module';
@@ -14,6 +15,7 @@ import { ProductEffects } from './ngrx/product.effects';
   imports: [
     SharedModule,
     RouterModule,
+    FlexLayoutModule,
     MaterialModule,
     ProductsRoutingModule,
     StoreModule.forFeature(fromProduct.productsFeatureKey, fromProduct.reducer),
