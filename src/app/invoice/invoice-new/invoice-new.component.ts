@@ -109,6 +109,13 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
   hasError(inputName: 'customer', errorType: string) {
     return this.formNewInvoice.get(inputName)?.hasError(errorType);
   }
+  hasErrorShoppingCart(
+    inputName: 'products' | 'quantity',
+    errorType: string,
+    i: number
+  ) {
+    return this.shoppingCart.controls[i].get(inputName)?.hasError(errorType);
+  }
 
   ngOnDestroy() {
     this.productListSub.unsubscribe();
