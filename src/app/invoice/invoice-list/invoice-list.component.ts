@@ -31,6 +31,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   currentPage!: number;
   previousPage!: number;
   nextPage!: number;
+  displayedColumns: string[] = ['name', 'date', 'action'];
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
