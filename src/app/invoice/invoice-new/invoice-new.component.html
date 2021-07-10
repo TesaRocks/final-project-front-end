@@ -7,7 +7,8 @@
   <mat-spinner> </mat-spinner>
 </div>
 <button
-  routerLink="/home"
+  routerLink="/invoice"
+  [queryParams]="{ page: '1' }"
   matTooltip="back to home"
   matTooltipShowDelay="600"
   matTooltipPosition="right"
@@ -20,6 +21,7 @@
   type="button"
   (click)="onAddProduct()"
   class="add"
+  [disabled]="!formNewInvoice.valid"
 >
   <mat-icon>plus_one</mat-icon>
 </button>
