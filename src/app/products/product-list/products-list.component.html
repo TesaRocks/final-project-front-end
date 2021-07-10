@@ -3,32 +3,35 @@
   <mat-spinner> </mat-spinner>
 </div>
 
-<mat-grid-list cols="2" rowHeight="450px">
-  <mat-grid-tile *ngFor="let product of products$ | async">
-    <mat-card class="product-card">
-      <mat-card-header>
-        <div mat-card-avatar>
-          <mat-icon>account_circle</mat-icon>
-        </div>
-        <mat-card-title>{{ product.name }}</mat-card-title>
-      </mat-card-header>
-      <img
-        mat-card-image
-        src="{{ product.imagePath }}"
-        alt="{{ product.name }}"
-      />
-      <mat-card-content>
-        <p>
-          {{ product.description }}
-        </p>
-        <h4>Price: ${{ product.price }}</h4>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>Delete</button>
-      </mat-card-actions>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+<div
+  fxLayout="row wrap"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-evenly center"
+>
+  <mat-card class="card-picture" *ngFor="let product of products$ | async">
+    <mat-card-header>
+      <div mat-card-avatar fxLayoutAlign.xs="center center">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+    </mat-card-header>
+    <img
+      mat-card-image
+      src="{{ product.imagePath }}"
+      alt="{{ product.name }}"
+    />
+    <mat-card-content>
+      <p>
+        {{ product.description }}
+      </p>
+      <h4>Price: ${{ product.price }}</h4>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Do Something</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
 <button
   *ngIf="previousPage > 0"
   mat-button

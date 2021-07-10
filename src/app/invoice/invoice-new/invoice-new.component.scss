@@ -5,3 +5,12 @@ mat-icon{
   margin-left: 300px;
 
 }
+
+@media only screen and (max-width: 600px) {
+  mat-form-field {
+    width: 90%
+  }
+  .add{
+    margin-bottom: 30px;
+  }
+}

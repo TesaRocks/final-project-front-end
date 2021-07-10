@@ -50,10 +50,9 @@
               product.name
             }}</mat-option>
           </mat-select>
-
-          <!-- <mat-error *ngIf="hasError('products', 'required')"
+          <mat-error *ngIf="hasErrorShoppingCart('products', 'required', i)"
             >Must select at least one.
-          </mat-error> -->
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Amount</mat-label>
@@ -65,9 +64,12 @@
             min="1"
             required
           />
-          <!-- <mat-error *ngIf="hasError('shoppingCart.quantity', 'required')"
-            >Must select.
-          </mat-error> -->
+          <mat-error *ngIf="hasErrorShoppingCart('quantity', 'required', i)"
+            >Must enter a number.
+          </mat-error>
+          <mat-error *ngIf="hasErrorShoppingCart('quantity', 'pattern', i)"
+            >Must be a whole number.
+          </mat-error>
         </mat-form-field>
         <mat-icon *ngIf="i !== 0" color="primary" (click)="onRemoveShopping(i)"
           >delete_forever</mat-icon
