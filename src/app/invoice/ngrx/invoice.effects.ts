@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
-import { loadInvoices, loadInvoiceById, addInvoice } from './invoice.actions';
+import {
+  loadInvoices,
+  loadInvoiceById,
+  addInvoice,
+  countInvoices,
+} from './invoice.actions';
 import { InvoiceService } from '../invoice.service';
 import { Router } from '@angular/router';
 
@@ -28,6 +33,17 @@ export class InvoiceEffects {
             loadInvoiceById.success({ invoiceById: invoiceById })
           ),
           catchError((error) => of(loadInvoiceById.failure({ error })))
+        )
+      )
+    )
+  );
+  countInvoices$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(countInvoices.begin),
+      mergeMap(() =>
+        this.invoiceService.countInvoices().pipe(
+          map((count) => countInvoices.success({ totalInvoices: count })),
+          catchError((error) => of(countInvoices.failure({ error })))
         )
       )
     )

@@ -4,14 +4,16 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { IApplicationState } from '../../aplication-state';
 import { IInvoice } from '../invoice.interface';
-import { loadInvoices } from '../ngrx/invoice.actions';
+import { countInvoices, loadInvoices } from '../ngrx/invoice.actions';
 import {
   loadInvoicesPending,
   selectInvoices,
   error,
+  totalInvoices,
 } from '../ngrx/invoice.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorMessage } from 'src/app/shared/error-message';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-invoice',
@@ -27,6 +29,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   ) {}
   invoices$!: Observable<IInvoice[]>;
   loadInvoicesPending$!: Observable<boolean>;
+  totalInvoices$!: Observable<number>;
   error!: Subscription;
   currentPage!: number;
   previousPage!: number;
@@ -34,6 +37,9 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'date', 'action'];
 
   ngOnInit(): void {
+    this.store.dispatch(countInvoices.begin());
+    this.totalInvoices$ = this.store.select(totalInvoices);
+
     this.route.queryParams.subscribe((params: Params) => {
       this.currentPage = parseInt(params['page']);
       this.previousPage = this.currentPage - 1;
@@ -55,16 +61,11 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   onViewProducts(invoiceId: number) {
     this.router.navigate(['invoice', 'detail', invoiceId]);
   }
-  onNext() {
-    this.nextPage = this.currentPage + 1;
+
+  onChangePage(event: PageEvent) {
+    this.nextPage = event.pageIndex + 1;
     this.router.navigate(['/invoice'], {
       queryParams: { page: this.nextPage },
-    });
-  }
-  onPrevious() {
-    this.previousPage = this.currentPage - 1;
-    this.router.navigate(['/invoice'], {
-      queryParams: { page: this.previousPage },
     });
   }
   ngOnDestroy() {

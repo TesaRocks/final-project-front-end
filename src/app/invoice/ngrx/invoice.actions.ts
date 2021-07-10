@@ -50,6 +50,27 @@ export const loadInvoiceById = {
 };
 
 /** **************************************
+ *  Count Invoices
+ ***************************************/
+
+const countInvoicesBegin = createAction('[Invoice] Count Invoices Begin');
+
+const countInvoicesSuccess = createAction(
+  '[Invoice] Count Invoices Success',
+  props<{ totalInvoices: number }>()
+);
+
+const countInvoicesFailure = createAction(
+  '[Invoice] Count Invoices Failure',
+  props<{ error: any }>()
+);
+export const countInvoices = {
+  begin: countInvoicesBegin,
+  success: countInvoicesSuccess,
+  failure: countInvoicesFailure,
+};
+
+/** **************************************
  *  Add Invoice
  ***************************************/
 const addInvoiceBegin = createAction(

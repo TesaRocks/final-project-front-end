@@ -10,6 +10,11 @@ export const selectInvoiceState =
 
 export const selectInvoices = createSelector(selectInvoiceState, selectAll);
 
+export const totalInvoices = createSelector(
+  selectInvoiceState,
+  (state: IInvoiceInitialState) => state.totalInvoices
+);
+
 export const selectInvoiceById = createSelector(
   selectInvoiceState,
   (state: IInvoiceInitialState) => state.selectedInvoice

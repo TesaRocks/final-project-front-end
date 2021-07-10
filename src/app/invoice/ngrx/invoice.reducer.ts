@@ -1,7 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IInvoice } from '../invoice.interface';
-import { loadInvoices, loadInvoiceById, addInvoice } from './invoice.actions';
+import {
+  loadInvoices,
+  loadInvoiceById,
+  addInvoice,
+  countInvoices,
+} from './invoice.actions';
 
 export const invoiceFeatureKey = 'invoiceState';
 
@@ -14,6 +19,7 @@ export interface IInvoiceInitialState extends EntityState<IInvoice> {
   addInvoicePending: boolean;
   updateInvoicePending: boolean;
   deleteInvoicePending: boolean;
+  totalInvoices: number;
 }
 export function selectInvoiceId(invoice: IInvoice): number {
   return invoice.invoiceId;
@@ -33,6 +39,7 @@ export const invoiceInitialState: IInvoiceInitialState =
     updateInvoicePending: false,
     deleteInvoicePending: false,
     items: null,
+    totalInvoices: 0,
   });
 
 export const reducer = createReducer(
@@ -72,6 +79,23 @@ export const reducer = createReducer(
       error: action.error,
     };
   }),
+  // Count Invoices
+  on(countInvoices.begin, (state) => {
+    return { ...state };
+  }),
+  on(countInvoices.success, (state, action) => {
+    return {
+      ...state,
+      totalInvoices: action.totalInvoices,
+    };
+  }),
+  on(countInvoices.failure, (state, action) => {
+    return {
+      ...state,
+      error: action.error,
+    };
+  }),
+
   // Add one Invoice
   on(addInvoice.begin, (state) => {
     return { ...state, addInvoicePending: true };

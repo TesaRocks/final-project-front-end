@@ -59,7 +59,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
 
   onChangePage(event: PageEvent) {
-    console.log(event.pageIndex);
     this.nextPage = event.pageIndex + 1;
     this.router.navigate(['/products'], {
       queryParams: { page: this.nextPage },

@@ -33,12 +33,9 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 
-<button
-  *ngIf="previousPage > 0"
-  mat-button
-  color="primary"
-  (click)="onPrevious()"
+<mat-paginator
+  [length]="totalInvoices$ | async"
+  [pageSize]="4"
+  (page)="onChangePage($event)"
 >
-  <<< Previous
-</button>
-<button mat-button color="primary" (click)="onNext()">Next >>></button>
+</mat-paginator>
