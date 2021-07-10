@@ -78,9 +78,19 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
         });
       }
     });
-    this.onAddProduct();
+    this.shoppingCart.push(this.newShopping());
   }
   onAddProduct() {
+    // console.log(this.productList);
+    // const productToSplice =
+    //   this.formNewInvoice.value.shoppingCart[0].products.productId;
+    // for (let product of this.productList) {
+    //   if (productToSplice === product.productId) {
+    //     this.productList.splice(product.productId, 1);
+    //   }
+    // }
+
+    // console.log(this.productList);
     this.shoppingCart.push(this.newShopping());
   }
   onRemoveShopping(i: number) {
