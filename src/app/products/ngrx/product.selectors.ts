@@ -14,6 +14,10 @@ export const selectProduct = createSelector(
   selectProductState,
   (state: IProductsInitialState) => state.selectedProduct
 );
+export const totalProducts = createSelector(
+  selectProductState,
+  (state: IProductsInitialState) => state.totalProducts
+);
 export const loadProductsPending = createSelector(
   selectProductState,
   (state: IProductsInitialState) => state.loadProductsPending

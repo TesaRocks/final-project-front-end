@@ -5,13 +5,15 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IApplicationState } from '../../aplication-state';
 import { ErrorMessage } from '../../shared/error-message';
-import { loadProductsPaginated } from '../ngrx/product.actions';
+import { loadProductsPaginated, countProducts } from '../ngrx/product.actions';
 import {
   error,
   loadProductsPending,
   selectProducts,
+  totalProducts,
 } from '../ngrx/product.selectors';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-products',
@@ -28,10 +30,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[]>;
   loadProductsPending$!: Observable<boolean>;
   error!: Subscription;
+  totalProducts$!: Observable<number>;
   currentPage!: number;
   previousPage!: number;
   nextPage!: number;
   ngOnInit(): void {
+    this.store.dispatch(countProducts.begin());
+    this.totalProducts$ = this.store.select(totalProducts);
     this.route.queryParams.subscribe((params: Params) => {
       this.currentPage = parseInt(params['page']);
       this.previousPage = this.currentPage - 1;
@@ -52,16 +57,12 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       });
     });
   }
-  onNext() {
-    this.nextPage = this.currentPage + 1;
+
+  onChangePage(event: PageEvent) {
+    console.log(event.pageIndex);
+    this.nextPage = event.pageIndex + 1;
     this.router.navigate(['/products'], {
       queryParams: { page: this.nextPage },
-    });
-  }
-  onPrevious() {
-    this.previousPage = this.currentPage - 1;
-    this.router.navigate(['/products'], {
-      queryParams: { page: this.previousPage },
     });
   }
 

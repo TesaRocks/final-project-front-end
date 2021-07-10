@@ -32,12 +32,9 @@
   </mat-card>
 </div>
 
-<button
-  *ngIf="previousPage > 0"
-  mat-button
-  color="primary"
-  (click)="onPrevious()"
+<mat-paginator
+  [length]="totalProducts$ | async"
+  [pageSize]="6"
+  (page)="onChangePage($event)"
 >
-  <<< Previous
-</button>
-<button mat-button color="primary" (click)="onNext()">Next >>></button>
+</mat-paginator>

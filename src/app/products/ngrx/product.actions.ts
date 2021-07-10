@@ -47,6 +47,27 @@ export const loadProductsAll = {
 };
 
 /** **************************************
+ *  Count Products
+ ***************************************/
+
+const countProductsBegin = createAction('[Product] Count Products Begin');
+
+const countProductsSuccess = createAction(
+  '[Product] Count Products Success',
+  props<{ totalProducts: number }>()
+);
+
+const countProductsFailure = createAction(
+  '[Product] Count Products Failure',
+  props<{ error: any }>()
+);
+export const countProducts = {
+  begin: countProductsBegin,
+  success: countProductsSuccess,
+  failure: countProductsFailure,
+};
+
+/** **************************************
  *  Load Product
  ***************************************/
 const loadProductBegin = createAction(

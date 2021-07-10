@@ -5,6 +5,7 @@ import {
   deleteProduct,
   loadProduct,
   loadProductsAll,
+  countProducts,
 } from './product.actions';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
@@ -32,6 +33,17 @@ export class ProductEffects {
         this.productService.fetchProducts().pipe(
           map((product) => loadProductsAll.success({ products: product })),
           catchError((error) => of(loadProductsAll.failure({ error })))
+        )
+      )
+    )
+  );
+  countProducts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(countProducts.begin),
+      mergeMap(() =>
+        this.productService.countProducts().pipe(
+          map((count) => countProducts.success({ totalProducts: count })),
+          catchError((error) => of(countProducts.failure({ error })))
         )
       )
     )

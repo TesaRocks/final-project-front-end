@@ -7,6 +7,7 @@ import {
   loadProduct,
   loadProductsAll,
   loadProductsPaginated,
+  countProducts,
 } from './product.actions';
 
 export const productsFeatureKey = 'productsState';
@@ -20,6 +21,7 @@ export interface IProductsInitialState extends EntityState<IProduct> {
   addProductPending: boolean;
   updateProductPending: boolean;
   deleteProductPending: boolean;
+  totalProducts: number;
 }
 export function selectProductId(product: IProduct): number {
   return product.productId;
@@ -38,6 +40,7 @@ export const productsInitialState: IProductsInitialState =
     addProductPending: false,
     updateProductPending: false,
     deleteProductPending: false,
+    totalProducts: 0,
   });
 
 export const reducer = createReducer(
@@ -73,6 +76,22 @@ export const reducer = createReducer(
     return {
       ...state,
       loadProductsPending: false,
+      error: action.error,
+    };
+  }),
+  // Count Products
+  on(countProducts.begin, (state) => {
+    return { ...state };
+  }),
+  on(countProducts.success, (state, action) => {
+    return {
+      ...state,
+      totalProducts: action.totalProducts,
+    };
+  }),
+  on(countProducts.failure, (state, action) => {
+    return {
+      ...state,
       error: action.error,
     };
   }),

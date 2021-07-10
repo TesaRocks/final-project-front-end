@@ -13,6 +13,9 @@ export class ProductService {
   fetchProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>('/api/product/all');
   }
+  countProducts(): Observable<number> {
+    return this.http.get<number>('/api/product/count');
+  }
   fetchProduct(id: number): Observable<IProduct> {
     return this.http.get<IProduct>(`/api/product/${id}`);
   }

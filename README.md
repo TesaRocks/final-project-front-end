@@ -25,7 +25,7 @@
   - As well I use NGRX-Store dev tools to view the store change's state at runtime.
 - For best UI experience:
   - I have loading spinners whenever an API call is made to the backend. Such spninners on/off triggers are created at the corresponding reducer file.
-  - I fetch data in a PAGINATED form to have less traffic between calls.
+  - I fetch data in a PAGINATED form to have less traffic between calls using Angular Material Paginator.
   - Delete confirmation and custom error messages are created and shared among the app.
 - I create a "shared" module containing the above mentioned messages and:
   - Angular Material Module to be shared between the app. when neccessary.
@@ -34,6 +34,6 @@
 - Avoiding hard coded values always.
 - I like to have the html files clean with zero styling. If there is need for style it will be stored at the html's SASS style sheet accordingly.
 - I use Angular Material for all of the HTML components and Material Icons when neccessary.
-- I made the app mobile responive.
+- I made the app mobile responive, using Angular Flex Layout and Angular Layout CDK.
 - Regarding typescript, I like to type variables as much as possible. Not using the "any" keyword and never disabling the null checks, always working around it.
 - Regarding Forms, I use REACTIVE FORMS Aproach using the Form Builder API offered by Angular.
