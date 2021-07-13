@@ -62,7 +62,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
             email: user.email,
             password: '',
           };
-          console.log(formUser);
           this.formEditNew.setValue(formUser);
         }
       });

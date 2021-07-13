@@ -11,12 +11,14 @@ import * as fromInvoice from './ngrx/invoice.reducer';
 import { InvoiceEffects } from './ngrx/invoice.effects';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 import { InvoiceNewComponent } from './invoice-new/invoice-new.component';
+import { ShortPipe } from './invoice-detail/short.pipe';
 
 @NgModule({
   declarations: [
     InvoiceListComponent,
     InvoiceDetailComponent,
     InvoiceNewComponent,
+    ShortPipe,
   ],
   imports: [
     RouterModule,
