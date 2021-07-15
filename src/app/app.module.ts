@@ -16,6 +16,7 @@ import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { InvoiceModule } from './invoice/invoice.module';
 import { NavComponent } from './nav/nav.component';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent, MainComponent, NavComponent],
@@ -30,6 +31,7 @@ import { NavComponent } from './nav/nav.component';
     MaterialModule,
     UsersModule,
     InvoiceModule,
+    AuthModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
