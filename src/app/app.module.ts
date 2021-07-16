@@ -17,7 +17,6 @@ import { ProductsModule } from './products/products.module';
 import { InvoiceModule } from './invoice/invoice.module';
 import { NavComponent } from './nav/nav.component';
 import { AuthModule } from './auth/auth.module';
-
 @NgModule({
   declarations: [AppComponent, MainComponent, NavComponent],
   imports: [
