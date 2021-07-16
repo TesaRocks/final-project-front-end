@@ -6,86 +6,103 @@
   <h2>Saving...</h2>
   <mat-spinner> </mat-spinner>
 </div>
+
 <button
   routerLink="/invoice"
   [queryParams]="{ page: '1' }"
   matTooltip="back to home"
-  matTooltipShowDelay="600"
-  matTooltipPosition="right"
 >
   <mat-icon color="warn">backspace</mat-icon>
 </button>
-<button
-  mat-mini-fab
-  color="warn"
-  type="button"
-  (click)="onAddProduct()"
-  class="add"
-  [disabled]="!formNewInvoice.valid"
->
-  <mat-icon>plus_one</mat-icon>
-</button>
 
-<form [formGroup]="formNewInvoice" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
-    <mat-label>Customer Name</mat-label>
-    <input
-      matInput
-      placeholder="Customer"
-      formControlName="customer"
-      id="customer"
-      required
-    />
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>45 charactes max.</mat-hint>
-    <mat-error *ngIf="hasError('customer', 'required')"
-      >This field is required!
-    </mat-error>
-  </mat-form-field>
-  <div formArrayName="shoppingCart">
-    <div *ngFor="let shopping of shoppingCart.controls; let i = index">
-      <div [formGroupName]="i">
-        <mat-form-field appearance="fill">
-          <mat-label>Products</mat-label>
-          <mat-select formControlName="products" required>
-            <mat-option *ngFor="let product of productList" [value]="product">{{
-              product.name
-            }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="hasErrorShoppingCart('products', 'required', i)"
-            >Must select at least one.
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Amount</mat-label>
-          <input
-            matInput
-            type="number"
-            placeholder="0"
-            formControlName="quantity"
-            min="1"
-            required
-          />
-          <mat-error *ngIf="hasErrorShoppingCart('quantity', 'required', i)"
-            >Must enter a number.
-          </mat-error>
-          <mat-error *ngIf="hasErrorShoppingCart('quantity', 'pattern', i)"
-            >Must be a whole number.
-          </mat-error>
-        </mat-form-field>
-        <mat-icon *ngIf="i !== 0" color="primary" (click)="onRemoveShopping(i)"
-          >delete_forever</mat-icon
-        >
-      </div>
-    </div>
-  </div>
-
+<div fxLayoutAlign.xs="end none" fxLayoutAlign="center center">
   <button
-    type="submit"
-    mat-raised-button
-    color="primary"
+    mat-mini-fab
+    color="warn"
+    type="button"
+    (click)="onAddProduct()"
+    class="add"
     [disabled]="!formNewInvoice.valid"
   >
-    Save
+    <mat-icon>plus_one</mat-icon>
   </button>
-</form>
+</div>
+
+<div fxLayoutAlign="left">
+  <mat-card fxFlex.xs="100" fxFlex="50">
+    <mat-toolbar color="warn">New Invoice</mat-toolbar>
+    <form
+      [formGroup]="formNewInvoice"
+      (ngSubmit)="onSubmit()"
+      fxLayoutAlign="stretch"
+      fxLayout="column"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Customer Name</mat-label>
+        <input
+          matInput
+          placeholder="Customer"
+          formControlName="customer"
+          id="customer"
+          required
+        />
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>45 charactes max.</mat-hint>
+        <mat-error *ngIf="hasError('customer', 'required')"
+          >This field is required!
+        </mat-error>
+      </mat-form-field>
+      <div formArrayName="shoppingCart">
+        <div *ngFor="let shopping of shoppingCart.controls; let i = index">
+          <div [formGroupName]="i">
+            <mat-form-field appearance="fill">
+              <mat-label>Products</mat-label>
+              <mat-select formControlName="products" required>
+                <mat-option
+                  *ngFor="let product of productList"
+                  [value]="product"
+                  >{{ product.name }}</mat-option
+                >
+              </mat-select>
+              <mat-error *ngIf="hasErrorShoppingCart('products', 'required', i)"
+                >Must select at least one.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Amount</mat-label>
+              <input
+                matInput
+                type="number"
+                placeholder="0"
+                formControlName="quantity"
+                min="1"
+                required
+              />
+              <mat-error *ngIf="hasErrorShoppingCart('quantity', 'required', i)"
+                >Must enter a number.
+              </mat-error>
+              <mat-error *ngIf="hasErrorShoppingCart('quantity', 'pattern', i)"
+                >Must be a whole number.
+              </mat-error>
+            </mat-form-field>
+            <mat-icon
+              *ngIf="i !== 0"
+              color="primary"
+              (click)="onRemoveShopping(i)"
+              >delete_forever</mat-icon
+            >
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="!formNewInvoice.valid"
+      >
+        Save
+      </button>
+    </form>
+  </mat-card>
+</div>
