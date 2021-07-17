@@ -25,3 +25,17 @@ export const loginUser = {
   success: loginUserSuccess,
   failure: loginUserFailure,
 };
+/** **************************************
+ *  Logout User
+ ***************************************/
+
+const logoutUserSuccess = createAction('[Auth] Logout User Success');
+
+const logoutUserFailure = createAction(
+  '[Auth] Logout User Failure',
+  props<{ error: any }>()
+);
+export const logoutUser = {
+  success: logoutUserSuccess,
+  failure: logoutUserFailure,
+};

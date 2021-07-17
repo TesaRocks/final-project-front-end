@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IAuthResponse } from '../auth-response.interface';
-import { loginUser } from './auth.actions';
+import { loginUser, logoutUser } from './auth.actions';
 
 export const authFeatureKey = 'authState';
 
@@ -31,6 +31,20 @@ export const reducer = createReducer(
     };
   }),
   on(loginUser.failure, (state, action) => {
+    return {
+      ...state,
+      loginUserPending: false,
+      error: action.error,
+    };
+  }),
+  // Logout User
+  on(logoutUser.success, (state, action) => {
+    return {
+      ...adapter.removeAll(state),
+      loginUserPending: false,
+    };
+  }),
+  on(logoutUser.failure, (state, action) => {
     return {
       ...state,
       loginUserPending: false,
