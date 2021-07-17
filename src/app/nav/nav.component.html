@@ -22,7 +22,7 @@
       <a mat-list-item [routerLink]="'/invoice'" [queryParams]="{ page: '1' }"
         ><mat-icon> monetization_on</mat-icon>Invoice</a
       >
-      <a mat-list-item [routerLink]="'/home'" class="logout"
+      <a mat-list-item class="logout" (click)="onLogout()"
         ><mat-icon>input</mat-icon>Logout</a
       >
     </mat-nav-list>
