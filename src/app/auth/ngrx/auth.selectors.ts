@@ -5,3 +5,11 @@ export const selectAuthState =
   createFeatureSelector<IAuthInitialState>(authFeatureKey);
 
 export const selectAuth = createSelector(selectAuthState, selectAll);
+export const loginUserPending = createSelector(
+  selectAuthState,
+  (state: IAuthInitialState) => state.loginUserPending
+);
+export const error = createSelector(
+  selectAuthState,
+  (state: IAuthInitialState) => state.error
+);

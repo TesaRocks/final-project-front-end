@@ -9,9 +9,11 @@ import { shareReplay } from 'rxjs/operators';
 export class AuthService {
   constructor(private http: HttpClient) {}
   loginUser(user: IUser): Observable<IAuthResponse> {
-    return this.http.post<IAuthResponse>('/api/user/login', {
-      email: user.email,
-      password: user.password,
-    });
+    return this.http
+      .post<IAuthResponse>('/api/user/login', {
+        email: user.email,
+        password: user.password,
+      })
+      .pipe(shareReplay());
   }
 }

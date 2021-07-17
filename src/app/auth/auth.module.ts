@@ -8,7 +8,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-
+import * as fromAuth from './ngrx/auth.reducer';
+import { AuthEffects } from './ngrx/auth.effects';
 @NgModule({
   declarations: [AuthComponent],
   imports: [
@@ -18,6 +19,8 @@ import { EffectsModule } from '@ngrx/effects';
     AuthRoutingModule,
     MaterialModule,
     FlexLayoutModule,
+    StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducer),
+    EffectsModule.forFeature([AuthEffects]),
   ],
 })
 export class AuthModule {}
