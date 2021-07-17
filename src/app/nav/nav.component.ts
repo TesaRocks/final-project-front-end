@@ -20,7 +20,7 @@ export class NavComponent implements OnInit {
       map((result) => result.matches),
       shareReplay()
     );
-  isLoggedInSub!: Subscription;
+
   isLoggedIn: boolean = false;
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -28,13 +28,8 @@ export class NavComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit() {
-    this.isLoggedInSub = this.store.select(selectAuth).subscribe((response) => {
-      if (response.length > 0) {
-        this.isLoggedIn = true;
-        console.log(this.isLoggedIn);
-      }
-      console.log(this.isLoggedIn);
-    });
+    const jwt = localStorage.getItem('id_token');
+    console.log(jwt);
   }
   onLogout() {
     this.store.dispatch(logoutUser.success());
