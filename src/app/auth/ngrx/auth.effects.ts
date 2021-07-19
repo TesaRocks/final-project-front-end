@@ -17,7 +17,7 @@ export class AuthEffects {
           catchError((error) => of(loginUser.failure({ error })))
         )
       ),
-      tap(() => this.router.navigate(['users']))
+      tap(() => this.router.navigate(['home']))
     )
   );
   constructor(
