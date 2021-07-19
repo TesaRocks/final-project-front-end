@@ -58,6 +58,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     return this.formLog.get(inputName)?.hasError(errorType);
   }
   ngOnDestroy() {
-    this.error.unsubscribe();
+    if (this.error) this.error.unsubscribe();
   }
 }
