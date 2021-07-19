@@ -27,10 +27,7 @@ export class NavComponent implements OnInit {
     private store: Store<IAuthResponse>,
     private router: Router
   ) {}
-  ngOnInit() {
-    const jwt = localStorage.getItem('id_token');
-    console.log(jwt);
-  }
+  ngOnInit() {}
   onLogout() {
     this.store.dispatch(logoutUser.success());
     localStorage.removeItem('id_token');

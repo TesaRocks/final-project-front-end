@@ -10,11 +10,13 @@ import { StoreModule } from '@ngrx/store';
 import * as fromUser from './ngrx/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './ngrx/user.effects';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [UsersListComponent, UserEditComponent],
   imports: [
     RouterModule,
+    FlexLayoutModule,
     UsersRoutingModule,
     SharedModule,
     MaterialModule,
