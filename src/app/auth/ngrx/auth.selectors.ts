@@ -13,3 +13,7 @@ export const error = createSelector(
   selectAuthState,
   (state: IAuthInitialState) => state.error
 );
+export const haslocalStorage = createSelector(
+  selectAuthState,
+  (state: IAuthInitialState) => state.hasLocalStorage
+);

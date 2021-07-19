@@ -25,6 +25,13 @@ export const loginUser = {
   success: loginUserSuccess,
   failure: loginUserFailure,
 };
+
+/** **************************************
+ *  Check data storage
+ ***************************************/
+
+export const checkLocalStorage = createAction('[Auth] Check Data Storage');
+
 /** **************************************
  *  Logout User
  ***************************************/
