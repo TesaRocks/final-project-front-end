@@ -11,8 +11,8 @@ import * as fromInvoice from './ngrx/invoice.reducer';
 import { InvoiceEffects } from './ngrx/invoice.effects';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 import { InvoiceNewComponent } from './invoice-new/invoice-new.component';
-import { ShortPipe } from './invoice-detail/short.pipe';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ShortPipe } from '../shared/short.pipe';
 
 @NgModule({
   declarations: [

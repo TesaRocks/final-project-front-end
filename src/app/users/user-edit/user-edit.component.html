@@ -96,6 +96,9 @@
           <mat-option value="sales">Sales</mat-option>
           <mat-option value="guest">Guest</mat-option>
         </mat-select>
+        <mat-error *ngIf="hasError('role', 'required')"
+          >Plase enter a role
+        </mat-error>
       </mat-form-field>
 
       <button
