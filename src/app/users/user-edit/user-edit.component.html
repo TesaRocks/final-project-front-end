@@ -89,6 +89,15 @@
           <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
       </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role" required>
+          <mat-option value="admin">Admin</mat-option>
+          <mat-option value="sales">Sales</mat-option>
+          <mat-option value="guest">Guest</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <button
         type="submit"
         mat-raised-button

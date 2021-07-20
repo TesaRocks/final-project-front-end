@@ -40,6 +40,10 @@ export class UserEditComponent implements OnInit, OnDestroy {
       '',
       [Validators.required, Validators.minLength(6), Validators.maxLength(20)],
     ],
+    role: [
+      '',
+      [Validators.required, Validators.minLength(5), Validators.maxLength(5)],
+    ],
   });
 
   constructor(
@@ -61,6 +65,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
             name: user.name,
             email: user.email,
             password: '',
+            role: user.role,
           };
           this.formEditNew.setValue(formUser);
         }
@@ -84,6 +89,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       name: this.formEditNew.value.name,
       email: this.formEditNew.value.email,
       password: this.formEditNew.value.password,
+      role: this.formEditNew.value.role,
     };
     if (this.editMode) {
       const update: Update<IUser> = {

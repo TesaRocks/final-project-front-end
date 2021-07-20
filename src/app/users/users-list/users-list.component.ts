@@ -49,7 +49,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   pending$!: Observable<boolean>;
   pendingDelete$!: Observable<boolean>;
   error!: Subscription;
-  displayedColumns: string[] = ['name', 'email', 'actions'];
+  displayedColumns: string[] = ['name', 'email', 'role', 'actions'];
 
   ngOnInit() {
     this.store.dispatch(loadUsers.begin());
