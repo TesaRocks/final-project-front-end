@@ -5,7 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { logoutUser } from '../auth/ngrx/auth.actions';
-import { haslocalStorage } from '../auth/ngrx/auth.selectors';
+import { haslocalStorage, role } from '../auth/ngrx/auth.selectors';
 import { IAuthResponse } from '../auth/auth-response.interface';
 
 @Component({
@@ -23,6 +23,8 @@ export class NavComponent implements OnInit, OnDestroy {
 
   hasLocalStorageSub!: Subscription;
   hasLocalStorage!: boolean;
+  roleSub!: Subscription;
+  role!: string;
 
   isLoggedIn: boolean = false;
   constructor(
@@ -36,14 +38,19 @@ export class NavComponent implements OnInit, OnDestroy {
       .subscribe((value) => {
         value ? (this.hasLocalStorage = true) : (this.hasLocalStorage = false);
       });
+    this.roleSub = this.store.select(role).subscribe((roleFromStore) => {
+      if (roleFromStore) this.role = roleFromStore;
+    });
   }
   onLogout() {
     this.store.dispatch(logoutUser.success());
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('role');
     this.router.navigate(['home']);
   }
   ngOnDestroy() {
     this.hasLocalStorageSub.unsubscribe();
+    this.roleSub.unsubscribe();
   }
 }

@@ -17,3 +17,7 @@ export const haslocalStorage = createSelector(
   selectAuthState,
   (state: IAuthInitialState) => state.hasLocalStorage
 );
+export const role = createSelector(
+  selectAuthState,
+  (state: IAuthInitialState) => state.role
+);
