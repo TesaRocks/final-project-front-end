@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -11,7 +11,7 @@ import { Observable, Subscription } from 'rxjs';
 import { haslocalStorage } from './ngrx/auth.selectors';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, OnDestroy {
   constructor(private store: Store, private router: Router) {}
   hasLocalStorageSub!: Subscription;
   hasLocalStorage!: boolean;
@@ -31,5 +31,8 @@ export class AuthGuard implements CanActivate {
       });
 
     return this.hasLocalStorage ? true : this.router.createUrlTree(['/auth']);
+  }
+  ngOnDestroy() {
+    this.hasLocalStorageSub.unsubscribe();
   }
 }
