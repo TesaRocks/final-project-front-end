@@ -12,14 +12,12 @@ import { InvoiceEffects } from './ngrx/invoice.effects';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 import { InvoiceNewComponent } from './invoice-new/invoice-new.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ShortPipe } from '../shared/short.pipe';
 
 @NgModule({
   declarations: [
     InvoiceListComponent,
     InvoiceDetailComponent,
     InvoiceNewComponent,
-    ShortPipe,
   ],
   imports: [
     RouterModule,

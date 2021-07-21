@@ -33,7 +33,7 @@
 >
   <!-- Id Column -->
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>Product Id</th>
+    <th mat-header-cell *matHeaderCellDef>Id</th>
     <td mat-cell *matCellDef="let item" [@EnterLeave]>
       {{ item.productId }}
     </td>
@@ -70,6 +70,14 @@
       {{ item.quantity }}
     </td>
   </ng-container>
+  <!-- Total Column -->
+  <ng-container matColumnDef="total">
+    <th mat-header-cell *matHeaderCellDef>Total</th>
+    <td mat-cell *matCellDef="let item" [@EnterLeave] class="total">
+      {{ item.quantity * item.price | currency }}
+    </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>

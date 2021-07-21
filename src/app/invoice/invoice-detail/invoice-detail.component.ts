@@ -50,6 +50,7 @@ export class InvoiceDetailComponent implements OnInit, OnDestroy {
     'description',
     'price',
     'quantity',
+    'total',
   ];
   invoiceId!: number;
   invoiceByIdSubscription!: Subscription;

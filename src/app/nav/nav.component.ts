@@ -25,6 +25,7 @@ export class NavComponent implements OnInit, OnDestroy {
   hasLocalStorage!: boolean;
   roleSub!: Subscription;
   role!: string;
+  header: any = 'Final Project';
 
   isLoggedIn: boolean = false;
   constructor(
@@ -47,7 +48,17 @@ export class NavComponent implements OnInit, OnDestroy {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('role');
+    this.header = 'Final Project';
     this.router.navigate(['home']);
+  }
+  onPathChosen(event: Event) {
+    let headerToChange: any = (<HTMLElement>event.target).textContent
+      ?.toLowerCase()
+      .trim()
+      .split(' ')[1];
+    this.header =
+      headerToChange?.charAt(0).toUpperCase() + headerToChange?.slice(1);
+    if (this.header === 'Home') this.header = 'Final Project';
   }
   ngOnDestroy() {
     this.hasLocalStorageSub.unsubscribe();

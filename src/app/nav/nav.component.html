@@ -9,8 +9,8 @@
   >
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item [routerLink]="'/home'"
-        ><mat-icon>home</mat-icon>&#160;Home</a
+      <a mat-list-item [routerLink]="'/home'" (click)="onPathChosen($event)"
+        ><mat-icon>home</mat-icon>&#160; Home</a
       >
       <a *ngIf="!hasLocalStorage" mat-list-item [routerLink]="'/auth'"
         ><mat-icon>account_circle</mat-icon>&#160; Login</a
@@ -19,13 +19,15 @@
         *ngIf="hasLocalStorage && role == 'admin'"
         mat-list-item
         [routerLink]="'/users'"
-        ><mat-icon>people</mat-icon>&#160;Users</a
+        (click)="onPathChosen($event)"
+        ><mat-icon>people</mat-icon>&#160; Users</a
       >
       <a
         *ngIf="hasLocalStorage"
         mat-list-item
         [routerLink]="'/products'"
         [queryParams]="{ page: '1' }"
+        (click)="onPathChosen($event)"
         ><mat-icon>shopping_basket</mat-icon>&#160; Products</a
       >
       <a
@@ -33,6 +35,7 @@
         mat-list-item
         [routerLink]="'/invoice'"
         [queryParams]="{ page: '1' }"
+        (click)="onPathChosen($event)"
         ><mat-icon> monetization_on</mat-icon>&#160; Invoice</a
       >
       <a
@@ -55,7 +58,7 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Final Project </span>
+      <span>{{ header }} </span>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
