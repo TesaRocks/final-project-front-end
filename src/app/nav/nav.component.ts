@@ -27,7 +27,6 @@ export class NavComponent implements OnInit, OnDestroy {
   role!: string;
   header: any = 'Final Project';
 
-  isLoggedIn: boolean = false;
   constructor(
     private breakpointObserver: BreakpointObserver,
     private store: Store<IAuthResponse>,
