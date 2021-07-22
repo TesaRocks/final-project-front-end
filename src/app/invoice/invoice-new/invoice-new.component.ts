@@ -81,12 +81,6 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
     this.shoppingCart.push(this.newShopping());
   }
   onAddProduct() {
-    // let filteredProductList = this.productList.filter(
-    //   (product) =>
-    //     product.productId !==
-    //     this.formNewInvoice.value.shoppingCart[0].products.productId
-    // );
-    // this.productList = filteredProductList;
     this.shoppingCart.push(this.newShopping());
   }
   onRemoveShopping(i: number) {

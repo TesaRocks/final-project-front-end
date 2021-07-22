@@ -57,7 +57,9 @@ export class InvoiceEffects {
           catchError((error) => of(addInvoice.failure({ error })))
         )
       ),
-      tap(() => this.router.navigate(['home']))
+      tap(() =>
+        this.router.navigate(['invoice'], { queryParams: { page: '1' } })
+      )
     )
   );
   constructor(
