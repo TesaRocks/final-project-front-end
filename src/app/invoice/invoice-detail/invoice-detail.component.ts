@@ -50,13 +50,14 @@ export class InvoiceDetailComponent implements OnInit, OnDestroy {
     'description',
     'price',
     'quantity',
-    'total',
+    'subtotal',
   ];
   invoiceId!: number;
   invoiceByIdSubscription!: Subscription;
   invoiceById!: IInvoice;
   loadInvoiceByIdPending$!: Observable<boolean>;
   error!: Subscription;
+  total!: any;
 
   ngOnInit(): void {
     this.invoiceId = this.route.snapshot.params.id;
@@ -65,6 +66,11 @@ export class InvoiceDetailComponent implements OnInit, OnDestroy {
       .select(selectInvoiceById)
       .subscribe((invoice) => {
         this.invoiceById = invoice;
+        if (invoice.invoiceItems !== undefined) {
+          this.total = invoice.invoiceItems
+            .map((item) => item.quantity * item.price!)
+            .reduce((acc, value) => acc + value, 0);
+        }
       });
     this.loadInvoiceByIdPending$ = this.store.select(loadInvoiceByIdPending);
     this.error = this.store.select(error).subscribe((error) => {
