@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterContentChecked,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -15,7 +21,7 @@ import { updateHeader } from 'src/app/ngrx/header.actions';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })
-export class NavComponent implements OnInit, OnDestroy {
+export class NavComponent implements OnInit, AfterContentChecked, OnDestroy {
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -33,7 +39,8 @@ export class NavComponent implements OnInit, OnDestroy {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private store: Store<IApplicationState>,
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef
   ) {}
   ngOnInit() {
     this.headerSub = this.store
@@ -61,6 +68,9 @@ export class NavComponent implements OnInit, OnDestroy {
     localStorage.removeItem('role');
     this.onHome();
     this.router.navigate(['home']);
+  }
+  ngAfterContentChecked(): void {
+    this.cd.detectChanges();
   }
   ngOnDestroy() {
     this.hasLocalStorageSub.unsubscribe();
