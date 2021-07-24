@@ -18,6 +18,7 @@ import { InvoiceModule } from './invoice/invoice.module';
 import { NavComponent } from './nav/nav.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import * as fromHeader from './ngrx/header.reducer';
 @NgModule({
   declarations: [AppComponent, MainComponent, NavComponent],
   imports: [
@@ -25,7 +26,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({ headerState: fromHeader.reducer }),
     EffectsModule.forRoot(),
     SharedModule,
     MaterialModule,

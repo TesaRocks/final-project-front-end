@@ -16,6 +16,7 @@ import { Update } from '@ngrx/entity';
 import { IApplicationState } from 'src/app/aplication-state';
 import { Observable, Subscription } from 'rxjs';
 import { ErrorMessage } from 'src/app/shared/error-message';
+import { updateHeader } from 'src/app/ngrx/header.actions';
 
 @Component({
   selector: 'app-user-edit',
@@ -58,6 +59,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.id = this.route.snapshot.params.id;
     this.editMode = this.id ? true : false;
     if (this.editMode) {
+      this.store.dispatch(updateHeader({ updatedHeader: 'User Edit' }));
       this.store.dispatch(loadUser.begin({ id: this.id }));
       this.store.select(selectUser).subscribe((user) => {
         if (user !== null) {
@@ -81,6 +83,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
           });
         }
       });
+    } else {
+      this.store.dispatch(updateHeader({ updatedHeader: 'New User' }));
     }
   }
   onSubmit() {

@@ -22,6 +22,7 @@ import { ErrorMessage } from '../../shared/error-message';
 import { Router } from '@angular/router';
 import { addInvoicePending } from '../ngrx/invoice.selectors';
 import { addInvoice } from '../ngrx/invoice.actions';
+import { updateHeader } from 'src/app/ngrx/header.actions';
 
 @Component({
   selector: 'app-invoice-new',
@@ -61,6 +62,7 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
+    this.store.dispatch(updateHeader({ updatedHeader: 'New Invoice' }));
     this.store.dispatch(loadProductsAll.begin());
     this.productListSub = this.store
       .select(selectProducts)

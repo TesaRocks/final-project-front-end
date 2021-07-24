@@ -19,6 +19,7 @@ import {
   loadInvoiceByIdPending,
   selectInvoiceById,
 } from '../ngrx/invoice.selectors';
+import { updateHeader } from 'src/app/ngrx/header.actions';
 
 @Component({
   selector: 'app-invoice-detail',
@@ -60,6 +61,7 @@ export class InvoiceDetailComponent implements OnInit, OnDestroy {
   total!: any;
 
   ngOnInit(): void {
+    this.store.dispatch(updateHeader({ updatedHeader: 'Detailed Invoice' }));
     this.invoiceId = this.route.snapshot.params.id;
     this.store.dispatch(loadInvoiceById.begin({ id: this.invoiceId }));
     this.invoiceByIdSubscription = this.store

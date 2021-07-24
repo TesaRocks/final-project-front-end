@@ -21,6 +21,7 @@ import {
 import { IApplicationState } from '../../aplication-state';
 import { ErrorMessage } from '../../shared/error-message';
 import { DeleteConfirm } from 'src/app/shared/delete-confirm';
+import { updateHeader } from 'src/app/ngrx/header.actions';
 @Component({
   selector: 'app-users',
   templateUrl: './users-list.component.html',
@@ -52,6 +53,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'email', 'role', 'actions'];
 
   ngOnInit() {
+    this.store.dispatch(updateHeader({ updatedHeader: 'User List' }));
     this.store.dispatch(loadUsers.begin());
     this.users$ = this.store.select(selectUsers);
     this.pending$ = this.store.select(loadUsersPending);

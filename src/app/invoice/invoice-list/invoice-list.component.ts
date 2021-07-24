@@ -14,6 +14,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorMessage } from 'src/app/shared/error-message';
 import { PageEvent } from '@angular/material/paginator';
+import { updateHeader } from 'src/app/ngrx/header.actions';
 
 @Component({
   selector: 'app-invoice',
@@ -37,6 +38,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'date', 'action'];
 
   ngOnInit(): void {
+    this.store.dispatch(updateHeader({ updatedHeader: 'List of Invoices' }));
     this.store.dispatch(countInvoices.begin());
     this.totalInvoices$ = this.store.select(totalInvoices);
 

@@ -73,7 +73,7 @@
     <td mat-cell *matCellDef="let item" [@EnterLeave] class="quantity">
       {{ item.quantity }}
     </td>
-    <td mat-footer-cell *matFooterCellDef>Total</td>
+    <td mat-footer-cell *matFooterCellDef [@EnterLeave]>Total</td>
   </ng-container>
   <!-- Total Column -->
   <ng-container matColumnDef="subtotal">
@@ -81,7 +81,9 @@
     <td mat-cell *matCellDef="let item" [@EnterLeave] class="subtotal">
       {{ item.quantity * item.price | currency }}
     </td>
-    <td mat-footer-cell *matFooterCellDef>{{ this.total | currency }}</td>
+    <td mat-footer-cell *matFooterCellDef [@EnterLeave]>
+      {{ this.total | currency }}
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

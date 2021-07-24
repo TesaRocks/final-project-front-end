@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { logoutUser } from '../auth/ngrx/auth.actions';
 import { haslocalStorage, role } from '../auth/ngrx/auth.selectors';
-import { IAuthResponse } from '../auth/auth-response.interface';
+import { IApplicationState } from '../aplication-state';
+import { updateHeaderSelector } from '../ngrx/header.selectors';
+import { updateHeader } from 'src/app/ngrx/header.actions';
 
 @Component({
   selector: 'app-nav',
@@ -25,14 +27,20 @@ export class NavComponent implements OnInit, OnDestroy {
   hasLocalStorage!: boolean;
   roleSub!: Subscription;
   role!: string;
-  header: any = 'Final Project';
+  headerSub!: Subscription;
+  header!: string;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private store: Store<IAuthResponse>,
+    private store: Store<IApplicationState>,
     private router: Router
   ) {}
   ngOnInit() {
+    this.headerSub = this.store
+      .select(updateHeaderSelector)
+      .subscribe((headeFromStore) => {
+        this.header = headeFromStore;
+      });
     this.hasLocalStorageSub = this.store
       .select(haslocalStorage)
       .subscribe((value) => {
@@ -42,25 +50,21 @@ export class NavComponent implements OnInit, OnDestroy {
       if (roleFromStore) this.role = roleFromStore;
     });
   }
+
+  onHome() {
+    this.store.dispatch(updateHeader({ updatedHeader: 'Final Project' }));
+  }
   onLogout() {
     this.store.dispatch(logoutUser.success());
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('role');
-    this.header = 'Final Project';
+    this.onHome();
     this.router.navigate(['home']);
-  }
-  onPathChosen(event: Event) {
-    let headerToChange: any = (<HTMLElement>event.target).textContent
-      ?.toLowerCase()
-      .trim()
-      .split(' ')[1];
-    this.header =
-      headerToChange?.charAt(0).toUpperCase() + headerToChange?.slice(1);
-    if (this.header === 'Home') this.header = 'Final Project';
   }
   ngOnDestroy() {
     this.hasLocalStorageSub.unsubscribe();
     this.roleSub.unsubscribe();
+    this.headerSub.unsubscribe();
   }
 }

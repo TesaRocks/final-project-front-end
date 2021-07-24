@@ -14,6 +14,7 @@ import {
 } from '../ngrx/product.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { updateHeader } from 'src/app/ngrx/header.actions';
 
 @Component({
   selector: 'app-products',
@@ -35,6 +36,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   previousPage!: number;
   nextPage!: number;
   ngOnInit(): void {
+    this.store.dispatch(updateHeader({ updatedHeader: 'Products List' }));
     this.store.dispatch(countProducts.begin());
     this.totalProducts$ = this.store.select(totalProducts);
     this.route.queryParams.subscribe((params: Params) => {
