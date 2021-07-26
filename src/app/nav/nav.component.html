@@ -55,7 +55,12 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span> {{ header }}</span>
+      <div *ngIf="backArrow">
+        <button mat-button>
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      </div>
+      {{ header }}
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

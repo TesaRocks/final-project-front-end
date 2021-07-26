@@ -35,6 +35,7 @@ export class NavComponent implements OnInit, AfterContentChecked, OnDestroy {
   role!: string;
   headerSub!: Subscription;
   header!: string;
+  backArrow!: boolean;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -47,6 +48,7 @@ export class NavComponent implements OnInit, AfterContentChecked, OnDestroy {
       .select(updateHeaderSelector)
       .subscribe((headeFromStore) => {
         this.header = headeFromStore;
+        this.hasBackArrowRoute(this.header);
       });
     this.hasLocalStorageSub = this.store
       .select(haslocalStorage)
@@ -72,6 +74,36 @@ export class NavComponent implements OnInit, AfterContentChecked, OnDestroy {
   ngAfterContentChecked(): void {
     this.cd.detectChanges();
   }
+
+  hasBackArrowRoute(header: string) {
+    switch (header) {
+      case 'Final Project':
+        this.backArrow = false;
+        break;
+      case 'User List':
+        this.backArrow = false;
+        break;
+      case 'New User':
+        this.backArrow = true;
+        break;
+      case 'User Edit':
+        this.backArrow = true;
+        break;
+      case 'List of Invoices':
+        this.backArrow = false;
+        break;
+      case 'New Invoice':
+        this.backArrow = true;
+        break;
+      case 'Detailed Invoice':
+        this.backArrow = true;
+        break;
+      case 'Products List':
+        this.backArrow = false;
+        break;
+    }
+  }
+
   ngOnDestroy() {
     this.hasLocalStorageSub.unsubscribe();
     this.roleSub.unsubscribe();
