@@ -56,11 +56,68 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <div *ngIf="backArrow">
-        <button mat-button>
-          <mat-icon>arrow_back</mat-icon>
-        </button>
+        <div [ngSwitch]="header">
+          <button
+            mat-button
+            *ngSwitchCase="'New User'"
+            routerLink="/users"
+            matTooltip="back to user list"
+          >
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <button
+            mat-button
+            *ngSwitchCase="'User Edit'"
+            routerLink="/users"
+            matTooltip="back to user list"
+          >
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <button
+            mat-button
+            *ngSwitchCase="'New Invoice'"
+            routerLink="/invoice"
+            [queryParams]="{ page: '1' }"
+            matTooltip="back to Invoice"
+          >
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <button
+            mat-button
+            *ngSwitchCase="'Detailed Invoice'"
+            routerLink="/invoice"
+            [queryParams]="{ page: '1' }"
+            matTooltip="back to Invoice"
+          >
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+        </div>
       </div>
       {{ header }}
+      <div *ngIf="newUserOrInvoice">
+        <div [ngSwitch]="header">
+          <button
+            *ngSwitchCase="'User List'"
+            mat-mini-fab
+            color="primary"
+            type="button"
+            class="add"
+            routerLink="/users/new"
+          >
+            <mat-icon>plus_one</mat-icon>
+          </button>
+          <button
+            *ngSwitchCase="'List of Invoices'"
+            mat-mini-fab
+            color="primary"
+            type="button"
+            class="add"
+            routerLink="/invoice/new"
+          >
+            <mat-icon>plus_one</mat-icon>
+          </button>
+        </div>
+      </div>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

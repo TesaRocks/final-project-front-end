@@ -7,14 +7,6 @@
   <mat-spinner> </mat-spinner>
 </div>
 
-<button
-  routerLink="/invoice"
-  [queryParams]="{ page: '1' }"
-  matTooltip="back to Invoice"
->
-  <mat-icon color="warn">backspace</mat-icon>
-</button>
-
 <div fxLayoutAlign.xs="end none" fxLayoutAlign="center center">
   <button
     mat-mini-fab
@@ -30,7 +22,6 @@
 
 <div fxLayoutAlign="left">
   <mat-card fxFlex.xs="100" fxFlex="50">
-    <mat-toolbar color="warn">New Invoice</mat-toolbar>
     <form
       [formGroup]="formNewInvoice"
       (ngSubmit)="onSubmit()"

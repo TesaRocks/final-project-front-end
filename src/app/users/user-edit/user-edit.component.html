@@ -11,21 +11,8 @@
   <mat-spinner> </mat-spinner>
 </div>
 
-<div fxLayoutAlign.xs="end none" fxLayoutAlign="left left">
-  <button
-    routerLink="/users"
-    matTooltip="back to users list"
-    matTooltipShowDelay="600"
-    matTooltipPosition="right"
-  >
-    <mat-icon>arrow_back</mat-icon>
-  </button>
-</div>
 <div fxLayoutAlign="left">
   <mat-card fxFlex.xs="100" fxFlex="50">
-    <mat-toolbar color="warn">{{
-      editMode ? "Edit user" : "Create user"
-    }}</mat-toolbar>
     <form
       [formGroup]="formEditNew"
       (ngSubmit)="onSubmit()"

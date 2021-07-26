@@ -36,6 +36,7 @@ export class NavComponent implements OnInit, AfterContentChecked, OnDestroy {
   headerSub!: Subscription;
   header!: string;
   backArrow!: boolean;
+  newUserOrInvoice!: boolean;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -79,27 +80,35 @@ export class NavComponent implements OnInit, AfterContentChecked, OnDestroy {
     switch (header) {
       case 'Final Project':
         this.backArrow = false;
+        this.newUserOrInvoice = false;
         break;
       case 'User List':
         this.backArrow = false;
+        this.newUserOrInvoice = true;
         break;
       case 'New User':
         this.backArrow = true;
+        this.newUserOrInvoice = false;
         break;
       case 'User Edit':
         this.backArrow = true;
+        this.newUserOrInvoice = false;
         break;
       case 'List of Invoices':
         this.backArrow = false;
+        this.newUserOrInvoice = true;
         break;
       case 'New Invoice':
         this.backArrow = true;
+        this.newUserOrInvoice = false;
         break;
       case 'Detailed Invoice':
         this.backArrow = true;
+        this.newUserOrInvoice = false;
         break;
       case 'Products List':
         this.backArrow = false;
+        this.newUserOrInvoice = false;
         break;
     }
   }
