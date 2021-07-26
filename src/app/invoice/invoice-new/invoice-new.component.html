@@ -37,7 +37,8 @@
                 <mat-option
                   *ngFor="let product of productList"
                   [value]="product"
-                  >{{ product.name }}</mat-option
+                  >{{ product.name }} &nbsp;
+                  {{ product.price | currency }}</mat-option
                 >
               </mat-select>
               <mat-error *ngIf="hasErrorShoppingCart('products', 'required', i)"
