@@ -100,7 +100,7 @@ export class NavComponent implements OnInit, AfterContentChecked, OnDestroy {
         break;
       case 'New Invoice':
         this.backArrow = true;
-        this.newUserOrInvoice = false;
+        this.newUserOrInvoice = true;
         break;
       case 'Detailed Invoice':
         this.backArrow = true;

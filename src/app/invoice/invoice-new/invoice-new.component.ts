@@ -86,8 +86,13 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
     this.shoppingCart.push(this.newShopping());
   }
   onRemoveShopping(i: number) {
-    this.shoppingCart.removeAt(i);
+    if (i == 0 && !this.shoppingCart.controls[1]) {
+      this.shoppingCart.controls[0].reset();
+    } else {
+      this.shoppingCart.removeAt(i);
+    }
   }
+
   onSubmit() {
     const name = this.formNewInvoice.value.customer;
     const products = this.formNewInvoice.value.shoppingCart;
