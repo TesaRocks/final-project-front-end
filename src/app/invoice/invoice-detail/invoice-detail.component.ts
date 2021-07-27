@@ -58,7 +58,7 @@ export class InvoiceDetailComponent implements OnInit, OnDestroy {
   invoiceById!: IInvoice;
   loadInvoiceByIdPending$!: Observable<boolean>;
   error!: Subscription;
-  total!: any;
+  total!: number;
 
   ngOnInit(): void {
     this.store.dispatch(updateHeader({ updatedHeader: 'Detailed Invoice' }));
