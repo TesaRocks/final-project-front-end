@@ -7,17 +7,17 @@ import { InvoiceNewComponent } from './invoice-new/invoice-new.component';
 
 const routes: Routes = [
   {
-    path: 'invoice',
+    path: '',
     component: InvoiceListComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'invoice/detail/:id',
+    path: 'detail/:id',
     component: InvoiceDetailComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'invoice/new',
+    path: 'new',
     component: InvoiceNewComponent,
     canActivate: [AuthGuard],
   },

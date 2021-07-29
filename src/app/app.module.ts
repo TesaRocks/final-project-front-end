@@ -12,9 +12,6 @@ import { MaterialModule } from './shared/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
-import { UsersModule } from './users/users.module';
-import { ProductsModule } from './products/products.module';
-import { InvoiceModule } from './invoice/invoice.module';
 import { NavComponent } from './nav/nav.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
@@ -30,15 +27,12 @@ import * as fromHeader from './ngrx/header.reducer';
     EffectsModule.forRoot(),
     SharedModule,
     MaterialModule,
-    UsersModule,
-    InvoiceModule,
     AuthModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
     LayoutModule,
-    ProductsModule,
   ],
   providers: [
     {

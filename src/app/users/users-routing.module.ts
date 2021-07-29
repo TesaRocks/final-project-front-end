@@ -6,16 +6,16 @@ import { UsersListComponent } from './users-list/users-list.component';
 
 const routes: Routes = [
   {
-    path: 'users',
+    path: '',
     component: UsersListComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'users/:id/edit',
+    path: ':id/edit',
     component: UserEditComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'users/new', component: UserEditComponent, canActivate: [AuthGuard] },
+  { path: 'new', component: UserEditComponent, canActivate: [AuthGuard] },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
