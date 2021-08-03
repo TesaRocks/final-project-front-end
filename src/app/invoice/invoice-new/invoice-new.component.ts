@@ -126,5 +126,6 @@ export class InvoiceNewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.productListSub.unsubscribe();
+    this.error.unsubscribe();
   }
 }

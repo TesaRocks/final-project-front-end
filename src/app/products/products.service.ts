@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IProduct } from './product.interface';
+
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   constructor(private http: HttpClient) {}
