@@ -27,7 +27,11 @@
       <h4>Price: ${{ product.price }}</h4>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>Do Something</button>
+      <button mat-button (click)="toggleLike(product.productId)">
+        <mat-icon [ngStyle]="{ color: hasLike ? 'blue' : 'grey' }"
+          >thumb_up</mat-icon
+        >
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

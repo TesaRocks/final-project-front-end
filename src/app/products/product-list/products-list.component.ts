@@ -32,6 +32,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   loadProductsPending$!: Observable<boolean>;
   error!: Subscription;
   totalProducts$!: Observable<number>;
+  hasLike: boolean = false;
   currentPage!: number;
   previousPage!: number;
   nextPage!: number;
@@ -59,7 +60,10 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       });
     });
   }
-
+  toggleLike(id: any) {
+    console.log(id);
+    this.hasLike = !this.hasLike;
+  }
   onChangePage(event: PageEvent) {
     this.nextPage = event.pageIndex + 1;
     this.router.navigate(['/products'], {
