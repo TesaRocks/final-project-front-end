@@ -40,6 +40,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
   },
+  {
+    path: 'likes',
+    loadChildren: () =>
+      import('./likes/likes.module').then((m) => m.LikesModule),
+  },
 ];
 
 @NgModule({

@@ -28,6 +28,9 @@
         [queryParams]="{ page: '1' }"
         ><mat-icon>shopping_basket</mat-icon>&#160; Products</a
       >
+      <a *ngIf="hasLocalStorage" mat-list-item [routerLink]="'/likes/1'"
+        ><mat-icon>thumb_up</mat-icon>&#160; Likes</a
+      >
       <a
         *ngIf="hasLocalStorage && role !== 'guest'"
         mat-list-item

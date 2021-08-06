@@ -16,6 +16,7 @@ import { NavComponent } from './nav/nav.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import * as fromHeader from './ngrx/header.reducer';
+
 @NgModule({
   declarations: [AppComponent, MainComponent, NavComponent],
   imports: [
