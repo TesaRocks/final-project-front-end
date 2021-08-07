@@ -69,6 +69,7 @@ export class NavComponent implements OnInit, AfterContentChecked, OnDestroy {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('role');
+    localStorage.removeItem('userId');
     this.onHome();
     this.router.navigate(['home']);
   }

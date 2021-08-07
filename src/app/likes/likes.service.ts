@@ -6,7 +6,7 @@ import { IProduct } from '../products/product.interface';
 export class LikesService {
   constructor(private http: HttpClient) {}
 
-  fetchLikesByUserId(id: number): Observable<IProduct[]> {
+  fetchLikesByUserId(id: string): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(`/api/likes/${id}`);
   }
 }

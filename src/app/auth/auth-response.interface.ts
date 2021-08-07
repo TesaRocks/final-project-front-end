@@ -1,5 +1,5 @@
 export interface IAuthResponse {
-  id: number;
+  id: string;
   message: string;
   token: string;
   expiresIn: number;

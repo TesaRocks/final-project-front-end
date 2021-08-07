@@ -21,3 +21,7 @@ export const role = createSelector(
   selectAuthState,
   (state: IAuthInitialState) => state.role
 );
+export const userId = createSelector(
+  selectAuthState,
+  (state: IAuthInitialState) => state.userId
+);

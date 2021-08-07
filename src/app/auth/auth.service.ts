@@ -25,5 +25,6 @@ export class AuthService {
     localStorage.setItem('id_token', authResult.token);
     localStorage.setItem('expires_at', String(authResult.expiresIn));
     localStorage.setItem('role', authResult.role);
+    localStorage.setItem('userId', authResult.id);
   }
 }

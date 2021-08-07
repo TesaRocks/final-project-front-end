@@ -11,6 +11,7 @@ export interface IAuthInitialState extends EntityState<IAuthResponse> {
   loginUserPending: boolean;
   hasLocalStorage: boolean;
   role: string | null;
+  userId: string;
 }
 export const adapter: EntityAdapter<IAuthResponse> =
   createEntityAdapter<IAuthResponse>();
@@ -20,6 +21,7 @@ export const authInitialState: IAuthInitialState = adapter.getInitialState({
   loginUserPending: false,
   hasLocalStorage: false,
   role: null,
+  userId: '',
 });
 
 export const reducer = createReducer(
@@ -34,6 +36,7 @@ export const reducer = createReducer(
       loginUserPending: false,
       hasLocalStorage: true,
       role: action.serverResponse.role,
+      userId: action.serverResponse.id,
     };
   }),
   on(loginUser.failure, (state, action) => {
@@ -43,23 +46,27 @@ export const reducer = createReducer(
       hasLocalStorage: false,
       role: null,
       error: action.error,
+      userId: '',
     };
   }),
   // Check Local Storage
   on(checkLocalStorage, (state) => {
     const jwt = localStorage.getItem('id_token');
     const role = localStorage.getItem('role');
+    const userId = localStorage.getItem('userId');
     if (jwt) {
       return {
         ...state,
         hasLocalStorage: true,
         role: role,
+        userId: userId,
       };
     } else {
       return {
         ...state,
         hasLocalStorage: false,
         role: null,
+        userId: '',
       };
     }
   }),
@@ -70,6 +77,7 @@ export const reducer = createReducer(
       loginUserPending: false,
       hasLocalStorage: false,
       role: null,
+      userId: '',
     };
   }),
   on(logoutUser.failure, (state, action) => {

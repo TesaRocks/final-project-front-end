@@ -8,7 +8,7 @@ import { IProduct } from 'src/app/products/product.interface';
 
 const loadLikesByUserIdBegin = createAction(
   '[Likes] Load LikesByUserId Begin',
-  props<{ id: number }>()
+  props<{ id: string }>()
 );
 
 const loadLikesByUserIdSuccess = createAction(
