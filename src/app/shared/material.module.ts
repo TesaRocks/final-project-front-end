@@ -16,6 +16,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
   imports: [
     MatToolbarModule,
@@ -35,6 +36,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSelectModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    MatChipsModule,
   ],
   exports: [
     MatToolbarModule,
@@ -54,6 +56,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSelectModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    MatChipsModule,
   ],
 })
 export class MaterialModule {}

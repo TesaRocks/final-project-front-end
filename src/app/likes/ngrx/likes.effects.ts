@@ -6,7 +6,7 @@ import { LikesService } from '../likes.service';
 import { loadLikesByUserId } from './likes.actions';
 
 @Injectable()
-export class InvoiceEffects {
+export class LikesEffects {
   loadLikesByUserId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadLikesByUserId.begin),
