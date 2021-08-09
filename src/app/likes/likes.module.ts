@@ -7,9 +7,10 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromLikes from './ngrx/likes.reducer';
 import { LikesEffects } from './ngrx/likes.effects';
 import { MaterialModule } from '../shared/material.module';
+import { LikesDetailComponent } from './likesByUser/likes-detail/likes-detail.component';
 
 @NgModule({
-  declarations: [LikesComponent],
+  declarations: [LikesComponent, LikesDetailComponent],
   imports: [
     CommonModule,
     LikesRoutingModule,

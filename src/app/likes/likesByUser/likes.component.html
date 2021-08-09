@@ -4,8 +4,14 @@
 </div>
 <div class="chips">
   <mat-chip-list class="mat-chip-list-stacked">
-    <mat-chip *ngFor="let like of likes$ | async" selected color="accent">
+    <mat-chip
+      *ngFor="let like of likes$ | async"
+      selected
+      color="accent"
+      (click)="likeDetail(like.productId)"
+    >
       {{ like.name }}
     </mat-chip>
   </mat-chip-list>
 </div>
+<router-outlet></router-outlet>

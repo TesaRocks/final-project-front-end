@@ -10,13 +10,18 @@ import {
 } from '../ngrx/likes.selectos';
 import { updateHeader } from 'src/app/ngrx/header.actions';
 import { userId } from 'src/app/auth/ngrx/auth.selectors';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-likes',
   templateUrl: './likes.component.html',
   styleUrls: ['./likes.component.scss'],
 })
 export class LikesComponent implements OnInit, OnDestroy {
-  constructor(private store: Store<IApplicationState>) {}
+  constructor(
+    private store: Store<IApplicationState>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
   likes$!: Observable<IProduct[]>;
   loadLikesByUserIdPending$!: Observable<boolean>;
   userId$!: Subscription;
@@ -32,6 +37,9 @@ export class LikesComponent implements OnInit, OnDestroy {
     this.loadLikesByUserIdPending$ = this.store.select(
       loadLikesByUserIdPending
     );
+  }
+  likeDetail(productId: number) {
+    this.router.navigate([`detail/${productId}`], { relativeTo: this.route });
   }
   ngOnDestroy() {
     this.userId$.unsubscribe();
