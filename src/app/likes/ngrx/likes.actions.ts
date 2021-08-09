@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
 import { IProduct } from 'src/app/products/product.interface';
 
 /** **************************************
@@ -24,4 +23,28 @@ export const loadLikesByUserId = {
   begin: loadLikesByUserIdBegin,
   success: loadLikesByUserIdSuccess,
   failure: loadLikesByUserIdFailure,
+};
+
+/** **************************************
+ *  New Like
+ ***************************************/
+
+const newLikeBegin = createAction(
+  '[Likes] New Like Begin',
+  props<{ id: number }>()
+);
+
+const newLikeSuccess = createAction(
+  '[Likes] New Like Success',
+  props<{ newLike: IProduct }>()
+);
+
+const newLikeFailure = createAction(
+  '[Likes] New Like Failure',
+  props<{ error: any }>()
+);
+export const newLike = {
+  begin: newLikeBegin,
+  success: newLikeSuccess,
+  failure: newLikeFailure,
 };

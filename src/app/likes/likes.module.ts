@@ -8,11 +8,12 @@ import * as fromLikes from './ngrx/likes.reducer';
 import { LikesEffects } from './ngrx/likes.effects';
 import { MaterialModule } from '../shared/material.module';
 import { LikesDetailComponent } from './likesByUser/likes-detail/likes-detail.component';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [LikesComponent, LikesDetailComponent],
   imports: [
     CommonModule,
+    FlexLayoutModule,
     LikesRoutingModule,
     MaterialModule,
     StoreModule.forFeature(fromLikes.likesFeatureKey, fromLikes.reducer),

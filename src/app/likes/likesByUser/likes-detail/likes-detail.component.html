@@ -1,1 +1,20 @@
-<p>likes-detail works!</p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{ product[0].name }}</mat-card-title>
+    <mat-card-subtitle>id: {{ product[0].productId }}</mat-card-subtitle>
+  </mat-card-header>
+  <img
+    mat-card-image
+    src="{{ product[0].imagePath }}"
+    alt="{{ product[0].name }}"
+  />
+  <mat-card-content>
+    <p>
+      {{ product[0].description }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions fxLayoutAlign="center center">
+    <mat-icon color="warn">thumb_down</mat-icon>
+  </mat-card-actions>
+</mat-card>
