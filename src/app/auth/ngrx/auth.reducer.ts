@@ -11,7 +11,7 @@ export interface IAuthInitialState extends EntityState<IAuthResponse> {
   loginUserPending: boolean;
   hasLocalStorage: boolean;
   role: string | null;
-  userId: string;
+  userId: string | null;
 }
 export const adapter: EntityAdapter<IAuthResponse> =
   createEntityAdapter<IAuthResponse>();

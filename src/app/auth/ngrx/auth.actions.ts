@@ -27,10 +27,10 @@ export const loginUser = {
 };
 
 /** **************************************
- *  Check data storage
+ *  Check Local storage
  ***************************************/
 
-export const checkLocalStorage = createAction('[Auth] Check Data Storage');
+export const checkLocalStorage = createAction('[Auth] Check Local Storage');
 
 /** **************************************
  *  Logout User
