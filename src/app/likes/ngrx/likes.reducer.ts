@@ -50,12 +50,12 @@ export const reducer = createReducer(
   on(newLike.begin, (state) => {
     return { ...state, addLikesByUserIdPending: true };
   }),
-  // on(newLike.success, (state, action) => {
-  //   return {
-  //     ...adapter.addOne(action.newLike, state),
-  //     addLikesByUserIdPending: false,
-  //   };
-  // }),
+  on(newLike.success, (state, action) => {
+    return {
+      ...state,
+      addLikesByUserIdPending: false,
+    };
+  }),
   on(newLike.failure, (state, action) => {
     return {
       ...state,

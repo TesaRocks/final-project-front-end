@@ -65,7 +65,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     let idRaw;
     this.store.select(userId).subscribe((num) => (idRaw = num));
     let id = Number(idRaw);
-
     this.store.dispatch(newLike.begin({ productId, id }));
   }
   onChangePage(event: PageEvent) {

@@ -23,7 +23,7 @@ export class LikesEffects {
       ofType(newLike.begin),
       mergeMap((action) =>
         this.likesService.newLike(action.productId, action.id).pipe(
-          map((like) => newLike.success()),
+          map(() => newLike.success()),
           catchError((error) => of(newLike.failure({ error })))
         )
       )

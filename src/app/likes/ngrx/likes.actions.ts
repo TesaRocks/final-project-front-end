@@ -35,11 +35,6 @@ const newLikeBegin = createAction(
 );
 const newLikeSuccess = createAction('[Likes] New Like Success');
 
-// const newLikeSuccess = createAction(
-//   '[Likes] New Like Success',
-//   props<{ newLike: IProduct }>()
-// );
-
 const newLikeFailure = createAction(
   '[Likes] New Like Failure',
   props<{ error: any }>()
