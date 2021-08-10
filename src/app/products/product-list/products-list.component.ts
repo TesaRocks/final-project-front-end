@@ -61,11 +61,15 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       });
     });
   }
-  onNewLike(productId: number) {
+  onNewLike(productId: number, index: number) {
     let idRaw;
     this.store.select(userId).subscribe((num) => (idRaw = num));
     let id = Number(idRaw);
     this.store.dispatch(newLike.begin({ productId, id }));
+    // let button =
+    //   document.getElementsByClassName('card-picture')[index].children[3]
+    //     .children[0];
+    // console.log(button);
   }
   onChangePage(event: PageEvent) {
     this.nextPage = event.pageIndex + 1;

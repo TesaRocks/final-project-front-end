@@ -44,3 +44,21 @@ export const newLike = {
   success: newLikeSuccess,
   failure: newLikeFailure,
 };
+/** **************************************
+ *  Delete Like
+ ***************************************/
+//  const deleteLikeBegin = createAction(
+//   '[Likes] Delete Like Begin',
+//   props<{ productId: number; id: number }>()
+// );
+// const newLikeSuccess = createAction('[Likes] New Like Success');
+
+// const newLikeFailure = createAction(
+//   '[Likes] New Like Failure',
+//   props<{ error: any }>()
+// );
+// export const newLike = {
+//   begin: newLikeBegin,
+//   success: newLikeSuccess,
+//   failure: newLikeFailure,
+// };

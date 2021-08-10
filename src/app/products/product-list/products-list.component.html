@@ -8,7 +8,10 @@
   fxLayout.xs="column"
   fxLayoutAlign="space-evenly center"
 >
-  <mat-card class="card-picture" *ngFor="let product of products$ | async">
+  <mat-card
+    class="card-picture"
+    *ngFor="let product of products$ | async; let i = index"
+  >
     <mat-card-header>
       <div mat-card-avatar fxLayoutAlign.xs="center center">
         <mat-icon>account_circle</mat-icon>
@@ -27,7 +30,7 @@
       <h4>Price: ${{ product.price }}</h4>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button (click)="onNewLike(product.productId)">
+      <button mat-button (click)="onNewLike(product.productId, i)">
         <mat-icon appColor>thumb_up</mat-icon>
       </button>
     </mat-card-actions>
