@@ -9,4 +9,7 @@ export class LikesService {
   fetchLikesByUserId(id: string): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(`/api/likes/${id}`);
   }
+  newLike(productId: number, userId: number): Observable<IProduct> {
+    return this.http.post<IProduct>('/api/likes/', { productId, userId });
+  }
 }

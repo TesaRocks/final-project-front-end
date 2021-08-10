@@ -27,7 +27,7 @@
       <h4>Price: ${{ product.price }}</h4>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>
+      <button mat-button (click)="onNewLike(product.productId)">
         <mat-icon appColor>thumb_up</mat-icon>
       </button>
     </mat-card-actions>

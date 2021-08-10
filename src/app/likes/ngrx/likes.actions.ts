@@ -31,13 +31,14 @@ export const loadLikesByUserId = {
 
 const newLikeBegin = createAction(
   '[Likes] New Like Begin',
-  props<{ id: number }>()
+  props<{ productId: number; id: number }>()
 );
+const newLikeSuccess = createAction('[Likes] New Like Success');
 
-const newLikeSuccess = createAction(
-  '[Likes] New Like Success',
-  props<{ newLike: IProduct }>()
-);
+// const newLikeSuccess = createAction(
+//   '[Likes] New Like Success',
+//   props<{ newLike: IProduct }>()
+// );
 
 const newLikeFailure = createAction(
   '[Likes] New Like Failure',

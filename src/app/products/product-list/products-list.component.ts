@@ -15,6 +15,8 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { updateHeader } from 'src/app/ngrx/header.actions';
+import { userId } from 'src/app/auth/ngrx/auth.selectors';
+import { newLike } from 'src/app/likes/ngrx/likes.actions';
 
 @Component({
   selector: 'app-products',
@@ -59,7 +61,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       });
     });
   }
+  onNewLike(productId: number) {
+    let idRaw;
+    this.store.select(userId).subscribe((num) => (idRaw = num));
+    let id = Number(idRaw);
 
+    this.store.dispatch(newLike.begin({ productId, id }));
+  }
   onChangePage(event: PageEvent) {
     this.nextPage = event.pageIndex + 1;
     this.router.navigate(['/products'], {

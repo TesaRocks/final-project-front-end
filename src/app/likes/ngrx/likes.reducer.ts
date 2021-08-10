@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IProduct } from 'src/app/products/product.interface';
-import { loadLikesByUserId } from './likes.actions';
+import { loadLikesByUserId, newLike } from './likes.actions';
 
 export const likesFeatureKey = 'likesState';
 
@@ -42,6 +42,24 @@ export const reducer = createReducer(
     return {
       ...state,
       loadLikesByUserIdPending: false,
+      error: action.error,
+    };
+  }),
+
+  // New Like
+  on(newLike.begin, (state) => {
+    return { ...state, addLikesByUserIdPending: true };
+  }),
+  // on(newLike.success, (state, action) => {
+  //   return {
+  //     ...adapter.addOne(action.newLike, state),
+  //     addLikesByUserIdPending: false,
+  //   };
+  // }),
+  on(newLike.failure, (state, action) => {
+    return {
+      ...state,
+      addLikesByUserIdPending: false,
       error: action.error,
     };
   })
