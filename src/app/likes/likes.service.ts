@@ -12,4 +12,7 @@ export class LikesService {
   newLike(productId: number, userId: number): Observable<string> {
     return this.http.post<string>('/api/likes/', { productId, userId });
   }
+  deleteLike(productId: number, userId: number): Observable<string> {
+    return this.http.delete<string>(`/api/likes/${userId}/${productId}`);
+  }
 }

@@ -16,3 +16,7 @@ export const error = createSelector(
   selectLikesState,
   (state: ILikesInitialState) => state.error
 );
+export const deleteLikesByUserIdPending = createSelector(
+  selectLikesState,
+  (state: ILikesInitialState) => state.deleteLikesByUserIdPending
+);

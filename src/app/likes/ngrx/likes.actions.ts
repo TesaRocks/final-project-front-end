@@ -47,18 +47,18 @@ export const newLike = {
 /** **************************************
  *  Delete Like
  ***************************************/
-//  const deleteLikeBegin = createAction(
-//   '[Likes] Delete Like Begin',
-//   props<{ productId: number; id: number }>()
-// );
-// const deleteLikeSuccess = createAction('[Likes] New Like Success');
+const deleteLikeBegin = createAction(
+  '[Likes] Delete Like Begin',
+  props<{ productId: number; id: number }>()
+);
+const deleteLikeSuccess = createAction('[Likes] Delete Like Success');
 
-// const newLikeFailure = createAction(
-//   '[Likes] New Like Failure',
-//   props<{ error: any }>()
-// );
-// export const newLike = {
-//   begin: newLikeBegin,
-//   success: newLikeSuccess,
-//   failure: newLikeFailure,
-// };
+const deleteLikeFailure = createAction(
+  '[Likes] Delete Like Failure',
+  props<{ error: any }>()
+);
+export const deleteLike = {
+  begin: deleteLikeBegin,
+  success: deleteLikeSuccess,
+  failure: deleteLikeFailure,
+};
