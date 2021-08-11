@@ -51,7 +51,7 @@ export const newLike = {
 //   '[Likes] Delete Like Begin',
 //   props<{ productId: number; id: number }>()
 // );
-// const newLikeSuccess = createAction('[Likes] New Like Success');
+// const deleteLikeSuccess = createAction('[Likes] New Like Success');
 
 // const newLikeFailure = createAction(
 //   '[Likes] New Like Failure',
