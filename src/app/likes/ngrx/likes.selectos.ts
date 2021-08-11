@@ -20,3 +20,7 @@ export const deleteLikesByUserIdPending = createSelector(
   selectLikesState,
   (state: ILikesInitialState) => state.deleteLikesByUserIdPending
 );
+export const addLikesByUserIdPending = createSelector(
+  selectLikesState,
+  (state: ILikesInitialState) => state.addLikesByUserIdPending
+);

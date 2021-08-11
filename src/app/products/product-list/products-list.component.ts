@@ -17,6 +17,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { updateHeader } from 'src/app/ngrx/header.actions';
 import { userId } from 'src/app/auth/ngrx/auth.selectors';
 import { newLike } from 'src/app/likes/ngrx/likes.actions';
+import { addLikesByUserIdPending } from 'src/app/likes/ngrx/likes.selectos';
 
 @Component({
   selector: 'app-products',
@@ -32,6 +33,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   ) {}
   products$!: Observable<IProduct[]>;
   loadProductsPending$!: Observable<boolean>;
+  addLikesByUserIdPending$!: Observable<boolean>;
   error!: Subscription;
   totalProducts$!: Observable<number>;
   currentPage!: number;
@@ -68,6 +70,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.store.select(userId).subscribe((num) => (idRaw = num));
     let id = Number(idRaw);
     this.store.dispatch(newLike.begin({ productId, id }));
+    this.addLikesByUserIdPending$ = this.store.select(addLikesByUserIdPending);
     // let button =
     //   document.getElementsByClassName('card-picture')[index].children[3]
     //     .children[0];
@@ -84,56 +87,3 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.error.unsubscribe();
   }
 }
-
-// productsSub!: Subscription;
-//   products!: IProduct[];
-//   loadProductsPending$!: Observable<boolean>;
-//   error!: Subscription;
-//   totalProducts$!: Observable<number>;
-//   currentPage!: number;
-//   previousPage!: number;
-//   nextPage!: number;
-//   likesSub!: Subscription;
-//   likesList!: IProduct[];
-//   loadLikesByUserIdPending$!: Observable<boolean>;
-//   userId$!: Subscription;
-//   userId!: string;
-// ngOnInit(): void {
-//   this.store.dispatch(updateHeader({ updatedHeader: 'Products List' }));
-//   this.store.dispatch(countProducts.begin());
-//   this.totalProducts$ = this.store.select(totalProducts);
-//   this.route.queryParams.subscribe((params: Params) => {
-//     this.currentPage = parseInt(params['page']);
-//     this.previousPage = this.currentPage - 1;
-//     this.store.dispatch(
-//       loadProductsPaginated.begin({ page: params['page'] })
-//     );
-//     this.productsSub = this.store
-//       .select(selectProducts)
-//       .subscribe((p) => (this.products = p));
-//     this.loadProductsPending$ = this.store.select(loadProductsPending);
-//     this.error = this.store.select(error).subscribe((error) => {
-//       if (error) {
-//         let errorDialog = this.dialog.open(ErrorMessage, {
-//           data: { message: error.message },
-//         });
-//         errorDialog.afterClosed().subscribe(() => {
-//           this.router.navigate(['']);
-//         });
-//       }
-//     });
-//     this.userId$ = this.store.select(userId).subscribe((userId) => {
-//       if (userId) this.userId = userId;
-//     });
-//     this.store.dispatch(loadLikesByUserId.begin({ id: this.userId }));
-//     this.likesSub = this.store
-//       .select(selectLikesByUserId)
-//       .subscribe((l) => (this.likesList = l));
-
-//     this.loadLikesByUserIdPending$ = this.store.select(
-//       loadLikesByUserIdPending
-//     );
-//   });
-// }
-// this.productsSub.unsubscribe();
-//     this.likesSub.unsubscribe();
