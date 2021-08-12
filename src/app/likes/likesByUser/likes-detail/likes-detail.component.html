@@ -2,21 +2,31 @@
   <h2>Deleting...</h2>
   <mat-spinner> </mat-spinner>
 </div>
-<mat-card class="example-card" *ngIf="product$ | async as product">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ product.name }}</mat-card-title>
-    <mat-card-subtitle>id: {{ product.productId }}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="{{ product.imagePath }}" alt="{{ product.name }}" />
-  <mat-card-content>
-    <p>
-      {{ product.description }}
-    </p>
-  </mat-card-content>
-  <mat-card-actions fxLayoutAlign="center center">
-    <mat-icon color="warn" (click)="onDislike(product.productId)"
-      >thumb_down</mat-icon
-    >
-  </mat-card-actions>
-</mat-card>
+
+<div *ngIf="product$ | async as products">
+  <ng-container *ngIf="products.length; else noLike">
+    <mat-card class="example-card" *ngFor="let product of products">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <mat-card-subtitle>id: {{ product.productId }}</mat-card-subtitle>
+      </mat-card-header>
+      <img
+        mat-card-image
+        src="{{ product.imagePath }}"
+        alt="{{ product.name }}"
+      />
+      <mat-card-content>
+        <p>
+          {{ product.description }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions fxLayoutAlign="center center">
+        <mat-icon color="warn" (click)="onDislike(product.productId)"
+          >thumb_down</mat-icon
+        >
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+  <ng-template #noLike> Loading stuff... </ng-template>
+</div>

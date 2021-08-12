@@ -16,7 +16,7 @@ export interface ILikesInitialState extends EntityState<IProduct> {
   loadLikesByUserIdPending: boolean;
   addLikesByUserIdPending: boolean;
   deleteLikesByUserIdPending: boolean;
-  selectedLike: IProduct | null;
+  selectedLike: IProduct[] | null;
 }
 export function selectLikesId(product: IProduct): number {
   return product.productId;

@@ -33,7 +33,7 @@ const loadLikeBegin = createAction(
 );
 const loadLikeSuccess = createAction(
   '[Likes] Load Like Success',
-  props<{ selectedLike: IProduct }>()
+  props<{ selectedLike: IProduct[] }>()
 );
 const loadLikeFailure = createAction(
   '[Likes] Load User Failure',

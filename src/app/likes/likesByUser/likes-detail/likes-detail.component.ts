@@ -16,8 +16,7 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class LikesDetailComponent implements OnInit, OnDestroy {
   productid!: number;
-  product$!: Observable<IProduct | null>;
-  product!: IProduct;
+  product$!: Observable<IProduct[] | null>;
   userId!: number;
   userId$!: Subscription;
   deleteLikesByUserIdPending$!: Observable<boolean>;
@@ -34,15 +33,6 @@ export class LikesDetailComponent implements OnInit, OnDestroy {
         loadLikeByProductId.begin({ productId: this.productid })
       );
       this.product$ = this.store.select(likeByProductId);
-
-      // this.store
-      //   .select(selectLikesByUserId)
-      //   .pipe(
-      //     map((product) =>
-      //       product.filter((pr) => pr.productId === this.productid)
-      //     )
-      //   )
-      //   .subscribe((p) => (this.product = p));
     });
   }
   onDislike(productId: number) {
@@ -61,6 +51,6 @@ export class LikesDetailComponent implements OnInit, OnDestroy {
     this.router.navigate(['home']);
   }
   ngOnDestroy() {
-    this.userId$.unsubscribe();
+    if (this.userId$ !== undefined) this.userId$.unsubscribe();
   }
 }
