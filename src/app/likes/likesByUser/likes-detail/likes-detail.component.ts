@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { IApplicationState } from 'src/app/aplication-state';
 import { IProduct } from 'src/app/products/product.interface';
-import { deleteLike } from '../../ngrx/likes.actions';
-import {
-  deleteLikesByUserIdPending,
-  selectLikesByUserId,
-} from '../../ngrx/likes.selectos';
+import { loadLikeByProductId, deleteLike } from '../../ngrx/likes.actions';
+import { deleteLikesByUserIdPending } from '../../ngrx/likes.selectos';
 import { userId } from 'src/app/auth/ngrx/auth.selectors';
-import { Observable } from 'rxjs';
+import { likeByProductId } from '../../ngrx/likes.selectos';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-likes-detail',
   templateUrl: './likes-detail.component.html',
   styleUrls: ['./likes-detail.component.scss'],
 })
-export class LikesDetailComponent implements OnInit {
+export class LikesDetailComponent implements OnInit, OnDestroy {
   productid!: number;
-  product!: IProduct[];
+  product$!: Observable<IProduct | null>;
+  product!: IProduct;
   userId!: number;
+  userId$!: Subscription;
   deleteLikesByUserIdPending$!: Observable<boolean>;
   constructor(
     private route: ActivatedRoute,
@@ -31,23 +30,28 @@ export class LikesDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.productid = Number(params['id']);
-      this.store
-        .select(selectLikesByUserId)
-        .pipe(
-          map((product) =>
-            product.filter((pr) => pr.productId === this.productid)
-          )
-        )
-        .subscribe((p) => (this.product = p));
+      this.store.dispatch(
+        loadLikeByProductId.begin({ productId: this.productid })
+      );
+      this.product$ = this.store.select(likeByProductId);
+
+      // this.store
+      //   .select(selectLikesByUserId)
+      //   .pipe(
+      //     map((product) =>
+      //       product.filter((pr) => pr.productId === this.productid)
+      //     )
+      //   )
+      //   .subscribe((p) => (this.product = p));
     });
   }
-  onDislike() {
-    this.store.select(userId).subscribe((userId) => {
+  onDislike(productId: number) {
+    this.userId$ = this.store.select(userId).subscribe((userId) => {
       if (userId) this.userId = Number(userId);
     });
     this.store.dispatch(
       deleteLike.begin({
-        productId: this.product[0].productId,
+        productId: productId,
         id: this.userId,
       })
     );
@@ -55,5 +59,8 @@ export class LikesDetailComponent implements OnInit {
       deleteLikesByUserIdPending
     );
     this.router.navigate(['home']);
+  }
+  ngOnDestroy() {
+    this.userId$.unsubscribe();
   }
 }

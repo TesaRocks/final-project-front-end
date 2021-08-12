@@ -1,7 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { IProduct } from 'src/app/products/product.interface';
-import { deleteLike, loadLikesByUserId, newLike } from './likes.actions';
+import {
+  deleteLike,
+  loadLikeByProductId,
+  loadLikesByUserId,
+  newLike,
+} from './likes.actions';
 
 export const likesFeatureKey = 'likesState';
 
@@ -11,6 +16,7 @@ export interface ILikesInitialState extends EntityState<IProduct> {
   loadLikesByUserIdPending: boolean;
   addLikesByUserIdPending: boolean;
   deleteLikesByUserIdPending: boolean;
+  selectedLike: IProduct | null;
 }
 export function selectLikesId(product: IProduct): number {
   return product.productId;
@@ -24,6 +30,7 @@ export const likesInitialState: ILikesInitialState = adapter.getInitialState({
   loadLikesByUserIdPending: false,
   addLikesByUserIdPending: false,
   deleteLikesByUserIdPending: false,
+  selectedLike: null,
 });
 
 export const reducer = createReducer(
@@ -45,7 +52,22 @@ export const reducer = createReducer(
       error: action.error,
     };
   }),
-
+  // Load Like
+  on(loadLikeByProductId.begin, (state) => {
+    return { ...state };
+  }),
+  on(loadLikeByProductId.success, (state, action) => {
+    return {
+      ...state,
+      selectedLike: action.selectedLike,
+    };
+  }),
+  on(loadLikeByProductId.failure, (state, action) => {
+    return {
+      ...state,
+      error: action.error,
+    };
+  }),
   // New Like
   on(newLike.begin, (state) => {
     return { ...state, addLikesByUserIdPending: true };

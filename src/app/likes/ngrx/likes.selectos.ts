@@ -24,3 +24,7 @@ export const addLikesByUserIdPending = createSelector(
   selectLikesState,
   (state: ILikesInitialState) => state.addLikesByUserIdPending
 );
+export const likeByProductId = createSelector(
+  selectLikesState,
+  (state: ILikesInitialState) => state.selectedLike
+);

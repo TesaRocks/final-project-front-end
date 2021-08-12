@@ -24,6 +24,26 @@ export const loadLikesByUserId = {
   success: loadLikesByUserIdSuccess,
   failure: loadLikesByUserIdFailure,
 };
+/** **************************************
+ *  Load Like by ProductId
+ ***************************************/
+const loadLikeBegin = createAction(
+  '[Likes] Load Like Begin',
+  props<{ productId: number }>()
+);
+const loadLikeSuccess = createAction(
+  '[Likes] Load Like Success',
+  props<{ selectedLike: IProduct }>()
+);
+const loadLikeFailure = createAction(
+  '[Likes] Load User Failure',
+  props<{ error: any }>()
+);
+export const loadLikeByProductId = {
+  begin: loadLikeBegin,
+  success: loadLikeSuccess,
+  failure: loadLikeFailure,
+};
 
 /** **************************************
  *  New Like

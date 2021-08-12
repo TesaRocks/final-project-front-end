@@ -3,7 +3,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import { LikesService } from '../likes.service';
-import { deleteLike, loadLikesByUserId, newLike } from './likes.actions';
+import {
+  deleteLike,
+  loadLikeByProductId,
+  loadLikesByUserId,
+  newLike,
+} from './likes.actions';
 
 @Injectable()
 export class LikesEffects {
@@ -14,6 +19,17 @@ export class LikesEffects {
         this.likesService.fetchLikesByUserId(action.id).pipe(
           map((likes) => loadLikesByUserId.success({ likesByUserId: likes })),
           catchError((error) => of(loadLikesByUserId.failure({ error })))
+        )
+      )
+    )
+  );
+  loadLikeByproductId$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadLikeByProductId.begin),
+      mergeMap((action) =>
+        this.likesService.fetchLikeByProductId(action.productId).pipe(
+          map((like) => loadLikeByProductId.success({ selectedLike: like })),
+          catchError((error) => of(loadLikeByProductId.failure({ error })))
         )
       )
     )

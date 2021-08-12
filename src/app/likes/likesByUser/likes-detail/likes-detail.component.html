@@ -2,23 +2,21 @@
   <h2>Deleting...</h2>
   <mat-spinner> </mat-spinner>
 </div>
-<mat-card class="example-card">
+<mat-card class="example-card" *ngIf="product$ | async as product">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ product[0].name }}</mat-card-title>
-    <mat-card-subtitle>id: {{ product[0].productId }}</mat-card-subtitle>
+    <mat-card-title>{{ product.name }}</mat-card-title>
+    <mat-card-subtitle>id: {{ product.productId }}</mat-card-subtitle>
   </mat-card-header>
-  <img
-    mat-card-image
-    src="{{ product[0].imagePath }}"
-    alt="{{ product[0].name }}"
-  />
+  <img mat-card-image src="{{ product.imagePath }}" alt="{{ product.name }}" />
   <mat-card-content>
     <p>
-      {{ product[0].description }}
+      {{ product.description }}
     </p>
   </mat-card-content>
   <mat-card-actions fxLayoutAlign="center center">
-    <mat-icon color="warn" (click)="onDislike()">thumb_down</mat-icon>
+    <mat-icon color="warn" (click)="onDislike(product.productId)"
+      >thumb_down</mat-icon
+    >
   </mat-card-actions>
 </mat-card>
