@@ -48,7 +48,7 @@ export class LikesDetailComponent implements OnInit, OnDestroy {
     this.deleteLikesByUserIdPending$ = this.store.select(
       deleteLikesByUserIdPending
     );
-    this.router.navigate(['home']);
+    this.router.navigate(['/likes']);
   }
   ngOnDestroy() {
     if (this.userId$ !== undefined) this.userId$.unsubscribe();

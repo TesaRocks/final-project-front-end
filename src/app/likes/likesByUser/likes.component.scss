@@ -2,8 +2,11 @@ mat-chip {
   max-width: 100px;
   padding-left: 23px;
 
+
 }
 .chips{
   margin-top: 50px;
   margin-left: 60px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }

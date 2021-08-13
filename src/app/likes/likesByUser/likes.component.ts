@@ -10,7 +10,8 @@ import {
 } from '../ngrx/likes.selectos';
 import { updateHeader } from 'src/app/ngrx/header.actions';
 import { userId } from 'src/app/auth/ngrx/auth.selectors';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-likes',
   templateUrl: './likes.component.html',
