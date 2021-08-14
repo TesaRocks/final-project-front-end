@@ -29,6 +29,15 @@ export class LikesComponent implements OnInit, OnDestroy {
   userId!: string;
 
   ngOnInit(): void {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.loadPage();
+      });
+    this.loadPage();
+  }
+
+  loadPage() {
     this.store.dispatch(updateHeader({ updatedHeader: 'My Wish List' }));
     this.userId$ = this.store.select(userId).subscribe((userId) => {
       if (userId) this.userId = userId;
@@ -39,6 +48,7 @@ export class LikesComponent implements OnInit, OnDestroy {
       loadLikesByUserIdPending
     );
   }
+
   likeDetail(productId: number) {
     this.router.navigate([`detail/${productId}`], { relativeTo: this.route });
   }
