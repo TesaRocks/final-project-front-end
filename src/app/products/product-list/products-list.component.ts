@@ -17,7 +17,11 @@ import { PageEvent } from '@angular/material/paginator';
 import { updateHeader } from 'src/app/ngrx/header.actions';
 import { userId } from 'src/app/auth/ngrx/auth.selectors';
 import { newLike } from 'src/app/likes/ngrx/likes.actions';
-import { addLikesByUserIdPending } from 'src/app/likes/ngrx/likes.selectos';
+import {
+  addLikesByUserIdPending,
+  selectLikesByUserId,
+} from 'src/app/likes/ngrx/likes.selectos';
+import { loadLikesByUserId } from '../../likes/ngrx/likes.actions';
 
 @Component({
   selector: 'app-products',
@@ -39,6 +43,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   currentPage!: number;
   previousPage!: number;
   nextPage!: number;
+  userId$!: Subscription;
+  userId!: string;
+  likes$!: Observable<IProduct[]>;
 
   ngOnInit(): void {
     this.store.dispatch(updateHeader({ updatedHeader: 'Products List' }));
@@ -63,6 +70,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         }
       });
     });
+    // this.userId$ = this.store.select(userId).subscribe((userId) => {
+    //   if (userId) this.userId = userId;
+    // });
+    // this.store.dispatch(loadLikesByUserId.begin({ id: this.userId }));
+    // this.likes$ = this.store.select(selectLikesByUserId);
   }
 
   onNewLike(productId: number, index: number) {
@@ -71,10 +83,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     let id = Number(idRaw);
     this.store.dispatch(newLike.begin({ productId, id }));
     this.addLikesByUserIdPending$ = this.store.select(addLikesByUserIdPending);
-    // let button =
-    //   document.getElementsByClassName('card-picture')[index].children[3]
-    //     .children[0];
-    // console.log(button);
   }
   onChangePage(event: PageEvent) {
     this.nextPage = event.pageIndex + 1;
@@ -85,5 +93,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.error.unsubscribe();
+    // this.userId$.unsubscribe();
   }
 }
+
+// let button =
+//   document.getElementsByClassName('card-picture')[index].children[3]
+//     .children[0];
+// console.log(button);
