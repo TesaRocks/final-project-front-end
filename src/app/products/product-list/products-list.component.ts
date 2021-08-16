@@ -21,7 +21,7 @@ import {
   addLikesByUserIdPending,
   selectLikesByUserId,
 } from 'src/app/likes/ngrx/likes.selectos';
-import { loadLikesByUserId } from '../../likes/ngrx/likes.actions';
+//import { loadLikesByUserId } from '../../likes/ngrx/likes.actions';
 
 @Component({
   selector: 'app-products',
