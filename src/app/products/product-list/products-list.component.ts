@@ -1,26 +1,23 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { IProduct } from '../product.interface';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { userId } from 'src/app/auth/ngrx/auth.selectors';
+import { newLike } from 'src/app/likes/ngrx/likes.actions';
+import { addLikesByUserIdPending } from 'src/app/likes/ngrx/likes.selectos';
+import { updateHeader } from 'src/app/ngrx/header.actions';
 import { IApplicationState } from '../../aplication-state';
 import { ErrorMessage } from '../../shared/error-message';
-import { loadProductsPaginated, countProducts } from '../ngrx/product.actions';
+import { countProducts, loadProductsPaginated } from '../ngrx/product.actions';
 import {
   error,
   loadProductsPending,
   selectProducts,
   totalProducts,
 } from '../ngrx/product.selectors';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { updateHeader } from 'src/app/ngrx/header.actions';
-import { userId } from 'src/app/auth/ngrx/auth.selectors';
-import { newLike } from 'src/app/likes/ngrx/likes.actions';
-import {
-  addLikesByUserIdPending,
-  selectLikesByUserId,
-} from 'src/app/likes/ngrx/likes.selectos';
+import { IProduct } from '../product.interface';
 //import { loadLikesByUserId } from '../../likes/ngrx/likes.actions';
 
 @Component({
