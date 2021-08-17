@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
+//import { Update } from '@ngrx/entity';
 import { IProduct } from '../product.interface';
 
 /** **************************************
@@ -114,34 +114,34 @@ export const deleteProduct = {
 /** **************************************
  *  Populate Invoice
  ***************************************/
-const populateInvoiceBegin = createAction(
-  '[Invoice] Populate Invoice Begin',
-  props<{ id: number }>()
-);
+// const populateInvoiceBegin = createAction(
+//   '[Invoice] Populate Invoice Begin',
+//   props<{ id: number }>()
+// );
 
-const addProduct = createAction(
-  '[Invoice] Add Product Begin',
-  props<{ product: IProduct }>()
-);
+// const addProduct = createAction(
+//   '[Invoice] Add Product Begin',
+//   props<{ product: IProduct }>()
+// );
 
-const upsertProduct = createAction(
-  '[Product/API] Upsert Product',
-  props<{ product: IProduct }>()
-);
+// const upsertProduct = createAction(
+//   '[Product/API] Upsert Product',
+//   props<{ product: IProduct }>()
+// );
 
-const addProducts = createAction(
-  '[Product/API] Add Products',
-  props<{ products: IProduct[] }>()
-);
+// const addProducts = createAction(
+//   '[Product/API] Add Products',
+//   props<{ products: IProduct[] }>()
+// );
 
-const updateProduct = createAction(
-  '[Product/API] Update Product',
-  props<{ product: Update<IProduct> }>()
-);
+// const updateProduct = createAction(
+//   '[Product/API] Update Product',
+//   props<{ product: Update<IProduct> }>()
+// );
 
-const updateProducts = createAction(
-  '[Product/API] Update Products',
-  props<{ products: Update<IProduct>[] }>()
-);
+// const updateProducts = createAction(
+//   '[Product/API] Update Products',
+//   props<{ products: Update<IProduct>[] }>()
+// );
 
-const clearProducts = createAction('[Product/API] Clear Products');
+// const clearProducts = createAction('[Product/API] Clear Products');
