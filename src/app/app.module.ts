@@ -42,6 +42,7 @@ import * as fromHeader from './ngrx/header.reducer';
       multi: true,
     },
   ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}
