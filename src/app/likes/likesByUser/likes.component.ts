@@ -12,6 +12,7 @@ import { updateHeader } from 'src/app/ngrx/header.actions';
 import { userId } from 'src/app/auth/ngrx/auth.selectors';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-likes',
   templateUrl: './likes.component.html',
@@ -21,7 +22,8 @@ export class LikesComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<IApplicationState>,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private title: Title
   ) {}
   likes$!: Observable<IProduct[]>;
   loadLikesByUserIdPending$!: Observable<boolean>;
@@ -29,11 +31,13 @@ export class LikesComponent implements OnInit, OnDestroy {
   userId!: string;
 
   ngOnInit(): void {
+    this.title.setTitle('Likes');
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         this.loadPage();
       });
+
     this.loadPage();
   }
 
@@ -54,5 +58,6 @@ export class LikesComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.userId$.unsubscribe();
+    this.title.setTitle('Front End');
   }
 }
