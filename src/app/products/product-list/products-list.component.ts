@@ -22,8 +22,8 @@ import {
 } from '../ngrx/product.selectors';
 import { IProduct } from '../product.interface';
 import { loadLikesByUserId } from '../../likes/ngrx/likes.actions';
-import { startWith } from 'rxjs/operators';
 
+//Experimenting this is not applied yet
 interface IData extends IProduct {
   like: boolean;
 }
@@ -79,8 +79,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
           });
         }
       });
+      //Experimenting this is not applied yet
       this.store.dispatch(loadLikesByUserId.begin({ id: this.userId }));
+      //Experimenting this is not applied yet
       this.likes = this.store.select(selectLikesByUserId);
+      // As from here I need to implement the subscription and work the solution
     });
   }
 
