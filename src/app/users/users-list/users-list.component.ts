@@ -9,7 +9,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { loadUsers, deleteUser } from '../ngrx/user.actions';
 import {
