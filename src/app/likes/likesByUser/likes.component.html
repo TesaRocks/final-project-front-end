@@ -23,3 +23,10 @@
 <ng-template #noLike>
   <h1>Empty over here....</h1>
 </ng-template>
+<ul>
+  <li *ngFor="let item of items">{{ item }}</li>
+</ul>
+<app-info-message
+  [num]="totalLikes"
+  (newItem)="onAddItem($event)"
+></app-info-message>

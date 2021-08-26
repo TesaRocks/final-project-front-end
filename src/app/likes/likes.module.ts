@@ -9,8 +9,9 @@ import { LikesEffects } from './ngrx/likes.effects';
 import { MaterialModule } from '../shared/material.module';
 import { LikesDetailComponent } from './likesByUser/likes-detail/likes-detail.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { InfoMessageComponent } from './info-message/info-message.component';
 @NgModule({
-  declarations: [LikesComponent, LikesDetailComponent],
+  declarations: [LikesComponent, LikesDetailComponent, InfoMessageComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,

@@ -29,6 +29,8 @@ export class LikesComponent implements OnInit, OnDestroy {
   loadLikesByUserIdPending$!: Observable<boolean>;
   userId$!: Subscription;
   userId!: string;
+  totalLikes: number = 100;
+  items = ['Add suggestions here please'];
 
   ngOnInit(): void {
     this.title.setTitle('Likes');
@@ -51,6 +53,9 @@ export class LikesComponent implements OnInit, OnDestroy {
     this.loadLikesByUserIdPending$ = this.store.select(
       loadLikesByUserIdPending
     );
+  }
+  onAddItem(newItem: string) {
+    this.items.push(newItem);
   }
 
   likeDetail(productId: number) {

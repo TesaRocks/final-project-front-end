@@ -1,0 +1,4 @@
+<p>You like {{ num }} products!</p>
+<label for="item">Add an item:</label>
+<input type="text" id="item" #newItem />
+<button (click)="onNewItem(newItem.value)" type="button">Add</button>
