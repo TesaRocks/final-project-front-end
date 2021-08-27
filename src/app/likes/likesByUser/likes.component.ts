@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { IApplicationState } from 'src/app/aplication-state';
@@ -17,6 +22,7 @@ import { Title } from '@angular/platform-browser';
   selector: 'app-likes',
   templateUrl: './likes.component.html',
   styleUrls: ['./likes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class LikesComponent implements OnInit, OnDestroy {
   constructor(
